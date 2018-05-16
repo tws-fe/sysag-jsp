@@ -58,7 +58,7 @@
                             <img src="../../images/edit.png" alt="">
                             导出
                           </el-button> -->
-                    <el-button plain @click="addVisit">
+                    <el-button plain @click="editVisit('')">
                         <img src="../../images/edit.png" alt=""> 新增
                     </el-button>
                 </div>
@@ -79,7 +79,7 @@
                         <el-table-column prop="casenum" label="案件编号" width="150"></el-table-column>
                         <el-table-column fixed="right" label="操作" min-width="150">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="editVisit(scope.row.casenum)">编辑</el-button>
+                                <el-button type="text" @click="editVisit(scope.row.uuid)">编辑</el-button>
                                 <!-- <el-button type="text" @click="removeVisit(scope.row.casenum)">删除</el-button> -->
                             </template>
                         </el-table-column>
@@ -157,11 +157,9 @@
                         XLSX.utils.book_append_sheet(new_workbook, worksheet, "我的案件")
                         return XLSX.writeFile(new_workbook, new Date().getTime() + '.xlsx')
                     },
-                    addVisit() {
-                        console.log('新增来访')
-                    },
-                    editVisit(row) {
-                        console.log('编辑来访：', row)
+                    editVisit(uuid) {
+                        var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'uuid' : 'add') 
+                        matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
                     },
                     removeVisit(row) {
                         console.log('删除来访')

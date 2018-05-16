@@ -583,8 +583,22 @@
                 let taskcontent = encodeURI(this.formTask.taskcontent);
                 let taskresult = encodeURI(this.formTask.taskresult);
                 let uuid = encodeURI(this.formTask.uuid);
-                let url = "&handletime="+handletime+"&state="+state+"&oper_user_id_="+oper_user_id_+"&handleperson="+handleperson+"&ispaper="+ispaper+"&taskcontent="+taskcontent+"&taskresult="+taskresult+"&uuid="+uuid+"&editType=update";
-                    axios.post('getCaseTask.do?method=saveTask'+url)
+                let url ="&handleperson="+handleperson+"&ispaper="+ispaper+"&taskcontent="+taskcontent+"&taskresult="+taskresult+"&uuid="+uuid+"&editType=update";
+                   /* axios.post('getCaseTask.do?method=saveTask'+url)
+                        .then(function(res){
+                            console.log(res);
+                        })
+                        .catch(function(err){
+                            console.log(err);
+                        });*/
+                    axios.post('getCaseTask.do?method=saveTask',{
+                        handleperson:this.formTask.handleperson,
+                        ispaper:this.formTask.ispaper,
+                        taskcontent:this.formTask.taskcontent,
+                        taskresult:this.formTask.taskresult,
+                        uuid:this.formTask.uuid,
+                        editType:'update'
+                    })
                         .then(function(res){
                             console.log(res);
                         })
