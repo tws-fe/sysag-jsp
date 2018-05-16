@@ -1,0 +1,135 @@
+.dd{
+width: 120px;;
+font-size: 1.3em;
+background: #56C4F2;
+text-align: center;
+color: #fff;
+font-weight: 700;
+height:30px;
+margin-left:20px;
+border:0px;
+}
+.dd:hover{
+background: #113f6c;
+}
+
+#lo{
+	position:absolute;
+	right:0;
+	top:0;
+	z-index: 100;
+	height: auto;
+	margin-top:50px;
+	width: 460px;
+	text-align: center;
+	margin-right: 10%;
+	float:right;
+	background-color: rgb(222,234,241);
+	border: 0px solid #cccccc;
+	border-bottom-right-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+}
+
+#lo input[type='text'],#lo input[type='password'] {
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s;
+	height: 30px;
+	border-radius: 5px;
+	width: 100%;
+}
+
+#lo input[type="text"]:focus,#lo input[type='password']:focus {
+	border-color: rgba(82, 168, 236, 0.8);
+	outline: 0;
+	outline: thin dotted \9;
+	/* IE6-9 */
+
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.lhead .two ul li{
+	list-style-type:none;
+	display:inline;
+	margin: 0px 10px;
+}
+.lhead .two ul li a{
+	font: normal 18px/40px "microsoft yahei";
+	color:rgb(105,103,91);
+}
+.lhead .inline .sb{
+	line-height: 70px;
+}
+.lhead .inline .sb span {
+	color: rgb(34, 73, 152);
+	font-size: 40px;
+	font-family: "microsoft yahei";
+}
+.lcont_head{
+	background-color:rgb(34,73,152);
+	/* height: 40px; */
+	text-align: left;
+	padding: 20px 0px 10px 10px;
+	border-top-left-radius: 0.5em;
+	border-top-right-radius: 0.5em;
+	border-bottom: 3px solid rgb(161,11,40);
+}
+.lcont_body{
+padding: 10px;
+}
+.lcont_head span{
+	color:rgb(255,255,255);
+	font-size:20px;
+}
+.lcont_body table tr td span{
+	font:normal 14px/40px "microsoft yahei";
+	color:rgb(99,101,98);
+	padding: 10px;
+}
+.lbfoot {
+	width:100%;
+	margin-top:-30px;
+	height:50px;
+	background-color: rgb(225,225,225);
+}
+.lbfoot .lbfoot_left  a{ 
+	text-decoration:none; 
+	font-size:12px;  
+	border-right:1px solid #ccc; 
+	padding:0px 10px;
+}
+.lbfoot .lbfoot_left ul li{ 
+	float:left; 
+	list-style:none; 
+	padding:10px 0px; 
+}
+.lbfoot .lbfoot_left ul li a{
+	color:rgb(150,150,140) !important;
+}
+.lbfoot .lbfoot_right font{
+	font:normal 14px/40px "microsoft yahei";
+}
+.lg{
+	width:100px;
+}
+.re{
+	width:100px;
+}
+@media screen and (max-width: 502px){
+	#lo {
+		width:280px;
+	}
+	.sb{
+		display: none !important;
+	}
+}

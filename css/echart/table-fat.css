@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+
+.echart-table {
+	color : rgb(144, 144, 144);
+	font-size: 0.85em;
+	font-weight: bold;
+	font-family: '微软雅黑', 'Arial', 'Verdana', 'sans-serif';
+	border-spacing: 0px;
+	
+	width: 100%;
+	height: auto;
+}
+
+.echart-table-header {
+	color: rgb(96,96,96);
+	text-align: left;
+	padding: 2px;
+}
+
+.ehcart-table-footer {
+	color: rgb(96,96,96);
+	text-align: left;
+	padding: 2px;
+}
+
+.echart-table tr {
+	
+}
+
+.echart-table th {
+	color : rgb(64, 128, 192);
+	text-align: center;
+	font-size: 1em;
+	font-family: '微软雅黑', 'Arial', 'Verdana', 'sans-serif';
+	border-bottom: 1px dotted rgb(64, 128, 192);
+}
+
+.echart-table td {
+	text-align: center;
+	font-family: '微软雅黑', 'Arial', 'Verdana', 'sans-serif';
+	padding-right: 5px;
+	border-bottom: 1px dotted rgb(196, 196, 196);
+}
+
+.echart-table td a {
+	cursor: pointer;
+	color: rgb(80, 158, 255);
+}
+
+
+.echart-statistic {
+	color: orange;
+}
+
+.echart-table-row-count {
+	color: rgb(172, 172, 172);
+	font-size: 10px;	
+}

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       	http://www.springframework.org/schema/util
+    	http://www.springframework.org/schema/util/spring-util-3.0.xsd		
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<!--  Error jsp mapping -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView">
+			<value>failure</value>
+		</property>
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">hasNoRight.jsp</prop>
+				<prop key="defaultErrorView">hasNoRight.jsp</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- international property support -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>messages</value>
+		</property>
+	</bean>
+
+	<!--Definition of View Resolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+	</bean>
+
+	<!--Request Mapping -->
+	<bean id="paraMethodResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName">
+			<value>method</value>
+		</property>
+		<property name="defaultMethodName">
+			<value>list</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"><!-- 数据源类采用JDBC数据源 -->
+		<property name="driverClassName">
+			<!-- 将数据库连接交给了proxool管理,使它的驱动 -->
+			<value>org.logicalcobwebs.proxool.ProxoolDriver</value>
+		</property>
+		<property name="url">
+			<!-- 数据库连接池的别名,与你的proxool.xml中的Alias必须一致 -->
+			<value>proxool.proxoolPool</value>
+		</property>
+	</bean>
+
+	<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<!-- 当你使用mysql的时候，jbpm使用的是org.hibernate.dialect.MySQLInnoDBDialect -->
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLInnoDBDialect
+				</prop>
+				<prop key="hibernate.connection.autoReconnect">true</prop> 
+        		<prop key="hibernate.connection.autoReconnectForPools">true</prop>
+        		<prop key="hibernate.connection.is-connection-validation-required">true</prop>
+        		<prop key="hibernate.release_mode">auto</prop> 
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="myApplicationContextUtils" class="com.szk.framework.pub.sys.AppContext">
+		<property name="dbType"><ref bean="hibernateProperties"/></property>
+	</bean>	
+	
+	<!-- 自动扫描(自动注入) -->
+	<context:component-scan base-package="com/tws" />
+	<context:component-scan base-package="com/szk" />
+	
+	<mvc:annotation-driven />
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />  
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />  
+    	
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+    <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+    
+</beans>

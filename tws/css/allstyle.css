@@ -1,0 +1,98 @@
+/*  表头通用 start */
+.threetabdiv{
+	color:white;
+	padding:3px 0;
+}
+.threetabdiv .title{
+	font-family: 'Microsoft YaHei';  
+	font-size:16px;
+}
+.threetabdiv .nownode{
+	color:#E8DF27;
+	font-size:12px;
+	font-family: 'Microsoft YaHei';  
+}
+.tabul {
+	list-style:none; /* 去掉ul前面的符号 */
+	width: 500px;
+	height: 20px;
+    margin: 0;
+	margin-left: -5px;
+    margin-top: -2px;
+    margin-bottom: 0px;
+}
+
+/* 所有class为menu的div中的ul中的li样式 */
+.tabul li
+{
+    float:left; /* 向左漂移，将竖排变为横排 */
+	width:auto;
+}
+.tabultwo{
+	list-style:none; /* 去掉ul前面的符号 */
+	height: 20px;
+    margin: 0;
+    float: right;
+}
+.tabultwo li
+{
+    float:left; /* 向左漂移，将竖排变为横排 */
+	width:25px;
+}
+.tabultwo li img{
+	cursor:pointer;
+}
+.newtabimg{
+	padding: 5px;
+	width:32px;
+}
+.newtabimg2{
+	padding: 5px;
+	width:16px;
+}
+
+.mustSpan{
+	font-size:16px;
+}
+/*  表头通用 end */
+.polic_style{
+	border: 1px solid #99bbe8;;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: '微软雅黑', 'Arial', 'Verdana', 'sans-serif';
+    background-color: rgb(245,245,245);
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+	border-collapse:separate;
+	border-spacing:0px 6px;    
+}
+
+.polic_style .inputstyle{
+	/* height: 24px;
+    width: 135px */
+	height:30px !important;
+	width:180px !important;
+}
+
+.polic_style .inputstyle[type="radio"]{
+	height:20px !important;
+	width: 20px !important;
+}
+
+.polic_style tr{
+	/* display:block;*/
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+.polic_style tr td{
+	
+}
+
+.polic_style tr td label{
+	font-size:16px !important;
+	/*width: 165px;*/
+    display: block;
+    padding-left: 20px;
+}

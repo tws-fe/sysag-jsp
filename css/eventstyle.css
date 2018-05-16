@@ -1,0 +1,115 @@
+.x-menu-item-text input[type="checkbox"]{
+    float: none !important;
+}
+
+.x-tab-left .x-tab-strip-inner{
+	width:auto !important;
+}
+#__track{
+	display:none !important;
+}
+
+
+
+input[type="checkbox"] {
+	padding: 40px;
+    margin: -3px 2px 0px 10px !important;
+    float: left;
+}
+input[type="radio"] {
+	padding: 0px;
+    margin: -3px 2px 0px 10px !important;
+    float: left;
+}
+input[type="radio"] ~ span{
+	float: left;
+}
+
+.x-tree-node-cb{
+	float: none !important;
+}
+
+.listTable TR TD INPUT[readonly] , .arbitrarilyTable TR TD INPUT{
+	border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-bottom: 0px solid #CCCCCC !important;
+   /*  width: 90% !important; */
+    /* margin-left: 5px !important; */
+    text-align: center !important;
+    background-image: none !important;
+}
+
+.listTable TR TD INPUT , .arbitrarilyTable TR TD INPUT{
+	border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-bottom: 1px solid #CCCCCC !important;
+    border-bottom:expression((this.readOnly && this.readOnly == true)? "0px solid #CCCCCC !important":"1px solid #CCCCCC !important");
+   /*  width: 90% !important; */
+    /* margin-left: 5px !important; */
+    text-align: center !important;
+    background-image: none !important;
+}
+
+.listTable TR TD textarea[readonly] , .arbitrarilyTable TR TD textarea{
+	border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-bottom: 0px solid #CCCCCC !important;
+   /*  width: 90% !important; */
+    /* margin-left: 5px !important; */
+    text-align: center;
+    background-image: none !important;
+}
+
+.listTable TR TD textarea , .arbitrarilyTable TR TD textarea{
+	border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-bottom: 1px solid #CCCCCC !important;
+    border-bottom:expression((this.readOnly && this.readOnly == true)? "0px solid #CCCCCC !important":"1px solid #CCCCCC !important");
+   /*  width: 90% !important; */
+    /* margin-left: 5px !important; */
+    text-align: center ;
+    background-image: none !important;
+}
+
+.listTable td {
+    padding: 5px !important;
+}
+
+.x-window-mc {
+	margin:auto;
+}
+
+.x-window-mc tr td{
+	padding:3 0 3 0;
+}
+
+.x-window-mc tr td input {
+	font:normal 12px tahoma, arial, helvetica, sans-serif;
+	margin:0 0 0 0;
+	padding: 5px;
+}
+.x-window-mc tr td textarea {
+    background-color:#fff;
+    background-image:url(../img/default/form/text-bg.gif);
+	background-position:top;
+	background-repeat:repeat-x;
+    border-color:#b5b8c8;
+	border:1px solid #b5b8c8;
+	font:normal 12px tahoma, arial, helvetica, sans-serif;
+	margin:0 0 0 0;
+}
+
+.x-window-mc tr td label{
+   font-size:16;
+   align:right;
+   font-weight:100;
+     width:110px;
+   	margin:0 0 0 0;
+}
+
+
+

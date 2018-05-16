@@ -1,0 +1,76 @@
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+#watchs {
+    background-color: #fff;
+    text-shadow: #fff 0 1px 0;
+}
+
+#watchs ul {
+    position: relative;
+    display: block;
+    height: auto;
+    font-size: 85%;
+}
+
+#watchs ul .showicon {
+	position: absolute;
+	height:25px;
+	width:25px;
+	float:right;
+	font-size:12;
+	font-weight:700;
+	text-align:center;
+	height:25px;
+	top:-2px;
+	margin-left:95px;
+	line-height:25px;
+	background: url(./img/textarea.gif) no-repeat;
+}
+
+#watchs ul li img {
+    margin-bottom: 1px;
+}
+
+#watchs ul li {
+    float: left;
+    padding: 8px 17px;
+    margin: 5px;
+/*    margin: 10px 0 0 25px;*/
+    text-align: center;
+    line-height: 2.25em;
+    color: #333;
+    font-family: "Helvetica Neue",sans-serif;
+    height: 110px;
+    width: 110px;
+    overflow: hidden;
+    border-top: 0px solid transparent;
+    cursor: pointer;
+}
+
+/*#watchs ul li.phone-hover {
+    background-color: #eee;
+}*/
+
+#watchs ul li.x-view-selected {
+    background-color: rgba(100, 100, 100, .15);
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-top: 0px solid rgba(0, 0, 0, .15);
+}
+
+#watchs ul li img {
+/*    display: block;*/
+}
+
+#watchs li strong {
+    color: #000;
+    display: block;
+}
+
+#watchs li span {
+    color: #999;
+}

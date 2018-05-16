@@ -1,0 +1,19 @@
+[{"value":"10001750","text":"行政案件交案确认","id":"10001750","leaf":true,"MENU_CODE":"10001750","MENU_NAME":"行政案件交案确认","MENU_ACTION":"case.do?method=caseHandOver&flag=all","ICON":"jczb_jclx.png"},
+ {"value":"10001757","text":"行政案件材料登记","id":"10001757","leaf":true,"MENU_CODE":"10001757","MENU_NAME":"行政案件材料登记","MENU_ACTION":"police.do?method=archiveItemsXZList&flag=all","ICON":"jcbz_dgmb.png"},
+ {"value":"10001758","text":"刑事案件材料登记","id":"10001758","leaf":true,"MENU_CODE":"10001758","MENU_NAME":"刑事案件材料登记","MENU_ACTION":"police.do?method=archiveItemsXSList&flag=all","ICON":"jcbz_dgmb.png"},
+ {"value":"10001719","text":"在库档案查询","id":"10001719","leaf":true,"MENU_CODE":"10001719","MENU_NAME":"在库档案查询","MENU_ACTION":"police.do?method=archiveItemsSelectList&flag=all","ICON":"jcbz_dgmb.png"},
+ {"value":"10001727","text":"扣押物品入库确认","id":"10001727","leaf":true,"MENU_CODE":"10001727","MENU_NAME":"扣押物品入库确认","MENU_ACTION":"seizeRes.do?method=storageAffirm","ICON":"xtgl_lcsz.png"},
+ {"value":"10001731","text":"扣押物品查询","id":"10001731","leaf":true,"MENU_CODE":"10001731","MENU_NAME":"扣押物品查询","MENU_ACTION":"seizeRes.do?method=detentionList","ICON":"gzyj_yjgz.png"},
+ {"value":"104010","text":"档案/扣押物品处置","id":"104010","leaf":true,"MENU_CODE":"104010","MENU_NAME":"档案/扣押物品处置","MENU_ACTION":"seizeRes.do?method=manage","ICON":"jcbz_jclx.png"},
+ {"value":"10001725","text":"案件监管","id":"10001725","leaf":true,"MENU_CODE":"10001725","MENU_NAME":"案件监管","MENU_ACTION":"case.do?method=cases&flag=all","ICON":"jcbz_dgml.png"},
+ {"value":"10001763","text":"案件确认表","id":"10001763","leaf":true,"MENU_CODE":"10001763","MENU_NAME":"案件确认表","MENU_ACTION":"case.do?method=caseConfirmList","ICON":"jczb_jclx.png"}
+ ]
+ 
+ /*
+ {"value":"10001697","text":"值班表","id":"10001697","leaf":true,"MENU_CODE":"10001697","MENU_NAME":"值班表","MENU_ACTION":"shift.do?method=viewOther","ICON":"gzyj_yjrw.png"},
+ {"value":"10001718","text":"档案入库登记","id":"10001718","leaf":true,"MENU_CODE":"10001718","MENU_NAME":"档案入库登记","MENU_ACTION":"police.do?method=archives&flag=all&formId=bf008bcb-08f4-49f0-b54c-2d2386ee74cf","ICON":"jcbz_dgmb.png"},
+ {"value":"10001719","text":"在库档案查询","id":"10001719","leaf":true,"MENU_CODE":"10001719","MENU_NAME":"在库档案查询","MENU_ACTION":"police.do?method=archivesList&formTypeId=b87ade792fe1442087a592f81fe4d0ef&formId=bf008bcb-08f4-49f0-b54c-2d2386ee74cf","ICON":"jcbz_dgmb.png"},
+ {"value":"10001757","text":"行政案件材料登记","id":"10001757","leaf":true,"MENU_CODE":"10001757","MENU_NAME":"行政案件材料登记","MENU_ACTION":"police.do?method=archiveItemsXZList&flag=all","ICON":"jcbz_dgmb.png"},
+ {"value":"10001758","text":"刑事案件材料登记","id":"10001758","leaf":true,"MENU_CODE":"10001758","MENU_NAME":"刑事案件材料登记","MENU_ACTION":"police.do?method=archiveItemsXSList&flag=all","ICON":"jcbz_dgmb.png"},
+ {"value":"10001751","text":"案件材料登记","id":"10001751","leaf":true,"MENU_CODE":"10001751","MENU_NAME":"案件材料登记","MENU_ACTION":"police.do?method=archiveItemsList&flag=all","ICON":"jcbz_dgmb.png"},
+ */

@@ -1,0 +1,58 @@
+._datagrid{
+	background-color:rgb(243,243,243);
+	width:100%;
+	float:left;
+	//margin-top:8%;
+	font-size:14px;
+}
+.tfont {
+	font-size:20px;
+	color:rgb(123,123,123);
+}
+._datagrid .tbody tr th{
+	font-size: 14px;
+    font-weight: 700;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+}
+._datagrid .tbody tr td{
+	padding: 5px 5px 5px 5px;
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
+}
+._datagrid .tbody{
+	//text-align:center;
+}
+._datagrid .tbody .tcont td div{
+	width:20px;
+	height:20px;
+	text-align:center;
+	color:rgb(255,255,255);
+		
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+.thing{
+	background-color:rgb(212,180,1);
+}
+.request{
+	background-color: rgb(160,205,138);
+}
+.problem{
+	background-color: rgb(205,152,138);
+}
+.software{
+	background-color: rgb(139,185,205);
+}
+.maintain{
+	background-color: rgb(100,155,155);
+}
+.a1{
+background-color:rgb(228,228,228);
+}
+
+.a2{
+
+}

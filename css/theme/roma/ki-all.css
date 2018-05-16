@@ -1,0 +1,183 @@
+
+/* ----------------------------------- Kimetable ------------------------------------ */
+
+.kime-header {
+	color: rgb(255, 255, 255);
+	background-color: rgb(209,209,209);
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding: 7px;
+	border: 1px solid rgb(209,209,209);
+}
+
+.kime-footer {
+	
+}
+
+.kime-table {
+	width: 99%;
+	height: 90%;
+	background-color: rgb(252, 252, 252);
+}
+
+.kime-table tr {
+	
+}
+
+.kime-table tr td {
+	width: 14.28%;
+}
+
+.kime-tr {
+	
+}
+
+.kime-td {
+	
+}
+
+.kime-tr-weekname {
+	height: 6%;
+}
+
+.kime-td-weekname {
+	text-align: center;
+	color: rgb(128, 128, 128);
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.kime-weekname {
+	font-size: bold;
+}
+
+.kime-div-date {
+	height: 20%;
+	font-size: 14px;
+	text-align: center;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.kime-div-data {
+	height: 80%;
+	font-size: 14px;
+	text-align: center;
+	border-left: 1px solid rgb(236, 236, 236);
+	border-right: 1px solid rgb(236, 236, 236);
+	border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.kime-div-blank {
+	height: 80%;
+}
+
+.kime-workday {
+	background-color: rgb(187,227,229);
+	color: white;
+}
+
+.kime-holiday {
+	background-color: rgb(238,238,238);
+	color: white;
+}
+
+.kime-festival {
+	background-color: rgb(255, 32, 32);
+	color: white;
+}
+
+.kime-today {
+	background-color: rgb(247,189,115;
+	color: white;
+}
+
+.kime-button {
+	padding: 3px;
+	
+	color: rgb(248, 248, 248);
+	background-color: rgb(209,209,209);
+	
+	font-size: 13px;
+	text-decoration: none;
+	
+	cursor: pointer;
+}
+
+.kime-button:hover {
+	color: rgb(255,172,0);
+}
+
+.kime-next {
+	margin-left: 20px;
+}
+
+.kime-previous {
+	margin-right: 20px;
+}
+
+.kime-current {
+	
+}
+
+/* ----------------------------------- Ki List ------------------------------------ */
+
+.ki-list {
+	list-style: none;
+	padding-top: 36px;
+}
+
+.ki-list li {
+	
+}
+
+.ki-list-item {
+	float: left;
+	width: 99%;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.ki-list-item-inactive {
+	color: rgb(32,32,32);
+	cursor: auto;
+}
+
+.ki-list-item-active {
+	background-color: rgb(167,215,219);
+}
+
+
+/* ----------------------------------- Ki Table ------------------------------------ */
+
+
+
+
+.ki-table {
+	width: 98%;
+}
+
+.ki-table .ki-tr {
+	height: 22px;
+}
+
+.ki-table .ki-tr-header {
+	
+}
+
+.ki-table .ki-th {
+	color: rgb(255,255,255);
+	background-color: rgb(72,72,72);
+	font-size: 12px;
+	text-align: center;
+}
+
+
+.ki-table .ki-td {
+	text-align: center;
+}

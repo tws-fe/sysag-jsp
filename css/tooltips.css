@@ -1,0 +1,21 @@
+.validate_tip{   
+    border:2px solid #FF3300;  
+    background:#FF3300;  
+    color:#fff;  
+    overflow:hidden;  
+    position:absolute; 
+	padding:1px;
+	font-size:12px;
+	cursor:hand;
+	filter:Alpha(opacity=83);
+}  
+.validate_box{  
+    height:0;  
+    width:0;  
+    border:1px solid #FF3300;  
+    border-width:10px 10px  0 10px;
+	border-color:#FF3300 transparent;  
+    position:absolute;  
+    left:30px;  
+    filter:Alpha(opacity=83);
+}  

@@ -1,0 +1,40 @@
+.x-window-mc tr td input {
+	font:normal 12px tahoma, arial, helvetica, sans-serif;
+	height:25;
+	width:200px;
+	margin:4 20 4 0;
+}
+.x-window-mc tr td textarea {
+    background-color:#fff;
+    background-image:url(../images/default/form/text-bg.gif);
+	background-position:top;
+	background-repeat:repeat-x;
+    border-color:#b5b8c8;
+	border:1px solid #b5b8c8;
+	font:normal 12px tahoma, arial, helvetica, sans-serif;
+	height:70;
+	width:200px;
+	margin:4 20 4 0;
+}
+.x-window-mc tr td label {
+   font-size:1.3em;
+   align:right;
+   font-weight: bold;
+   	margin:0 0 0 20;
+}
+
+
+tr td{
+width:90;
+}
+tr td input{
+width:90;
+}
+
+.mid{
+width:50;
+}
+
+
+
+

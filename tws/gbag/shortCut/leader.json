@@ -1,0 +1,9 @@
+[{"value":"10001725","text":"案件监管","id":"10001725","leaf":true,"MENU_CODE":"10001725","MENU_NAME":"案件监管","MENU_ACTION":"case.do?method=cases&flag=all","ICON":"jcbz_dgml.png"},
+ {"value":"10001747","text":"我的关注","id":"10001747","leaf":true,"MENU_CODE":"10001747","MENU_NAME":"我的关注","MENU_ACTION":"case.do?method=caseConcernList&flag=concern","ICON":"jcbz_jccx.png"},
+ {"value":"10001749","text":"任务监督","id":"10001749","leaf":true,"MENU_CODE":"10001749","MENU_NAME":"任务监督","MENU_ACTION":"case.do?method=caseTask&flag=all","ICON":"jczj_scml.png"},
+ {"value":"10001763","text":"案件确认表","id":"10001763","leaf":true,"MENU_CODE":"10001763","MENU_NAME":"案件确认表","MENU_ACTION":"case.do?method=caseConfirmList","ICON":"jczb_jclx.png"}
+ ]
+ 
+ /*
+  {"value":"10001754","text":"来访分流","id":"10001754","leaf":true,"MENU_CODE":"10001754","MENU_NAME":"来访分流","MENU_ACTION":"caseVist.do?method=uncaseVisitList&flag=policeLeader","ICON":"gzyj_yjgz.png"}
+ */

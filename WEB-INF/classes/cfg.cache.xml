@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<node id="sys.unit.BasicCtlUnitHasDeptImpl" type="jsAutoHitSelect">
+		<cache>
+			<key>auto</key>
+			<syntable>K_ORGAN</syntable>
+			<condition>
+				<pname>loadAll</pname>
+				<pvalue>true</pvalue>
+			</condition>
+			<condition>
+				<pname>checkmode</pname>
+				<pvalue></pvalue>
+			</condition>
+		</cache>		
+	</node>
+	<node id="sys.unit.BasicCtlUnitImpl" type="jsAutoHitSelect">
+		<cache>
+			<key>auto</key>
+			<syntable>K_ORGAN</syntable>
+			<condition>
+				<pname>loadAll</pname>
+				<pvalue>true</pvalue>
+			</condition>
+			<condition>
+				<pname>checkmode</pname>
+				<pvalue></pvalue>
+			</condition>
+		</cache>				
+	</node>	
+</config>

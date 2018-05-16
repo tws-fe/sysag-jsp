@@ -1,0 +1,106 @@
+
+/* Optional scoped theme for tag-it which mimics the zendesk widget. */
+
+
+ul.tagit {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(224, 224, 224);
+    background: inherit;
+}
+ul.tagit li.tagit-choice {
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: 1px solid rgb(255, 255, 255);
+
+	color: rgb(255, 255, 255);
+    background: none;
+    background-color: rgb(0, 128, 224);
+
+    font-weight: normal;
+}
+ul.tagit li.tagit-choice .tagit-label:not(a) {
+    color: rgb(248, 248, 248);
+}
+ul.tagit li.tagit-choice a.tagit-close {
+    text-decoration: none;
+}
+ul.tagit li.tagit-choice .tagit-close {
+    right: .4em;
+}
+ul.tagit li.tagit-choice .ui-icon {
+    display: none;
+}
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+    display: inline;
+    font-family: arial, sans-serif;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    color: rgb(248, 248, 248);
+}
+ul.tagit li.tagit-choice:hover, ul.tagit li.tagit-choice.remove {
+    background-color: rgb(96, 144, 240);
+    border-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+ul.tagit li.tagit-choice a.tagLabel:hover,
+ul.tagit li.tagit-choice a.tagit-close .text-icon:hover {
+    color: rgb(248, 248, 248);
+}
+ul.tagit input[type="text"] {
+    color: rgb(72, 72, 72);
+    background: none;
+}
+.ui-widget {
+    font-size: 0.8em;
+}
+
+/* Forked from a jQuery UI theme, so that we don't require the jQuery UI CSS as a dependency. */
+.tagit-autocomplete.ui-autocomplete { position: absolute; cursor: default; }
+* html .tagit-autocomplete.ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+.tagit-autocomplete.ui-menu {
+    list-style:none;
+    padding: 2px;
+    margin: 0;
+    display:block;
+    float: left;
+}
+.tagit-autocomplete.ui-menu .ui-menu {
+    margin-top: -3px;
+}
+.tagit-autocomplete.ui-menu .ui-menu-item {
+    margin:0;
+    padding: 0;
+    zoom: 1;
+    float: left;
+    clear: left;
+    width: 100%;
+}
+.tagit-autocomplete.ui-menu .ui-menu-item a {
+    text-decoration:none;
+    display:block;
+    padding:.2em .4em;
+    line-height:1.5;
+    zoom:1;
+}
+.tagit-autocomplete .ui-menu .ui-menu-item a.ui-state-hover,
+.tagit-autocomplete .ui-menu .ui-menu-item a.ui-state-active {
+    font-weight: normal;
+    margin: -1px;
+}
+.tagit-autocomplete.ui-widget-content { border: 1px solid #aaaaaa; background: rgb(255, 255, 255) 50% 50% repeat-x;  color: rgb(128, 128, 128); font-size: 0.75em;}
+.tagit-autocomplete.ui-corner-all, .tagit-autocomplete .ui-corner-all { -moz-border-radius: 4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius: 4px; }
+.tagit-autocomplete .ui-state-hover, .tagit-autocomplete .ui-state-focus { border: 1px solid rgb(255, 255, 255); background: rgb(16, 144, 240); font-weight: normal; color: rgb(255, 255, 255); }
+.tagit-autocomplete .ui-state-active  { border: 1px solid #aaaaaa; }
+
+.tagit-autocomplete .ui-widget-content { border: 1px solid #aaaaaa; }
+.ui-helper-hidden-accessible { 
+	display:none;
+}
+
+/* */
+
+.tagit-wrapper-foreign-item {
+	background-color: red;
+}

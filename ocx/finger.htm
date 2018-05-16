@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+<TITLE>FingerDetect.CAB</TITLE>
+</HEAD>
+<BODY>
+<!--	如果这页上的任何控件需要授权，您必须
+	创建一个授权包文件。 运行 LPK_TOOL.EXE 来创建
+	要求的 LPK 文件。 LPK_TOOL.EXE 将从 ActiveX SDK 中找到，
+	http://www.microsoft.com/intdev/sdk/sdk.htm. 如果您有 Visual
+	Basic 6.0 CD, 您可以在\Tools\LPK_TOOL 目录下找到它。
+
+	下面是对象标记的例子：
+
+<OBJECT CLASSID="clsid:5220cb21-c88d-11cf-b347-00aa00a28331">
+	<PARAM NAME="LPKPath" VALUE="LPKfilename.LPK">
+</OBJECT>
+-->
+
+<OBJECT ID="FingerReadControl"
+CLASSID="CLSID:6C9E6924-95DA-4314-9216-FB3D6D4F68FA"
+CODEBASE="FingerDetect.CAB#version=1,0,0,0" width=1000 height=500>
+</OBJECT>
+<br>
+<input type=button value='确定' onclick='returnFinger()' />
+<!-- 
+<input type=button value='打开指纹读头' onclick='myOpen()' />
+<input type=button value='取得指纹采集结果' onclick='myGetFingerKey()' />|
+<input type=button value='关闭' onclick='myClose()' />|
+<input type=button value='开始验证' onclick='myVerify()' />
+<input type=button value='取得验证结果' onclick='myGetVerifyResult()' />
+<br>
+ -->
+
+
+<script>
+
+var obj = window.dialogArguments; //传过来的参数
+if(obj["pPersonId"] != "" && obj["isVerify"] == false){
+	//采集
+	myOpen(obj["pPersonId"]); //打开指纹读头
+}
+if(obj["isVerify"] && obj["addKeys"] != null){
+	//验证
+	myVerify(obj["addKeys"]);
+}
+
+//返回
+function returnFinger(){
+	var o=document.getElementById('FingerReadControl');
+	if (o){
+		
+		var finger = {};
+		for(var p in o){
+			finger[p] = o[p];
+		}
+		/*
+		var finger = {
+				'pPersonId':o.pPersonId,
+				'pFingerKey':o.pFingerKey,
+				'pVerifiedPersonId':o.pVerifiedPersonId
+				};
+		*/
+		o.funClose();
+		
+  		window.returnValue = finger;
+  		window.close();
+	}
+}
+
+
+//打开
+function myOpen(pPersonId){
+	var o=document.getElementById('FingerReadControl');
+
+	if (o){
+		//设置采集的人的身份信息，采集模式下必须设置！
+		//如果是验证模式的情况下，就不用设置这个属性，而是通过funAddKey(身份ID，指纹字符串)来注册
+		o.pPersonId= pPersonId;
+		//注册模式
+		o.funOpenReg();
+	}	
+}
+
+//取得指纹采集结果
+function myGetFingerKey(){
+	var o=document.getElementById('FingerReadControl');
+	if (o){
+		var o1=document.getElementById('pk');
+		o1.value=o.pFingerKey;
+	}
+}
+
+//关闭
+function myClose(){
+	var o=document.getElementById('FingerReadControl');
+
+	if (o){
+		o.funClose();
+	}
+	
+}
+
+//开始验证
+function myVerify(AllFinger){
+	var o=document.getElementById('FingerReadControl');
+
+	if (o){
+		var o1=document.getElementById('pk');
+		
+		//先把内存清空
+		o.funClear();
+		
+		//这里可以FOR循环加多个key
+		for(var i = 0;i<AllFinger.length; i++){
+			o.funAddKey(AllFinger[i]["key"],AllFinger[i]["value"]); //人员信息
+		}
+		
+		//进入验证模式 
+		o.funOpenVerify();
+	}
+}
+
+//取得验证结果' 
+function myGetVerifyResult(){
+	var o=document.getElementById('FingerReadControl');
+	if (o){
+		alert(o.pVerifiedPersonId);
+	}
+}
+
+</script>
+<SCRIPT FOR=FingerReadControl EVENT=EventValidOk>
+	
+	//alert(FingerReadControl.pVerifiedPersonId);
+	returnFinger();
+	
+</SCRIPT>
+
+<SCRIPT FOR=FingerReadControl EVENT=EventValidNg>
+	
+	alert("验证失败");
+	
+</SCRIPT>
+</BODY>
+</HTML>
+

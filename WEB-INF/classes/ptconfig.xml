@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <!--当前操作系统:WINDOWS\LINUX-->
+    <OPTSYSTEM>WINDOWS</OPTSYSTEM>
+	<RUNLOGPATH>C:/tws/log/</RUNLOGPATH>
+	<GATHERLOGPATH>C:/tws/gather/</GATHERLOGPATH>
+	<ATTACHFILEPATH>C:/twsAttach/</ATTACHFILEPATH>
+	<ATTACHFILESIZE>20971520</ATTACHFILESIZE>
+	<TREEICONLIST>
+		<TR>tree_folder_close</TR>
+		<TR>tree_folder_open</TR>
+		<TR>tree_folder_user</TR>
+		<TR>tree_user_group</TR>
+		<TR>tree_user</TR>
+		<TR>tree_user_female</TR>
+		<TR>tree_doc</TR>
+		<TR>tree_xls</TR>
+	</TREEICONLIST>
+	<DBNAME>szkitil</DBNAME>
+	<QUARTZ.START>0</QUARTZ.START>
+	<!-- 大数据对接  -->
+	<BIGDATA.ACCOUNT><![CDATA[201703141522]]></BIGDATA.ACCOUNT>	
+	<BIGDATA.USERKEY><![CDATA[4c7f1124ee004b9e8fdea96bdca8e455]]></BIGDATA.USERKEY>	
+	<PERSON.BASE.INFO.CLASS>com.tws.police.service.webService.impl.PersonBaseInfoService3</PERSON.BASE.INFO.CLASS>
+	<BIGDATA.COMMON.ACCOUNT><![CDATA[082410]]></BIGDATA.COMMON.ACCOUNT>	
+	<BIGDATA.COMMON.USERKEY><![CDATA[c360da81970b45b3a69845433e3d4c6e]]></BIGDATA.COMMON.USERKEY>	
+	<BIGDATA.COMMON.URL><![CDATA[http://10.42.187.161:8089/dap-restful/services/restful/CommonService/]]></BIGDATA.COMMON.URL>
+	<!--
+	<BIGDATA.PERSONBASEINFOSERVICE.URL><![CDATA[http://10.42.187.162:8080/dap-restful/services/restful/PersonBaseInfoService/searchPersonBaseInfo/1/10?queryParam=ZJHM='${sfzh}'&userAccount=${userAccount}&userKey=${userKey}]]></BIGDATA.PERSONBASEINFOSERVICE.URL>
+	<BIGDATA.ZTYMSERVICE.URL><![CDATA[http://10.42.187.162:8080/dap-restful/services/restful/ZTYMasterTableService/searchBaseInfo/ZDRYZB/*/1/10?queryParam=ZJHM='${sfzh}'&userAccount=${userAccount}&userKey=${userKey}]]></BIGDATA.ZTYMSERVICE.URL> 
+	<BIGDATA.PERSONBASEINFOSERVICE.URL><![CDATA[http://10.42.187.162:8080/dap-restful/services/restful/RbspService/queryListData?strItem=S10-00000298&strCondition=SFZH='${sfzh}'&userAccount=${userAccount}&userKey=${userKey}]]></BIGDATA.PERSONBASEINFOSERVICE.URL>
+	<BIGDATA.ZTYMSERVICE.URL><![CDATA[http://10.42.187.162:8080/dap-restful/services/restful/FzxxService/queryFzxxList?sfzh=${sfzh}&userAccount=${userAccount}&userKey=${userKey}]]></BIGDATA.ZTYMSERVICE.URL>
+	-->  
+	<BIGDATA.PERSONBASEINFOSERVICE.URL><![CDATA[http://192.168.5.2:5000/information/queryListData?sfzh=${sfzh}]]></BIGDATA.PERSONBASEINFOSERVICE.URL>
+	<BIGDATA.ZTYMSERVICE.URL><![CDATA[http://192.168.5.2:5000/information/queryFzxxList?sfzh=${sfzh}]]></BIGDATA.ZTYMSERVICE.URL>
+	<BIGDATA.JZZSERVICE.URL><![CDATA[http://192.168.5.2:5000/information/queryZZListData?sfzh=${sfzh}]]></BIGDATA.JZZSERVICE.URL>
+	<!-- 单点登录 -->
+	<SLOGIN.IP.VALIDATE>否</SLOGIN.IP.VALIDATE>
+	<SLOGIN.REQUEST.IP></SLOGIN.REQUEST.IP>
+	<WEB.UNITID>440403500000</WEB.UNITID>
+	<SOURCESIGN>552585663</SOURCESIGN>
+	<!-- 消息接口 -->
+	<SMS.WEBSERVICE.CLASS>com.tws.impl.sms.ZHSmsImpl</SMS.WEBSERVICE.CLASS>
+	<SYSTEM.SYSID>AJSYSTEM</SYSTEM.SYSID>
+</root>

@@ -1,0 +1,28 @@
+.ki-tabpanel {
+	list-style: none;
+	padding-top: 36px;
+}
+
+.ki-tabpanel li {
+	
+}
+
+.ki-tab {
+	float: left;
+	width: 99%;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.ki-tab-inactive {
+	color: rgb(144, 144, 144);
+	cursor: auto;
+}
+
+.ki-tab-active {
+	background-color: rgb(255, 128, 0);
+}

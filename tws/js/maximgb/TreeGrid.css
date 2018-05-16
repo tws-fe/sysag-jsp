@@ -1,0 +1,150 @@
+.ux-maximgb-tg-panel .x-grid3-scroller
+{
+    overflow: scroll !important;
+}
+
+div.ux-maximgb-tg-mastercell-wrap
+{
+    border: 0px none !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.ux-maximgb-tg-uiwrap
+{
+	float: left; 
+	position: relative;
+	height: 18px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.ux-maximgb-tg-elbow-empty
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+}
+
+.ux-maximgb-tg-elbow-line
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-line.gif) repeat-x;
+}
+
+.ux-maximgb-tg-elbow
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-end
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-end.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-active
+{
+	cursor: pointer;
+}
+
+.ux-maximgb-tg-elbow-minus
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-minus.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-folderOpen
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/default/tree/folder-open.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-folder
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/default/tree/folder.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-leaf
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/default/tree/leaf.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-end-minus
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-end-minus.gif) no-repeat;
+}
+
+.ux-maximgb-tg-nl-minus
+{
+	position: absolute;
+	height: 18px;
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-minus-nl.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-plus
+{
+	position: absolute;
+	height: 18px; 
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-plus.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-end-plus
+{
+	position: absolute;
+	height: 18px;
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-end-plus.gif) no-repeat;
+}
+
+.ux-maximgb-tg-elbow-end-plus1
+{
+	position: absolute;
+	height: 18px;
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/ext/close.png) no-repeat;
+}
+
+.ux-maximgb-tg-nl-plus
+{
+	position: absolute;
+	height: 18px;
+	width: 16px;
+	overflow: hidden;
+	background: url(../../images/elbow/elbow-plus-nl.gif) no-repeat;
+}

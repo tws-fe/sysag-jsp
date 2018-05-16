@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">  
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: log4j.xml,v 1.1.2.4 2005/10/06 23:05:58 bill Exp $ -->
+
+<!--
+   | For more configuration infromation and examples see the Jakarta Log4j
+   | owebsite: http://jakarta.apache.org/log4j
+ -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+   
+  
+   <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+      <param name="Target" value="System.out"/>
+      <param name="Threshold" value="DEBUG"/>
+
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%5p %d{yyyy-MM-dd HH\:mm\:ss S} %c{1}\:%L - %m%n"/>
+      </layout>	
+   </appender>
+  	<appender name="CONSOLE.File" class="org.apache.log4j.DailyRollingFileAppender">  
+ 		<param name="Threshold" value="DEBUG"/>
+		<param name="File" value="c:/tws/log/systemout.log" />
+	   	<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />   
+	   	<param name="Append" value="true" /> 
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern"  value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />  
+		</layout>  
+	</appender> 
+	 
+ 	<appender name="RollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">  
+		<param name="File" value="C:/tws/log/log4j.log" />
+	   	<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />   
+	   	<param name="Append" value="true" /> 
+		<layout class="org.apache.log4j.PatternLayout">  
+			<param name="ConversionPattern"  value="[%d{yyyy-MM-dd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />  
+		</layout> 
+	</appender> 
+      
+   <category name="org.pentaho">
+      <priority value="DEBUG"/>
+   </category>
+   
+   <category name="com.healthmarketscience.jackcess">
+      <priority value="WARN"/>
+   </category>
+   
+   <category name="org.apache.commons.httpclient">
+       <priority value="WARN"/>
+   </category>
+   
+   <category name="org.mortbay">
+      <priority value="ERR"/>
+   </category>
+
+   <category name="java.net">
+      <priority value="NONE"/>
+   </category>
+   
+   <category name="org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient">
+      <priority value="WARN"/>
+   </category>
+
+   <category name="org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient.auth">
+      <priority value="WARN"/>
+   </category>
+
+   <category name="com.szk">
+      <priority value="INFO"/>
+      <appender-ref ref="RollingFileAppender"/>
+	  <appender-ref ref="CONSOLE"/>
+   </category>
+   
+   <category name="com.tws">
+      <priority value="INFO"/>
+      <appender-ref ref="RollingFileAppender"/>
+	  <appender-ref ref="CONSOLE"/>
+   </category>
+   
+   <logger name="SystemOut">
+	    <level value="DEBUG" />
+	    <appender-ref ref="CONSOLE.File" />
+	</logger>
+</log4j:configuration>

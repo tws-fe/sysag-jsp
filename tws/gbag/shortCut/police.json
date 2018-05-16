@@ -1,0 +1,9 @@
+[{"value":"10001724","text":"我的案件","id":"10001724","leaf":true,"MENU_CODE":"10001724","MENU_NAME":"我的案件","MENU_ACTION":"case.do?method=cases&flag=police","ICON":"gzyj_yjjg.png"},
+ {"value":"101032","text":"我的任务","id":"101032","leaf":true,"MENU_CODE":"101032","MENU_NAME":"我的任务","MENU_ACTION":"case.do?method=caseTask&ismyCase=yes&flag=police","ICON":"jcbz_dgmb.png"},
+ {"value":"10001750","text":"交案","id":"10001750","leaf":true,"MENU_CODE":"10001750","MENU_NAME":"交案","MENU_ACTION":"case.do?method=caseHandOver&flag=police","ICON":"jczb_jclx.png"},
+ {"value":"10001728","text":"扣押物品登记","id":"10001728","leaf":true,"MENU_CODE":"10001728","MENU_NAME":"扣押物品登记","MENU_ACTION":"seizeRes.do?method=goToAdd","ICON":"jczj_gdsq.png"},
+ {"value":"10001753","text":"我的来访","id":"10001753","leaf":true,"MENU_CODE":"10001753","MENU_NAME":"我的案件来访","MENU_ACTION":"caseVist.do?method=myvisits&flag=police","ICON":"xtgl_bmgl.png"},
+ {"value":"10001715","text":"来访登记","id":"10001715","leaf":true,"MENU_CODE":"10001715","MENU_NAME":"来访登记","MENU_ACTION":"caseVist.do?method=caseVisitEdit&flag=police&editType=add","ICON":"gzyj_yjgz.png"},
+ {"value":"10001763","text":"案件确认表","id":"10001763","leaf":true,"MENU_CODE":"10001763","MENU_NAME":"案件确认表","MENU_ACTION":"case.do?method=caseConfirmList","ICON":"jczb_jclx.png"}
+ ]
+ /*{"value":"10001697","text":"值班表","id":"10001697","leaf":true,"MENU_CODE":"10001697","MENU_NAME":"值班表","MENU_ACTION":"shift.do?method=viewOther","ICON":"gzyj_yjrw.png"}*/

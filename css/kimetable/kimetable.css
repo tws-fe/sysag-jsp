@@ -1,0 +1,111 @@
+.kime-header {
+	color: rgb(255, 255, 255);
+	background-color: rgb(64, 128, 196);
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	padding: 7px;
+	border: 1px solid rgb(64, 128, 196);
+}
+
+.kime-footer {
+	
+}
+
+.kime-table {
+	width: 99%;
+	height: 90%;
+	background-color: rgb(252, 252, 252);
+}
+
+.kime-table tr {
+	
+}
+
+.kime-table tr td {
+	width: 14.28%;
+}
+
+.kime-tr {
+	
+}
+
+.kime-td {
+	
+}
+
+.kime-tr-weekname {
+	height: 6%;
+}
+
+.kime-td-weekname {
+	text-align: center;
+	color: rgb(128, 128, 128);
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.kime-weekname {
+	font-size: bold;
+}
+
+.kime-div-date {
+	height: 20%;
+	font-size: 14px;
+	text-align: center;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.kime-div-data {
+	height: 80%;
+	font-size: 14px;
+	text-align: center;
+	border-left: 1px solid rgb(236, 236, 236);
+	border-right: 1px solid rgb(236, 236, 236);
+	border-bottom: 1px solid rgb(236, 236, 236);
+}
+
+.kime-div-blank {
+	height: 80%;
+}
+
+.kime-workday {
+	background-color: rgb(196, 24, 144);
+	color: white;
+}
+
+.kime-holiday {
+	background-color: rgb(224, 224, 84);
+	color: white;
+}
+
+.kime-festival {
+	background-color: rgb(255, 32, 32);
+	color: white;
+}
+
+.kime-today {
+	background-color: rgb(255, 128, 0);
+	color: white;
+}
+
+.kime-button {
+	padding: 3px;
+	color: rgb(64, 128, 196);
+	background-color: white;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.kime-next {
+	margin-left: 20px;
+}
+
+.kime-previous {
+	margin-right: 20px;
+}
+
+.kime-current {
+	
+}
