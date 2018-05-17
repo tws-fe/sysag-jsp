@@ -12,6 +12,7 @@
             <style>
                 .follow-head {
                     padding-left: 10px;
+                    margin: 12px 0;
                 }
 
                 .search-container {
