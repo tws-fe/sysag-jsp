@@ -103,12 +103,23 @@
                 .datetime-picker .el-input__inner {
                     padding-left: 30px !important;
                 }
+                /* dialog */
+                .el-dialog__header {
+                    background-color: #2983b3;
+                }
+                .el-dialog__title {
+                    color: #fff;
+                }
+                .dialog-footer {
+                    display: flex;
+                    justify-content: center;
+                }
             </style>
         </head>
 
         <body>
             <div id="app" class="visit-container">
-                <el-tabs type="border-card">
+                <el-tabs type="border-card" v-loading.fullscreen.lock="loading">
                     <el-tab-pane label="来访情况登记表">
                         <el-form size="mini" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                             <!-- 案件信息 -->
@@ -215,12 +226,12 @@
                                 <legend>接访信息</legend>
                                 <el-row>
                                     <el-col :span="6">
-                                        <el-form-item label="接访民警" >
-                                            <el-input v-model="ruleForm.receivecop"  :disabled="!!uuid"></el-input>
+                                        <el-form-item label="接访民警">
+                                            <el-input v-model="ruleForm.receivecop" :disabled="!!uuid"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="6" :offset="2">
-                                        <el-form-item label="主办民警" >
+                                        <el-form-item label="主办民警">
                                             <el-input v-model="ruleForm.auditdirectorname" :disabled="(radio==1&&!uuid)||!!uuid"></el-input>
                                         </el-form-item>
                                     </el-col>
@@ -254,11 +265,38 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class="visit-submit">
-                    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
-                    <el-button type="primary" @click="resetForm('ruleForm')">发送短信</el-button>
-                    <el-button type="warning" @click="closeTab">关闭</el-button>
+                    <el-button type="primary" @click="submitForm('ruleForm')">保 存</el-button>
+                    <el-button type="primary" @click="dialogVisible = true" v-if="!!uuid">发送短信</el-button>
+                    <el-button type="warning" @click="closeTab">关 闭</el-button>
                 </div>
 
+                <el-dialog title="发送短信" :visible.sync="dialogVisible" width="60%">
+                    <el-form :model="dialogForm" :rules="dialogRules" ref="dialogForm" label-width="100px">
+                        <el-row>
+                            <el-col :span="8">
+                                <el-form-item label="接收人" prop="userName">
+                                    <el-input v-model="dialogForm.userName"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="10">
+                                <el-form-item label="联系电话" prop="userPhone">
+                                    <el-input v-model="dialogForm.userPhone"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col>
+                                <el-form-item label="短信内容：" prop="content">
+                                    <el-input  type="textarea" :autosize="{ minRows: 4}" v-model="dialogForm.content"></el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button type="primary" @click="setMsg">发 送</el-button>
+                        <el-button type="warning" @click="dialogVisible = false">关 闭</el-button>
+                    </span>
+                </el-dialog>
             </div>
         </body>
 
@@ -276,6 +314,7 @@
             new Vue({
                 el: '#app',
                 data: {
+                    dialogVisible: false,
                     uuid,
                     user,
                     radio: '1',
@@ -313,6 +352,16 @@
                         receivecop: [{ required: true, message: '请填写接访民警', trigger: 'blur' }],
                         auditdirectorname: [{ required: true, message: '请填写主办民警', trigger: 'blur' }],
                         result: [{ required: true, message: '请选择访问结果', trigger: 'change' }]
+                    },
+                    dialogRules: {
+                        userPhone: [{ required: true, message: '请填写联系电话', trigger: 'blur' }],
+                        userName: [{ required: true, message: '请填写接收人', trigger: 'blur' }],
+                        content: [{ required: true, message: '请填写短信内容', trigger: 'blur' }]
+                    },
+                    dialogForm: {
+                        userPhone: '',
+                        userName: '',
+                        content: ''
                     }
                 },
                 created() {
@@ -386,7 +435,31 @@
                             }
                         });
                     },
-                    closeTab () {
+                    setMsg() {
+                        // console.log('发送短信')
+                        this.$refs['dialogForm'].validate((valid) => {
+                            if (valid) {
+                                // let url = 'getCaseVisit.do?method=sendMessage&userPhone='+this.dialogForm.userPhone+'&userName='+this.dialogForm.userName+'&question='+this.ruleForm.visitfor+'&content='+this.dialogForm.content
+                                let url = 'getCaseVisit.do?method=sendMessage'
+                                axios.post(url,{
+                                    userPhone: this.dialogForm.userPhone,
+                                    userName:this.dialogForm.userName,
+                                    question:this.ruleForm.visitfor,
+                                    content:this.dialogForm.content
+                                }).then(res => {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '发送信息成功！'
+                                    })
+                                })
+                                
+                            } else {
+                                console.log('error submit!!');
+                                return false;
+                            }
+                        });
+                    },
+                    closeTab() {
                         matech.closeTab(parent);
                     }
                 },
@@ -406,7 +479,7 @@
                             data.caseVictims.forEach(item => {
                                 str += item.ctype + ' ' + item.victimname + ' ' + item.victimidcard + ' 联系电话:' + item.victimphone + ' '
                             })
-                            str += '\n' + '【案情信息】:' + data.caseBean.casedetails  + '\n' + '【嫌疑人信息】:'
+                            str += '\n' + '【案情信息】:' + data.caseBean.casedetails + '\n' + '【嫌疑人信息】:'
                             data.caseSuspects.forEach(item => {
                                 str += item.name + ' ' + item.idcard + ' ' + item.birthdate
                             })
@@ -429,10 +502,9 @@
                             this.ruleForm.auditdirectorname = ''
                         }
                         if (val == '1') {
-                            this.ruleForm.casenum= ''
+                            this.ruleForm.casenum = ''
                         }
                     }
-
                 }
             })
         </script>
