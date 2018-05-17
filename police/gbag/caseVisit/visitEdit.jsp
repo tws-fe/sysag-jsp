@@ -11,7 +11,7 @@
             <style>
                 .visit-container {
                     width: 1280px;
-                    margin: 0 auto;
+                    margin: 20px auto 0;
                 }
 
                 .el-tabs {
@@ -66,6 +66,40 @@
                 /* .el-input input, .el-textarea textarea{
           border-color: #2983b3;
         } */
+
+                /* table没有数据 */
+                .el-table__empty-block {
+                    height: 0;
+                }
+
+                /* ext样式覆盖，优化调整 */
+                .operate-radio-group {
+                    transform: translate(-86px, 6px);
+                }
+                .caseno-selection {
+                    transform: translateX(-36px);
+                }
+
+                .el-autocomplete-suggestion li .name {
+                    background-color: #fff;
+                    color: #606266;
+                }
+
+                .el-autocomplete-suggestion li .name:hover {
+                    background-color: #f5f7fa;
+                }
+
+                .sex-radio-group {
+                    transform: translate(-90px, 6px);
+                }
+
+                .result-radio-group {
+                    transform: translate(-36px, 6px);
+                }
+
+                .datetime-picker .el-input__inner {
+                    padding-left: 30px !important;
+                }
             </style>
         </head>
 
@@ -78,20 +112,30 @@
                             <fieldset class="visit-section">
                                 <legend>案件信息</legend>
                                 <el-row>
-                                    <el-col :span="10">
+                                        <el-col :span="8">
+                                            <el-form-item label="操作方式" >
+                                                <el-radio-group v-model="radio" class="operate-radio-group">
+                                                    <el-radio label="1">选择已有案件</el-radio>
+                                                    <el-radio label="2">手动输入</el-radio>
+                                                </el-radio-group>
+                                            </el-form-item>
+                                        </el-col>
+    
+                                    </el-row>
+                                <el-row>
+                                    <el-col :span="6">
                                         <el-form-item label="案件编号" prop="casenum">
-                                            <el-autocomplete ref="casenum" v-model="ruleForm.casenum" :fetch-suggestions="querySearch" placeholder="请输入内容" @select="handleSelect">
-                                                <i class="el-icon-arrow-down el-input__icon" slot="suffix" @click="handleIconClick"></i>
-                                                <template slot-scope="{ item }">
-                                                    <div class="name">{{ item.value }}</div>
-                                                </template>
-                                            </el-autocomplete>
+                                            <el-select v-model="ruleForm.casenum" filterable placeholder="请选择" class="caseno-selection" v-if="radio==1">
+                                                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                            <el-input v-model="ruleForm.casenum" placeholder="请输入内容" v-if="radio==2"></el-input>
                                         </el-form-item>
                                     </el-col>
 
                                 </el-row>
                                 <el-form-item label="案情简介" prop="caseinfo">
-                                    <el-input type="textarea" ref="caseinfo" v-model="ruleForm.caseinfo" :disabled="caseIsSelect"></el-input>
+                                    <el-input type="textarea" ref="caseinfo" v-model="ruleForm.caseinfo" :disabled="radio==1&&!uuid"></el-input>
                                 </el-form-item>
                             </fieldset>
                             <!-- 来访人员信息 -->
@@ -110,16 +154,16 @@
                                     </el-col>
                                     <el-col :span="6" :offset="2">
                                         <el-form-item prop="visittime" label="来访时间">
-                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" default-time="12:00:00"></el-date-picker>
+                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" default-time="12:00:00" class="datetime-picker"></el-date-picker>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
                                 <el-row>
                                     <el-col :span="6">
                                         <el-form-item label="性别" prop="sex">
-                                            <el-radio-group v-model="ruleForm.sex">
-                                                <el-radio label="男性"></el-radio>
-                                                <el-radio label="女性"></el-radio>
+                                            <el-radio-group v-model="ruleForm.sex" class="sex-radio-group">
+                                                <el-radio label="男"></el-radio>
+                                                <el-radio label="女"></el-radio>
                                             </el-radio-group>
                                         </el-form-item>
                                     </el-col>
@@ -152,7 +196,7 @@
                                 </el-row>
                             </fieldset>
                             <!-- 历史来访信息 -->
-                            <fieldset class="visit-section">
+                            <fieldset class="visit-section" v-if="radio==1">
                                 <legend>历史来访信息</legend>
                                 <el-table stripe border size="small" :data="tableData" style="width: 100%">
                                     <el-table-column prop="name" label="来访人姓名" width="180" align="center"></el-table-column>
@@ -191,12 +235,16 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-form-item label="接访结果" prop="result">
-                                    <el-radio-group v-model="ruleForm.result">
-                                        <el-radio label="需跟进"></el-radio>
-                                        <el-radio label="已解决"></el-radio>
-                                    </el-radio-group>
-                                </el-form-item>
+                                <el-row>
+                                    <el-col :span="6">
+                                        <el-form-item label="接访结果" prop="result">
+                                            <el-radio-group v-model="ruleForm.result" class="result-radio-group">
+                                                <el-radio label="需跟进"></el-radio>
+                                                <el-radio label="已解决"></el-radio>
+                                            </el-radio-group>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
                             </fieldset>
                         </el-form>
                     </el-tab-pane>
@@ -218,8 +266,8 @@
         <script>
 
             let uuid = '${uuid}'
-            console.log(uuid)
-            // getCaseVisit.do?method=getVisitInfo&uuid=
+            console.log('uuid: ', uuid)
+
 
 
 
@@ -229,22 +277,28 @@
             new Vue({
                 el: '#app',
                 data: {
-                    restaurants: [], //案件编号下拉列表
-                    caseIsSelect: false, //案件详情是否是选择的
-                    state1: '',
-                    tableData: [{
-                        name: '王小虎',
-                        telnum: '13112345678',
-                        visitfor: '上海市普陀区金沙江路 1518 弄',
-                        visittime: '2018-03-08',
-                        reply: '上海市普陀区金沙江路 1518'
+                    uuid,
+                    radio: '1',
+                    options: [{
+                        value: '选项1',
+                        label: '黄金糕'
                     }, {
-                        name: '王小虎',
-                        telnum: '13112345678',
-                        visitfor: '上海市普陀区金沙江路 1518 弄',
-                        visittime: '2018-03-08',
-                        reply: '上海市普陀区金沙江路 1518'
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
                     }],
+                    value8: '',
+                    loading: true,
+                    restaurants: [], //案件编号下拉列表
+                    tableData: null,
                     ruleForm: {
                         casenum: '', //案件编号
                         caseinfo: '', //案情简介
@@ -280,15 +334,31 @@
                 },
                 created() {
                     this.getCaseList()
+                    if(uuid) {
+                        this.getData()
+                    }
                 },
                 methods: {
+                    getData() {
+                        this.loading = true
+                        let url = 'getCaseVisit.do?method=getVisitInfo&uuid=' + uuid
+                        axios.post(url).then(res => {
+                            this.ruleForm = res.data.caseVisit
+                            this.tableData = res.data.list
+                            this.loading = false
+                        }).catch(err => {
+                            this.loading = false
+                        })
+                    },
                     getCaseList() {
-                        // 模仿异步数据
-                        setTimeout(() => {
-                            this.$nextTick(() => {
-                                this.restaurants = arr11
-                            })
-                        }, 1000)
+                        this.loading = true
+                        let url =  'getCase.do?method=getCaseList'
+                        axios.post(url).then(res => {
+                            this.loading = false
+                            // this.options = 
+                        }).catch(err => {
+                            this.loading = false
+                        })
                     },
                     createFilter(queryString) {
                         return (restaurant) => {

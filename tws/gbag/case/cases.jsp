@@ -347,7 +347,7 @@
 <script src="tws/js/element-ui.index.js"></script>
 <script src="tws/js/xlsx.full.min.js"></script>
 <script>
-    axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
+    // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
     new Vue({
         el: '#caseApp',
         data: function() {
@@ -578,12 +578,12 @@
                     this.look(uuid,isdable)
                 },
                 onsubmit(){
-                let handleperson = encodeURI(this.formTask.handleperson);
+                /*let handleperson = encodeURI(this.formTask.handleperson);
                 let ispaper = encodeURI(this.formTask.ispaper);
                 let taskcontent = encodeURI(this.formTask.taskcontent);
                 let taskresult = encodeURI(this.formTask.taskresult);
                 let uuid = encodeURI(this.formTask.uuid);
-                let url ="&handleperson="+handleperson+"&ispaper="+ispaper+"&taskcontent="+taskcontent+"&taskresult="+taskresult+"&uuid="+uuid+"&editType=update";
+                let url ="&handleperson="+handleperson+"&ispaper="+ispaper+"&taskcontent="+taskcontent+"&taskresult="+taskresult+"&uuid="+uuid+"&editType=update";*/
                    /* axios.post('getCaseTask.do?method=saveTask'+url)
                         .then(function(res){
                             console.log(res);
@@ -591,6 +591,7 @@
                         .catch(function(err){
                             console.log(err);
                         });*/
+
                     axios.post('getCaseTask.do?method=saveTask',{
                         handleperson:this.formTask.handleperson,
                         ispaper:this.formTask.ispaper,
