@@ -299,7 +299,7 @@
                     <el-form-item label="指派人" v-show="ftShow==true">
                         <el-input  placeholder="指派人" v-model="formTask.oper_user_id_" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="办理人" v-show="ftShow==true">
+                    <el-form-item label="办理人" prop="handleperson" v-show="ftShow==true" :rules="[{ required: true, message: '办理人不能为空'}]">
                         <el-input  placeholder="办理人" v-model="formTask.handleperson"></el-input>
                     </el-form-item>
                     <el-form-item label="是否有材料">
