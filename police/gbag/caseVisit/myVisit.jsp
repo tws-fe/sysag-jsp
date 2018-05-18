@@ -67,19 +67,19 @@
                             style="width: 100%">
                             <el-table-column  type="selection" width="58"></el-table-column>
                             <el-table-column fixed  label="序号" type="index" width="55"></el-table-column>
-                            <el-table-column fixed  label="处理结果" width="118"></el-table-column>
-                            <el-table-column fixed  label="来访人" width="85"></el-table-column>
-                            <el-table-column fixed  prop="casenumber" label="来访时间" width="180"></el-table-column>
-                            <el-table-column prop="casetype" label="来访次数" width="88" ></el-table-column>
-                            <el-table-column prop="casetype" label="联系电话" width="88" ></el-table-column>
-                            <el-table-column prop="casenaturename" label="来访事由" width="156"></el-table-column>
-                            <el-table-column prop="casename" label="前台答复" width="152"></el-table-column>
-                            <el-table-column prop="statenames" label="答复内容" width="167"></el-table-column>
-                            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-                            <el-table-column prop="ishandovername" label="案件编号" width="150"></el-table-column>
+                            <el-table-column fixed prop="result"  label="处理结果" width="118"></el-table-column>
+                            <el-table-column fixed  prop="name" label="来访人" width="85"></el-table-column>
+                            <el-table-column fixed  prop="visittime" label="来访时间" width="180"></el-table-column>
+                            <!-- <el-table-column prop="casetype" label="来访次数" width="88" ></el-table-column> -->
+                            <el-table-column prop="telnum" label="联系电话" width="88" ></el-table-column>
+                            <el-table-column prop="visitfor" label="来访事由" width="156"></el-table-column>
+                            <el-table-column prop="receivereply" label="前台答复" width="152"></el-table-column>
+                            <el-table-column prop="reply" label="答复内容" width="167"></el-table-column>
+                            <el-table-column prop="receivecop" label="主办民警" width="145"></el-table-column>
+                            <el-table-column prop="casenum" label="案件编号" width="150"></el-table-column>
                             <el-table-column fixed="right"  label="操作" min-width="150">
                               <template slot-scope="scope">
-                                <el-button type="text" @click="editVisit(scope.row)">来访处理</el-button>
+                                <el-button type="text" @click="editVisit(scope.row.uuid)">来访处理</el-button>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -163,8 +163,7 @@
                       XLSX.utils.book_append_sheet(new_workbook, worksheet, "我的案件")
                       return XLSX.writeFile(new_workbook, new Date().getTime()+'.xlsx')
                     },
-                    editVisit (row) {
-                      console.log('来访处理：', row)
+                    editVisit (uuid) {
                       var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=update'
                       matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
                     },

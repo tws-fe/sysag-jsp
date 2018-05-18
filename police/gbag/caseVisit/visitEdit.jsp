@@ -266,7 +266,7 @@
                 </el-tabs>
                 <div class="visit-submit">
                     <el-button type="primary" @click="submitForm('ruleForm')">保 存</el-button>
-                    <el-button type="primary" @click="dialogVisible = true" v-if="!!uuid">发送短信</el-button>
+                    <el-button type="primary" @click="dialogVisible = true" v-if="showMsgBtn">发送短信</el-button>
                     <el-button type="warning" @click="closeTab">关 闭</el-button>
                 </div>
 
@@ -309,7 +309,9 @@
 
             let uuid = '${uuid}'
             let user = '${user}'
+            let userid = '${userid}'
             console.log('uuid: ', uuid)
+            console.log('userid', userid)
 
             new Vue({
                 el: '#app',
@@ -317,6 +319,8 @@
                     dialogVisible: false,
                     uuid,
                     user,
+                    userid,
+                    showMsgBtn: false,
                     radio: '1',
                     options: [],
                     loading: true,
@@ -376,6 +380,7 @@
                         let url = 'getCaseVisit.do?method=getVisitInfo&uuid=' + uuid
                         axios.post(url).then(res => {
                             this.ruleForm = res.data.caseVisit
+                            this.showMsgBtn = this.ruleForm.auditdirectors == userid
                             this.ruleForm.receivecop = res.data.caseVisit.receivecop || this.user
                             this.tableData = res.data.list
                             this.loading = false
