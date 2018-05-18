@@ -62,6 +62,9 @@
             font-size: 18px;
             cursor: pointer;
         }
+        th{
+            font-weight: 0 !important;
+        } 
 
     </style>
 </head>
@@ -160,10 +163,11 @@
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
-            <el-table-column prop="statenames" label="案件状态" width="167"></el-table-column>
+            <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="150"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
+            <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
             <el-table-column fixed="right" label="操作" min-width="280">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
@@ -259,6 +263,7 @@
                                 <el-button type="text" @click="del(scope.row.uuid)">删除</el-button>
                                 <el-button type="text" @click="look(scope.row.uuid,true)">查看</el-button>
                                 <el-button type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
+
                             </template>
                         </el-table-column>
                     </el-table>
@@ -459,6 +464,14 @@
                         item['sup_bac'] = 'sup_bac2'
                     } else {
                         item['sup_bac'] = 'sup_bac1'
+                    }
+                 //办理状态
+                    if(item.allsum == 0){
+                        item['attendingState'] = '待处理'
+                    }else if(item.allsum !=0 && item.taskschedule<100){
+                        item['attendingState'] = '未审核'
+                    }else if(item.allsum !=0 && item.taskschedule==100){
+                        item['attendingState'] = '已审核'
                     }
                 })
                     this.tableData3 = data

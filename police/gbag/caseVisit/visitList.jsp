@@ -158,7 +158,7 @@
                         return XLSX.writeFile(new_workbook, new Date().getTime() + '.xlsx')
                     },
                     editVisit(uuid) {
-                        var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'uuid' : 'add') 
+                        var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add') 
                         matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
                     },
                     removeVisit(row) {

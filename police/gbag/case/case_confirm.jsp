@@ -82,12 +82,13 @@
                   </el-table>
                   <el-pagination
                     @current-change="handleCurrentChange"
+                    :page-count="pageCount"
                     :pager-count="5"
                     prev-text="上一页"
                     next-text="下一页"
                     background
                     layout="prev, pager, next"
-                    :total="1000">
+                    >
                   </el-pagination>
                 </div>
               </div>
@@ -121,7 +122,10 @@
             searchTxt: '',
             tableData: arr1,
             loading: true,
-            multipleSelection: []
+            multipleSelection: [],
+            curPage: 1,
+            pageNum: 10,
+            pageCount: 0
           },
           created () {
             this.getLists()

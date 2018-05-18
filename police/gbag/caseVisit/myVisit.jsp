@@ -37,6 +37,9 @@
                     margin-right: 40px;
                     margin-top: 24px;
                 }
+                .el-table__empty-block {
+                    height: 0;
+                }
             </style>
         </head>
 
@@ -51,10 +54,10 @@
                             <img src="../../images/edit.png" alt="">
                             查询
                           </el-button>
-                          <el-button plain @click="exportExl">
+                          <!-- <el-button plain @click="exportExl">
                             <img src="../../images/edit.png" alt="">
                             导出
-                          </el-button>
+                          </el-button> -->
                         </div>
                         <div v-loading="loading">
                           <el-table
@@ -82,12 +85,13 @@
                           </el-table>
                           <el-pagination
                             @current-change="handleCurrentChange"
+                            :page-count="pageCount"
                             :pager-count="5"
                             prev-text="上一页"
                             next-text="下一页"
                             background
                             layout="prev, pager, next"
-                            :total="1000">
+                            >
                           </el-pagination>
                         </div>
                       </div>
@@ -97,61 +101,36 @@
         <!-- 引入组件库 -->
         <script src="tws/js/element-ui.index.js"></script>
         <script>
-                let arr1 = []
-                for (let index = 0; index < 10; index++) {
-                  arr1.push({
-                    taskschedule: 0,
-                    remindersum: 0,
-                    casenumber: '',
-                    casetype: '',
-                    casenaturename: '',
-                    casename: '',
-                    statenames: '',
-                    _userNAME_auditdirector: '',
-                    ishandovername: '',
-                    bjsj: '',
-                    processState: ''
-                  })
-                }
               
                 new Vue({
                   el:'#app',
                   data: {
                     searchTxt: '',
-                    tableData: arr1,
+                    tableData: null,
                     loading: true,
-                    multipleSelection: []
+                    multipleSelection: [],
+                    curPage: 1,
+                    pageNum: 10,
+                    pageCount: 0
                   },
                   created () {
                     this.getLists()
                   },
                   methods: {
                     getLists() {
-                      setTimeout(()=> {
-                        let arr = []
-                        for (let index = 0; index < 10; index++) {
-                          arr.push({
-                            taskschedule: '' + Math.random()*100,
-                            remindersum: '' + Math.random()*10,
-                            casenumber: 'A111111111122222',
-                            casetype: '行政案件',
-                            casenaturename: '妨碍佐证案',
-                            casename: 'adadfadf',
-                            statenames: '已受理未结',
-                            _userNAME_auditdirector: '陈阿三',
-                            ishandovername: '未交案',
-                            bjsj: '2018-03-06 19:31:36',
-                            processState: '侦办中'
-                          })
-                        }
-                       
-                         
-                        this.tableData = arr
-                        this.loading = false
-                      }, 1000)
+                        let url = 'getCaseVisit.do?method=getMyCaseVisitList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
+                        axios.post(url).then(res => {
+                          let data = res.data
+                          this.tableData = data.list
+                          this.pageCount = data.pageCount
+                          this.loading = false
+                        }).catch(err => {
+                          this.loading = false
+                        })
                     },
                     searchFollow () {
                       console.log('搜索')
+                      this.getLists()
                     },
                     exportExl () {
                       if (!this.multipleSelection.length) {
@@ -186,12 +165,16 @@
                     },
                     editVisit (row) {
                       console.log('来访处理：', row)
+                      var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=update'
+                      matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
                     },
                     handleSelectionChange(val) {
                       this.multipleSelection = val
                     },
                     handleCurrentChange(val) {
                       console.log(`当前页: ${val}`)
+                      this.curPage = val
+                      this.getLists()
                     }
                   }
                 })

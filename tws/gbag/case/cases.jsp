@@ -62,6 +62,7 @@
             cursor: pointer;
         }
 
+
     </style>
 </head>
 <style>
@@ -90,6 +91,19 @@
     }
     .demonstration{
         float: right;
+    }
+    .addimg{
+        position: absolute;
+        top: -45px;
+        left: 210px;
+        z-index: 10;
+        cursor: pointer;
+    }
+    .task{
+        position: relative;
+    }
+    .el-tabs__content{
+        overflow: inherit;
     }
 
 
@@ -156,10 +170,11 @@
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
-            <el-table-column prop="statenames" label="案件状态" width="167"></el-table-column>
+            <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="150"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
+            <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
             <el-table-column fixed="right" label="操作" min-width="280">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
@@ -169,7 +184,6 @@
             </el-table-column>
         </el-table>
         <div class="block paging">
-
             <el-pagination
                     background
                     :page-size="5"
@@ -178,16 +192,19 @@
                     :current-page.sync="currentPage2"
                     layout="prev, pager, next"
                     :total="this.tableData3.pageCount*5">
-            </el-pagination>
+            </el-pagination
         </div>
         </div>
 
         <!--任务-->
         <div class="task" style="margin-top:65px" v-if="listShow==true">
+           
             <%--任务类别--%>
             <div>
                 <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-                    <el-tab-pane label="一般任务" name="first">
+
+                    <el-tab-pane class="nomal_task" label="普通任务" name="first">
+                        <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
                         <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385"
                                   border stripe
                                   @selection-change="handleSelectionChange">
@@ -266,23 +283,23 @@
 
         </div>
         <!--编辑框-->
-        <el-dialog title="编辑任务" :visible.sync="dialogFormVisible">
+        <el-dialog :title="ftTitle" :visible.sync="dialogFormVisible">
 
-            <el-form :model="formTask"  :inline="true" :label-width="100" :disabled="isdable">
+            <el-form :model="formTask" ref="formTask"  :inline="true" :label-width="100" :disabled="isdable">
                 <div>
-                    <el-form-item label="案件编号">
+                    <el-form-item label="案件编号" v-show="ftShow==true">
                         <el-input  placeholder="案件编号" v-model="formTask.mainformid" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="办理时间" >
+                    <el-form-item label="办理时间" v-show="ftShow==true">
                         <el-input  placeholder="办理时间" v-model="formTask.handletime" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="任务状态">
+                    <el-form-item label="任务状态" v-show="ftShow==true">
                         <el-input  placeholder="任务状态" v-model="formTask.state" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="指派人">
+                    <el-form-item label="指派人" v-show="ftShow==true">
                         <el-input  placeholder="指派人" v-model="formTask.oper_user_id_" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="办理人">
+                    <el-form-item label="办理人" v-show="ftShow==true">
                         <el-input  placeholder="办理人" v-model="formTask.handleperson"></el-input>
                     </el-form-item>
                     <el-form-item label="是否有材料">
@@ -297,10 +314,6 @@
                 </div>
                 <div>
                     <el-form-item label="任务内容">
-                        <%--<el-select placeholder="请选择任务内容" v-model="formTask.taskcontent" style="width:24vw">--%>
-                            <%--<el-option label="治安案件" value="治安案件" v-for="item in taskOptions" :key="item.value" :label="item.NAME" :value="item.VALUE"></el-option>--%>
-                        <%--</el-select>--%>
-
                         <el-autocomplete
                                 popper-class="my-autocomplete"
                                 v-model="formTask.taskcontent"
@@ -313,7 +326,6 @@
                                     @click="handleIconClick">
                             </i>
                             <template slot-scope="{item}">
-                                <%--<div class="">{{ item.NAME }}</div>--%>
                                 <span class="">{{ item.VALUE }}</span>
                             </template>
                         </el-autocomplete>
@@ -336,6 +348,7 @@
 
     </div>
     </div>
+
 
 
 
@@ -397,7 +410,9 @@
                 restaurants: [],
                 state3: '',
                 ispaper:1,
-                activeName2:'first'
+                activeName2:'first',
+                ftShow:true,
+                ftTitle:""
 
 
             }
@@ -458,7 +473,16 @@
                         } else {
                             item['sup_bac'] = 'sup_bac1'
                         }
-                    })
+                       //办理状态
+                       if(item.allsum == 0){
+                           item['attendingState'] = '待处理'
+                       }else if(item.allsum !=0 && item.taskschedule<100){
+                           item['attendingState'] = '未完成'
+                       }else if(item.allsum !=0 && item.taskschedule==100){
+                           item['attendingState'] = '已完成'
+                       }
+
+                })
                     this.tableData3 = data
                     this.tableData4 = data
                     this.setCurrent(this.tableData3.list[0])
@@ -551,6 +575,8 @@
                 this.handleCurrentChange()
             },
             look(uuid,isdable){
+                this.ftShow = true
+                this.ftTitle = "查看任务"
                 axios.get('getCaseTask.do?method=getTaskInfo&uuid='+uuid)
                     .then( response => {
                     let data1 = response.data
@@ -576,6 +602,7 @@
                 },
                 editor(uuid,isdable){
                     this.look(uuid,isdable)
+                    this.ftTitle = "编辑任务"
                 },
                 onsubmit(){
                 /*let handleperson = encodeURI(this.formTask.handleperson);
@@ -676,7 +703,7 @@
                         })
                     .catch(function (error) {
 
-                        })
+                })
             },
             querySearch(queryString, cb) {
                 var restaurants = this.restaurants;
@@ -696,7 +723,17 @@
             },
             handleIconClick(ev) {
                 console.log(this.restaurant)
+            },
+            addTask(){
+                this.dialogFormVisible = true
+                this.isdable = false
+                this.ftShow = false
+                this.ftTitle = "新添任务"
+                this.formTask = []
+                this.formTask.ispaper = '0'
+
             }
+
 
         },
         mounted() {
