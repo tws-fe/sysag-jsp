@@ -111,7 +111,32 @@
 <body >
     <div id="caseApp">
         <!--案件-->
-        <div class="case">
+        <div class="case" >
+            <el-form :inline="true" size="small">
+                <el-form-item label="交案状态：">
+                    <el-select v-model="caseStatus" placeholder="请选择">
+                        <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-from-item label="呈案状态：">
+                    <el-select v-model="takeCaseStatus" placeholder="请选择">
+                        <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-from-item>
+                <el-form-item label="搜索内容：">
+                    <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
+                </el-form-item>
+                <el-from-item>
+                    <el-button plain @click="select"><i class="el-icon-search"></i>&nbsp;&nbsp;查询</el-button>
+                    <%--<el-button plain><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>--%>
+                    <el-button plain @click="downloadSheet"><i class="el-icon-download">&nbsp;&nbsp;导出</i></el-button>
+                    <el-button plain><i class="el-icon-edit"></i>&nbsp;&nbsp;交案确认</el-button>
+                    <el-button plain v-if="listShow==true" @click="listDown"><i class="el-icon-arrow-down"></i>&nbsp;&nbsp;列表展开</el-button>
+                    <el-button plain v-else @click="listUp"><i class="el-icon-arrow-up"></i>&nbsp;&nbsp;列表收起</el-button>
+                </el-from-item>
+            </el-form>
         <el-row class="case_nav">
             <el-col :span="4">
                 <div class="case_nav_item">
@@ -175,7 +200,7 @@
             <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
-            <el-table-column fixed="right" label="操作" min-width="280">
+            <el-table-column fixed="right" label="操.作" min-width="280">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
                     <el-button type="text">主办责任人指定书</el-button>
@@ -299,10 +324,10 @@
                     <el-form-item label="指派人" v-show="ftShow==true">
                         <el-input  placeholder="指派人" v-model="formTask.oper_user_id_" disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="办理人" prop="handleperson" v-show="ftShow==true" :rules="[{ required: true, message: '办理人不能为空'}]">
-                        <el-input  placeholder="办理人" v-model="formTask.handleperson"></el-input>
+                    <el-form-item label="办理人" v-show="ftShow==true">
+                        <el-input  placeholder="办理人"   disabled="true"></el-input>
                     </el-form-item>
-                    <el-form-item label="是否有材料">
+                    <el-form-item label="是否有材料" v-show="ftShow==true">
                         <%--<el-input  placeholder="是否有材料" v-model="formTask.ispaper"></el-input>--%>
                                 <el-radio-group v-model="formTask.ispaper" style="margin-top:13px;">
                                     <el-radio :label="'0'">无</el-radio>
@@ -339,8 +364,8 @@
                 </div>
             </el-form>
             <div slot="footer" class="dialog-footer" style="text-align: center" >
-                <button v-show="isdable == false" class="conserve_btn" type="primary" @click="onsubmit">保 存</button>
-                <button v-show="isdable == false" class="conserve_btn" type="primary" @click="dialogFormVisible = false">添 加</button>
+                <button v-show="isdable == false && ftShow==true" class="conserve_btn" type="primary" @click="onsubmit">保 存</button>
+                <button v-show="isdable == false && ftShow == false" class="conserve_btn" type="primary" @click="addSubmit">添 加</button>
                 <button class="close_btn" @click="dialogFormVisible = false">关 闭</button>
             </div>
         </el-dialog>
@@ -547,6 +572,7 @@
                     }
                 })
                     this.tableData4 = data
+                    this.dialogFormVisible = false
                     console.log(response.data)
                  })
                 .catch(function (error) {
@@ -605,20 +631,6 @@
                     this.ftTitle = "编辑任务"
                 },
                 onsubmit(){
-                /*let handleperson = encodeURI(this.formTask.handleperson);
-                let ispaper = encodeURI(this.formTask.ispaper);
-                let taskcontent = encodeURI(this.formTask.taskcontent);
-                let taskresult = encodeURI(this.formTask.taskresult);
-                let uuid = encodeURI(this.formTask.uuid);
-                let url ="&handleperson="+handleperson+"&ispaper="+ispaper+"&taskcontent="+taskcontent+"&taskresult="+taskresult+"&uuid="+uuid+"&editType=update";*/
-                   /* axios.post('getCaseTask.do?method=saveTask'+url)
-                        .then(function(res){
-                            console.log(res);
-                        })
-                        .catch(function(err){
-                            console.log(err);
-                        });*/
-
                     axios.post('getCaseTask.do?method=saveTask',{
                         handleperson:this.formTask.handleperson,
                         ispaper:this.formTask.ispaper,
@@ -627,8 +639,23 @@
                         uuid:this.formTask.uuid,
                         editType:'update'
                     })
-                        .then(function(res){
-                            console.log(res);
+                        .then(response => {
+                            if(response.data == 1){
+                                this.$notify({
+                                    title: '成功',
+                                    message: '保存成功',
+                                    type: 'success'
+                                });
+                              //  console.log(this.currentRow)
+                                this.rowClick(this.currentRow)
+
+
+                            }else{
+                                this.$notify.error({
+                                title: '错误',
+                                message: '保存失败请重试'
+                                });
+                            }
                         })
                         .catch(function(err){
                             console.log(err);
@@ -731,7 +758,42 @@
                 this.ftTitle = "新添任务"
                 this.formTask = []
                 this.formTask.ispaper = '0'
+            },
+            addSubmit(){
+                dialogFormVisible = false
+                console.log(this.currentRow.casenumber)
+                axios.post('getCaseTask.do?method=saveTask',{
+                        taskcontent:this.formTask.taskcontent,
+                        taskresult:this.formTask.taskresult,
+                        uuid:'',
+                        editType:'add',
+                        mainformid:this.currentRow.casenumber
+                    })
+                        .then(response => {
+                            if(response.data == 1){
+                                this.$notify({
+                                    title: '成功',
+                                    message: '添加成功',
+                                    type: 'success'
+                                });
+                              //  console.log(this.currentRow)
+                                this.rowClick(this.currentRow)
 
+
+                            }else{
+                                this.$notify.error({
+                                title: '错误',
+                                message: '保存失败请重试'
+                                });
+                            }
+                        })
+                        .catch(function(err){
+                            this.$notify.error({
+                                title: '错误',
+                                message: '保存失败请重试'
+                                });
+                        });
+  
             }
 
 
