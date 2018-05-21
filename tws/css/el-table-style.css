@@ -43,3 +43,50 @@
 .el-pagination.is-background .el-pager li {
   margin: 0 1px;
 }
+
+.el-pagination {
+  float: right;
+  margin-right: 40px;
+  margin-top: 24px;
+}
+
+/* 无数据 */
+.el-table__empty-block {
+  height: 0;
+}
+
+/* 头部操作优化 */
+.follow-head, .head-form {
+  padding-left: 10px;
+  margin: 12px 0;
+}
+
+.search-container {
+  display: inline-block;
+}
+
+.follow-head>.el-button, .img-btn {
+  margin-left: 10px;
+  padding-left: 46px;
+  position: relative;
+}
+
+.follow-head>.el-button img, .img-btn img {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+}
+
+/* 弹框操作优化 */
+/* dialog */
+.el-dialog__header {
+  background-color: #2983b3;
+}
+.el-dialog__title {
+  color: #fff;
+}
+.dialog-footer {
+  display: flex;
+  justify-content: center;
+}
