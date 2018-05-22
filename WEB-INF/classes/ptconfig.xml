@@ -42,4 +42,6 @@
 	<!-- 消息接口 -->
 	<SMS.WEBSERVICE.CLASS>com.tws.impl.sms.ZHSmsImpl</SMS.WEBSERVICE.CLASS>
 	<SYSTEM.SYSID>AJSYSTEM</SYSTEM.SYSID>
+	<SYSTEM.MAIN.VIEW>index-police</SYSTEM.MAIN.VIEW>
+	
 </root>

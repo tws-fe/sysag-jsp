@@ -1,0 +1,157 @@
+ /*导航*/
+       .indexnav{
+        margin-top: 10px;
+       }
+         .nav_box{
+           line-height: 50px;
+           background: url(../../share/images/main/navbj.jpg);
+           padding-top: 20px;
+           padding-bottom: 20px;
+           padding-left: 50px;
+         }
+         .nav_box ul{
+           color: white;
+           float: left;
+           margin-bottom: 0
+         }
+         .nav_box li{
+           float: left;
+           list-style: none;
+           margin: 0 10px;
+           font-size: 14px;
+         }
+         .nav_right{
+                width: 90%;
+                background: url(../../share/images/index/bbjj.png);
+                height: 49px;
+                float: right;
+          
+                margin-top: 5px;
+                border-radius: 15px;
+                line-height: 39px;
+                background-size: 100% 100%;
+         }
+         .nav_bj{
+          background: url(../../share/images/index/bbj.png);
+          border-radius: 25px;
+          width: 700px;
+          float: right;
+          margin-right: 50px;
+         }
+         .nav_bj_div{
+          float: left;
+          height: 100%;
+          width: 30%;
+          margin-left: 50px;
+         }
+         .bt_txt{
+         color: white;
+         font-size: 16px;
+         margin: -20px 0;
+         }
+         .bt_right{
+         margin-top: 30px;
+         margin-left: 10px
+        }
+
+        .nav_bottom{
+          background: url(../../share/images/main/navbj1.png);
+          height: 73px;
+          padding-left: 50px;
+        }
+        .nav_ul{
+          width: 80%;
+        }
+        .nav_ul li{
+              float: left;
+              list-style: none;
+              color: white;
+              position: relative;
+              cursor: pointer;
+        } 
+        .navli_divone{
+          position: absolute;
+          top: -33px;
+        }
+        .navli_two{
+          margin-top: 42px;
+        }
+        .nt_left{
+          height: 73px;
+          line-height: 73px;
+          margin-left: 10px;
+        }
+        .nt_left a{
+          margin-right: 30px;
+          color: #8cb7eb;
+          font-size: 18px;
+        }
+        .solid{
+          margin-top: 12px;
+          margin: 12px 20px;
+        }
+
+       /*导航结束*/
+       /*二级导航*/
+         .nextnav{
+          position: relative;
+         }
+         .lcbox{
+          position: absolute;
+          top: 45px;
+          left: -8vw;
+          width: 30vw;
+          background: url(../../share/images/index/bjbjbj.png) no-repeat;
+          background-size: 100% 100%;
+          z-index: 10;
+          padding: 30px 15px;
+          color: #6392c8;
+          line-height: 35px;
+          font-weight: 900;
+          display: none;
+
+
+         }
+         .lcbox a{
+          color: #626262;
+          cursor: pointer;
+         }
+         .lcbox_a{
+          background: #ececec;
+          font-weight: 500;
+          padding-left: 10px;
+          color: #626262;
+         }
+
+          .tis{
+          display: none;
+          position: absolute;
+          top: 0;
+          left: -6px;
+          color: white !important;
+          cursor: pointer; 
+          text-decoration: none !important;
+         }
+         .tisxl{
+            padding: 5px 20px;
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 100px;
+            background: white;
+            display: none;
+         }
+         .dropdown-menu{
+          min-width: 100px;
+          left: -20px;
+          top: 150%;
+         }
+         .jiantou{
+          position: absolute;
+          top: -35px;
+          left: -10px;
+          width: 100%;
+          text-align: center;
+         }
+         
+        /*二级导航结束*/

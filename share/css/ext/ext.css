@@ -1,0 +1,437 @@
+@CHARSET "UTF-8";
+.x-window-footer {  
+    position: relative;  
+    top: 0;  
+    right: 0;  
+}
+.x-tab-strip span.x-tab-strip-text {  
+    font-size: 14px;  
+}  
+  
+.x-panel-header {  
+    font-size: 14px;  
+}  
+  
+.x-tree-node {  
+    font-size: 14px;  
+}  
+
+.x-tree .x-panel-body{
+	overflow:auto !important
+}
+
+.x-grid3-hd-row td {  
+    font-size: 14px;  
+}  
+  
+.x-grid3-row td {  
+    font-size: 14px;  
+    height:22px;
+    line-height: 22px;  
+}  
+  
+.x-tip .x-tip-bd {  
+    font-size: 14px;  
+}  
+  
+.x-tip h3 {  
+    font-size: 14px;  
+}  
+  
+.x-tip .x-tip-bd-inner {  
+    font-size: 14px;  
+}
+
+.x-panel-tl .x-panel-header {  
+    font: normal 14px tahoma, arial, verdana, sans-serif;  
+}  
+  
+.x-form-field {  
+    font: 14px tahoma, arial, helvetica, sans-serif;  
+	height: 26px;
+	line-height: 26px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 5px;  
+}  
+.x-form-field-wrap .x-form-trigger{
+	height:26px;
+}
+
+.x-small-editor .x-form-field {  
+    font: 14px tahoma, arial, helvetica, sans-serif;  
+}  
+  
+.x-combo-list-item {  
+    font: 14px tahoma, arial, helvetica, sans-serif;  
+}  
+  
+.x-menu-list-item {  
+    font: 14px tahoma, arial, sans-serif;  
+}
+
+.x-window-tl .x-window-header {  
+    font: bold 14px tahoma, arial, verdana, sans-serif;  
+}  
+/* 
+.ext-ie .x-form-text {  
+    margin-top: 1px;  
+} */ 
+  
+.x-form-item {  
+    font: 14px tahoma, arial, helvetica, sans-serif;  
+}  
+  
+.x-grid-group-hd div {  
+    font: bold 14px tahoma, arial, helvetica, sans-serif;  
+}  
+  
+.x-btn-text-icon .x-btn-center .x-btn-text {  
+    background-position: 0pt 2px;  
+    background-repeat: no-repeat;  
+    padding: 3px 0pt 2px 18px;  
+}  
+  
+.ext-gecko .x-btn button {  
+    padding-left:0pt;  
+    padding-right: 0pt;  
+}  
+  
+.x-btn button {  
+    font-size: 14px;  
+}  
+  
+.x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label {  
+    font-size: 14px;  
+}  
+  
+.x-tip .x-tip-body {  
+    font-size: 14px;  
+}
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+/* StatusBar - structure */
+.x-statusbar .x-status-text {
+    cursor: default;
+/*
+    height: 21px;
+    line-height: 21px;
+    padding: 0 4px;
+*/
+}
+.x-statusbar .x-status-busy {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+}
+
+.x-toolbar div.xtb-text
+
+.x-statusbar .x-status-text-panel {
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    padding: 2px 8px 2px 5px;
+}
+
+/* StatusBar word processor example styles */
+
+#word-status .x-status-text-panel .spacer {
+    width: 60px;
+    font-size:0;
+    line-height:0;
+}
+#word-status .x-status-busy {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+}
+#word-status .x-status-saved {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+}
+
+/* StatusBar form validation example styles */
+
+.x-statusbar .x-status-error {
+    cursor: pointer;
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+}
+.x-statusbar .x-status-valid {
+    padding-left: 25px !important;
+    background: transparent no-repeat 3px 2px;
+}
+.x-status-error-list {
+    font: 11px tahoma,arial,verdana,sans-serif;
+    position: absolute;
+    z-index: 9999;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    padding: 5px 10px;
+}
+.x-status-error-list li {
+    cursor: pointer;
+    list-style: disc;
+    margin-left: 10px;
+}
+.x-status-error-list li a {
+    text-decoration: none;
+}
+.x-status-error-list li a:hover {
+    text-decoration: underline;
+}
+
+
+/* *********************************************************** */
+/* *********************************************************** */
+/* *********************************************************** */
+
+
+/* StatusBar - visual */
+
+.x-statusbar .x-status-busy {
+    background-image: url(img/loading.gif);
+}
+.x-statusbar .x-status-text-panel {
+    border-color: #99bbe8 #fff #fff #99bbe8;
+}
+
+/* StatusBar word processor example styles */
+
+#word-status .x-status-text {
+    color: #777;
+}
+#word-status .x-status-busy {
+    background-image: url(img/saving.gif);
+}
+#word-status .x-status-saved {
+    background-image: url(img/saved.png);
+}
+
+/* StatusBar form validation example styles */
+
+.x-statusbar .x-status-error {
+    color: #C33;
+    background-image: url(img/exclamation.gif);
+}
+.x-statusbar .x-status-valid {
+    background-image: url(img/accept.png);
+}
+.x-status-error-list {
+    border-color: #C33;
+}
+.x-status-error-list li a {
+    color: #15428B;
+}
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+/*
+ * FileUploadField component styles
+ */
+.x-form-file-wrap {
+    position: relative;
+    height: 22px;
+}
+.x-form-file-wrap .x-form-file {
+	position: absolute;
+	right: 0;
+	-moz-opacity: 0;
+	filter:alpha(opacity: 0);
+	opacity: 0;
+	z-index: 2;
+    height: 22px;
+}
+.x-form-file-wrap .x-form-file-btn {
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+.x-form-file-wrap .x-form-file-text {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+    color: #777;
+}
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+td.ux-grid-hd-group-cell {
+    background: url(default/img/grid/grid3-hrow.gif) repeat-x bottom;
+}
+/*增加list的radio选择框 begin,by王川,@2010-04-08*/
+.x-grid3-row-table .x-grid3-col div div {height:22px;}
+.x-grid3-row-radio,.x-grid3-hd-radio{width:100%;height:18px;background-position:2px 8px;background-repeat:no-repeat;background-color:transparent;background-image:url(img/ext/row-radio-sprite.gif);}
+.x-grid3-row .x-grid3-row-radio { background-position:2px 8px;}
+.x-grid3-row-selected .x-grid3-row-radio, .x-grid3-hd-checker-on .x-grid3-hd-radio { background-position:-23px 8px;}
+.x-grid3-hd-radio {  background-position:2px 8px;}
+.x-grid3-hd-checker-on .x-grid3-hd-radio { background-position:-23px 8px;}
+/*增加list的radio选择框 end,by王川,@2010-04-08*/
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+.x-treegrid-root-table {
+    border-right: 0px solid;
+}
+
+.x-treegrid-root-node {
+    overflow: auto;
+}
+
+.x-treegrid-hd-hidden {
+    visibility: hidden;
+    border: 0;
+    width: 0;
+}
+
+.x-treegrid-col {
+    height: 20px;
+    overflow: hidden;
+    vertical-align: top;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.x-treegrid-text {
+    padding-left: 4px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+}
+
+.x-treegrid-resizer {
+    border-left:1px solid;
+    border-right:1px solid;
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+.x-treegrid-header-inner {
+    overflow: hidden;
+}
+
+.x-treegrid-root-table,
+.x-treegrid-col {
+    border-color: #ededed;
+}
+
+.x-treegrid-resizer {
+    border-left-color:#555;
+    border-right-color:#555;
+}
+
+.x-treegrid-node-ct-table{
+	border-bottom:0px solid;
+}
+/*
+ * Ext JS Library 2.0
+ * Copyright(c) 2006-2007, Ext JS, LLC.
+ * licensing@extjs.com
+ *
+ * http://extjs.com/license
+ */
+
+/* [OPTIONAL] -- may be used for either Ext.grid.GroupSummary / Ext.ux.grid.GridSummary plugins */
+.x-grid3-summary-row{border-left:1px solid #fff;border-right:1px solid #fff;color:#333;background:#ceddef;}
+.x-grid3-summary-row .x-grid3-cell-inner{font-weight:bold;padding-bottom:4px;}
+.x-grid3-cell-first .x-grid3-cell-inner{padding-left:16px;}
+.x-grid-hide-summary .x-grid3-summary-row{display:none;}
+.x-grid3-summary-msg{padding:4px 16px;font-weight:bold;}
+
+
+/* [REQUIRED] (by Ext.ux.grid.GridSummary plugin) */
+.x-grid3-gridsummary-row-inner{overflow:hidden;width:100%;}/* IE6 requires width:100% for hori. scroll to work */
+.x-grid3-gridsummary-row-offset{width:10000px;}
+.x-grid-hide-gridsummary .x-grid3-gridsummary-row-inner{display:none;}
+
+.x-grid3-row-selected {
+	background-color: #80a2d8 !important;
+	background-image: none;
+	border-color:#a3bae9;
+}
+.x-subform-td{
+	background-color: #F0F0F0 !important;
+}
+.ux-lovcombo-icon {      
+    width:16px;      
+    height:16px;      
+    float:left;      
+    background-position: -1px -1px ! important;      
+    background-repeat:no-repeat ! important;      
+}
+
+/*------x-grid3-locked--------*/
+.x-grid3-locked, .x-grid3-unlocked {
+	overflow: hidden;
+	position: absolute;
+}
+
+.x-grid3-locked {
+	border-right: 1px solid #99BBE8;
+}
+
+.x-grid3-locked .x-grid3-scroller {
+	overflow: hidden;
+}
+
+.x-grid3-locked .x-grid3-row {
+	border-right: 0;
+}
+
+.x-grid3-scroll-spacer {
+	height: 19px;
+}
+
+.x-grid3-unlocked .x-grid3-header-offset {
+	padding-left: 0;
+}
+
+.x-grid3-unlocked .x-grid3-row {
+	border-left: 0;
+}
+.x-grid3-locked .x-grid3-row {
+	height:22px;
+}
+.x-grid3-locked .x-grid3-row .x-grid3-row-table{
+	height:22px;
+}
+.x-tree-node-type{
+  background-color: #F0F0F0
+}
+/*----------------combox-----------------------*/
+.ux-lovcombo-icon-checked {        
+    background: transparent url(img/menu/checked.gif);        
+}        
+.ux-lovcombo-icon-unchecked {        
+    background: transparent url(img/menu/unchecked.gif);        
+}
+
+.ux-lovcombo-item-text {
+    position:absolute;
+    left:16px;
+    top:3px;
+}
+.ux-lovcombo-icon {
+    float:none;
+}
+.x-combo-list-item {
+    position:relative;
+}
+.x-border-panel{
+	box-sizing:content-box;
+}

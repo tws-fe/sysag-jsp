@@ -1,0 +1,398 @@
+  .body{
+       	background: url(../../share/images/index/sy-bj.png);
+        background-position: center;
+        width: 100%;
+        overflow:hidden;
+       }
+       .ts_num{
+            position: absolute;
+		    top: -40px;
+		    right: 0;
+		    width: 20px;
+		    height: 20px;
+		    background: red;
+		    line-height: 20px;
+		    border-radius: 50px;
+       }
+       .bt{
+       }    
+       .bt_box{
+        float:left;
+       }
+       .bt_box img{
+        
+       }
+       .bt_right{
+         margin-top: 30px;
+         margin-left: 10px;
+         width: 70%;
+       }
+       .bt_txt{
+         color: white;
+         font-size: 16px;
+         margin: -20px 0;
+       }
+       @media screen and (max-width: 1400px) {
+			   .bt_txt {
+			        font-size: 1vw;
+			    }
+		}
+       .index_box{
+        margin-left:3%;
+        margin-top: 30px;
+        position: relative;
+        cursor: pointer;
+        height:10.5vw
+       }
+
+       .index_box div{
+        text-align: center;
+        color: white;
+        font-size: 18px;
+       }
+       .index_box img{
+        width: 60%;
+       }
+       .imgbox{
+            position: absolute;
+            bottom: 22%;
+            left: 20%;
+            display: none;
+
+       }
+         @media screen and (max-width: 1700px) {
+          .imgbox{
+            left: 15%;
+          }
+         }
+         @media screen and (max-width: 1400px) {
+          .imgbox{
+            left: 10%;
+            bottom: 24%;
+          }
+
+         }
+         @media screen and (max-width: 1300px) {
+          .imgbox{
+            left: 8%;
+          }
+         }
+         @media screen and (max-width: 1250px) {
+          .imgbox{
+            left: 5%;
+          }
+         }
+       .indexbox_top{
+         
+       }
+       .tishi{
+          width: 24px;
+          height: 24px;
+          position: absolute;
+          top: -1%;
+          right: 25%;
+          text-align: center;
+          line-height: 24px;
+          display: block;
+          background: red;
+          border-radius: 50px;
+
+       }
+       .jt_left{
+          margin-top: 65px;
+          margin-left: 10px;
+          cursor: pointer;
+       }
+       .jt_left img{
+        width:70%;
+       }
+       .jt_right{
+             position: absolute;
+              top: 155px;
+              right: 0.5vw;
+              margin: 0;
+              cursor: pointer;
+              transform: rotate(180deg);
+              -ms-transform: rotate(180deg);
+              -moz-transform: rotate(180deg);
+              -webkit-transform: rotate(180deg);
+              -o-transform: rotate(180deg);
+       }
+       .jt_right img{
+        width:70%;
+       }
+
+
+
+      .indexnav{
+        margin-top: 16px;
+        margin-bottom: 20px;
+   		 min-width: 1200px;
+       }
+       
+         .nav_box{
+           line-height: 44px;
+           padding-left: 50px;
+         }
+         .nav_box ul{
+           color: white;
+           float: left;
+           margin-bottom: 0
+         }
+         .nav_box li{
+           float: left;
+           list-style: none;
+           /* margin: 0 10px; */
+           font-size: 14px;
+         }
+         .nav_bj .nextnav {
+         	margin: 0 10px;
+         }    
+         .nav_right{
+                width: 100%;
+                background: url(../../share/images/index/bbjj.png);
+                height: 44px;
+                float: right;
+          
+               /*  margin-top: 5px; */
+                border-radius: 15px;
+                line-height: 44px;
+                background-size: 100% 100%;
+         }
+         .nav_right .col-xs-4 {
+         	width: 20%;
+         }
+         .sys-admin {
+         	width: 40%;
+         	float: left;
+         	font-size: 12px;
+         	color: #fff;
+         	height: 20px;
+         	line-height: 16px;
+         	padding-left: 16px;
+         	padding-top: 4px;
+         	overflow: hidden;
+    		white-space: nowrap;
+    		text-overflow: ellipsis;
+    		text-align: center;
+         }
+         .nav_bj{
+         	position: relative;
+          background-image: url(../../share/images/index/bbj.png);
+          background-size: cover;
+          border-radius: 25px;
+          width: 730px;
+          height: 44px;
+          float: right;
+          margin-right: 50px;
+         }
+         .nav_bj_div{
+         /*  float: right; */
+         	position: absolute;
+         	right: 0;
+         	top: 0;
+          width: 310px;
+         }
+
+         .bt_right{
+         margin-top: 30px;
+         margin-left: 10px
+        }
+
+        .nav_bottom{
+          background: url(../../share/images/main/navbj1.png);
+          height: 56px;
+          padding-left: 50px;
+        }
+        .nav_ul{
+            height: 50px;
+            line-height: 50px;
+            margin-bottom: 0;
+        }
+        .nav_ul li{
+                  list-style: none;
+                  color: white;
+                  width: 5.4vw !important;
+                  height: 90%;
+                  margin-top: 5px;
+                  position: relative;
+                  border-left: 1px solid #1673ae;
+                  border-right: 1px solid #206590;
+                  text-align: center;
+        }
+        .nav_ul>li>img{
+            position: absolute;
+            width: 70%;
+            left: 15%;
+            top: -2.5vw;
+        }
+        .top1{
+            top: -52px !important;
+            color:black;
+        }
+        .top2{
+            top: -52px !important;
+        }
+        .navli_divone{
+          position: absolute;
+          top: -33px;
+        }
+        .navli_two{
+          margin-top: 42px;
+        }
+        .nt_left{
+          height: 56px;
+          line-height: 56px;
+          margin-left: 10px;
+          min-width:400px;
+        }
+        .nt_left a{
+            margin-right: 3vw;
+            color: #8cb7eb;
+            font-size: 0.9vw;
+
+        }
+        .nav_txt{
+           color: white;
+           position: absolute;
+           width: 100%;
+           z-index: 2;
+           display: block;
+           margin-top:10px;
+        }
+        .bacbox{
+          position: absolute;
+          width: 100%;
+          height: 110%;
+          display: none;
+        }
+        .bac{
+          background:url(../../share/images/index/active.png);
+          background-size: 100% 100%;
+        }
+       
+        .show1{
+            display: block;
+            color:#000;
+        }
+        .show2{
+            display: block;
+            color:#000;
+        }
+        .index_toolbar_container {
+        	position: absolute;
+        	right: 200px;
+        }
+
+        .nav_ul_parent{
+            width: 60vw !important;
+          height: 50px;
+          position: relative;
+        }
+        .time{
+          float: right;
+          /* margin-top: 16px; */
+          height: 56px;
+          line-height: 21px;
+          color: white;
+          white-space: 1px;
+          letter-spacing: 1px;
+          text-align: center;
+            margin-top: 8px;
+        }
+        .time>div {
+
+
+        }
+
+         @media screen and (max-width: 1550px) {
+             .time{
+              display: none;
+             }
+        }
+        @media screen and (max-width: 1300px) {
+             .nav_ul_parent {
+                  width: 76%;
+              }
+        }
+        .explain{
+          position: absolute;
+	      bottom: 2vw;
+	      width: 100%;
+	      text-align: center;
+	      color: #cbcbcb;
+        }
+        .index_box:first-child{
+           margin-left:0;
+        }
+
+       /*导航结束*/
+       /*二级导航*/
+         .nextnav{
+          position: relative;
+         }
+         .lcbox_parent{
+          display: none;
+          position: absolute;
+          top: 45px;
+          left: -12vw;
+          z-index: 10;
+         }
+         .lcbox{
+          width: 30vw;
+          background: white;
+          background-size: 100% 100%;    
+          padding: 15px 15px;
+          color: #6392c8;
+          line-height: 35px;
+          font-weight: 900;
+          box-shadow: rgb(136, 136, 136) -1px 2px 12px;
+
+         }
+         .lcbox a{
+          color: #626262;
+          cursor: pointer;
+         }
+         .lcbox_a{
+          background: #ececec;
+          font-weight: 500;
+          padding-left: 10px;
+          color: #626262;
+         }
+         .lcbox_img{
+          height: 22px;
+          margin-left: 43%;
+         }
+
+          .tis{
+          display: none;
+          position: absolute;
+          top: -7px;
+          left: 0;
+          color: white !important;
+          cursor: pointer; 
+          text-decoration: none !important;
+         }
+         .tisxl{
+            padding: 5px 20px;
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 100px;
+            background: white;
+            display: none;
+         }
+         .dropdown-menu{
+          min-width: 100px;
+          left: -20px;
+          top: 150%;
+         }
+         .jiantou{
+          position: absolute;
+          top: -28px;
+          left: -10px;
+          width: 100%;
+          text-align: center;
+         }
+         
+       /*nav结束*/

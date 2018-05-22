@@ -1,0 +1,184 @@
+.listTable {
+	background-color: #99BBE8;
+	margin: 0px auto;
+	width: 100%;
+	font-size: 14px;
+    background: #fff;
+    border: 1px solid #5AA6DF;
+	
+}
+.listTable tr {
+    border-bottom: 1px solid #ccc;
+    color: black;
+}
+.listTable tr:nth-child(odd){
+	background: #EFF8FD;
+}
+
+
+.listTable th {
+	text-align: center;
+	background-color: #eee;
+	padding: 5px;
+	white-space:nowrap;
+	font-weight: bold;
+}
+
+.listTable td {
+	padding: 5px;
+}
+
+.listTable caption{
+	background-color: #D9E8FB;
+	border: 1px solid #99BBE8;
+	border-bottom: 0px;
+	padding: 5px;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+.qryTb {
+	background-color: #ffffff;
+	text-align: center;
+	border: #99bbe8 1px solid;
+	border-collapse: collapse;
+	text-align: center;
+	width: 90%;
+	margin: 0 auto;
+}
+
+.qryTb td {
+	white-space: nowrap;
+	padding: 1px;
+	border-top: #99bbe8 1px solid;
+	border-left: #99bbe8 1px solid;
+	height: 35px;
+	text-align: center;
+}
+
+.qryTb th {
+	white-space: nowrap;
+	padding: 1px;
+	border-top: #99bbe8 1px solid;
+	border-left: #99bbe8 1px solid;
+	height: 35px;
+	text-align: center;
+	background-color: #c6d4e4;
+	font-size: 14px;
+	font-family: "宋体";
+	text-align: center;
+}
+
+.qryTb input {
+	border: 0px;
+	border-bottom: 1px solid #aaa;
+	margin: 0 10px;
+}
+
+input.disabled {
+	border: 1px solid #F2F2F2;
+	background-color: #F2F2F2;
+}
+
+input.required,textarea.required {
+	border: 1px solid #00A8E6 !important;
+}
+input.required + input{
+	border: 1px solid #00A8E6 !important;
+}
+input.requiredhidden,textarea.requiredhidden {
+	border: 0px solid #00A8E6 !important;
+}
+input.requiredhidden + input {
+	border: 0px solid #00A8E6 !important;
+}
+input.validation-failed,textarea.validation-failed {
+	border: 1px solid #FF3300 !important;
+	color: #FF3300;
+}
+
+input.validation-failed + input {
+	border: 1px solid #FF3300 !important;
+	color: #FF3300;
+}
+
+input.validation-passed,textarea.validation-passed {
+	border: 1px solid #CCC !important;
+	color: #000;
+}
+
+input.validation-passed + input {
+	border: 1px solid #00CC00 !important;
+	color: #000;
+}
+
+.validation-advice {
+	padding:0 10px;
+	color: #FF3300;
+	font-weight: bold;
+}
+
+.validate_tip{   
+    border:2px solid #FF3300;  
+    background:#FF3300;  
+    color:#fff;  
+    overflow:hidden;  
+    position:absolute; 
+	padding:1px;
+	font-size:12px;
+	cursor:hand;
+	filter:Alpha(opacity=83);
+}  
+.validate_box{  
+    height:0;  
+    width:0;  
+    border:1px solid #FF3300;  
+    border-width:10px 10px  0 10px;
+	border-color:#FF3300 transparent;  
+    position:absolute;  
+    left:30px;  
+    filter:Alpha(opacity=83);
+}
+/*------matech_calendar--------*/
+#matech_div_calendar{
+	margin:0px;
+	padding:0px;
+	overflow-x:hidden;
+	overflow-y : hidden;
+}
+#matech_div_calendar_head_yearmonth{
+	font-size:14px;
+}
+#matech_div_calendar_body_day{
+	float:left;
+}
+.matech_cal_head_style{
+	height:25px;
+	line-height:25px;
+	font-size: 14px;
+}	
+.matech_cal_td_select{
+	height:25px;
+	font-size: 14px;
+	line-height:25px;
+	background-color:rgb(146,211,235);
+	font-weight: bold;;
+}
+.matech_cal_td_style{
+	font-weight: bold;
+	height:25px;
+	line-height:25px;
+	font-size: 14px;
+}
+.matech_cal_td_today{
+	font-weight: bold;
+	height:25px;
+	line-height:25px;
+	font-size: 14px;
+	background-color:#FF9999;
+}
+.matech_cal_td_enable{
+	height:25px;
+	line-height:25px;
+	font-size: 14px;
+	color:#FF9999;
+}

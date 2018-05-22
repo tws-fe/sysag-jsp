@@ -25,8 +25,8 @@
 			
 		}
 %>
-<meta http-equiv="cache-control" content="no-cache" /> 
-<meta http-equiv="expires" content="0" /> 
+<!-- <meta http-equiv="cache-control" content="no-cache" /> 
+<meta http-equiv="expires" content="0" />  -->
 <script>
 	var MATECH_SYSTEM_WEB_ROOT = CONTEXTPATH = contextPath = "${pageContext.request.contextPath}/";
 	var btnDenyRight = "${btnDenyRight}" ;

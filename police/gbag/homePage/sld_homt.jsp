@@ -1,73 +1,129 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我的关注</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
-<style>
-    ul,
-    p {
-      margin: 0;
-      padding: 0;
-    }
+  <%@ include file="/WEB-INF/Views/Sys_INCLUDE/twsInclude.jsp" %>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
 
-    li {
-      list-style-type: none;
-    }
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>所领导首页</title>
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
+      <style>
+        ul,
+        p {
+          margin: 0;
+          padding: 0;
+        }
 
-    .data-show {
-      /* height: 400px; */
-      margin-bottom: 20px;
-    }
+        li {
+          list-style-type: none;
+        }
 
-    .el-card {
-      height: 380px;
-    }
+        .data-show {
+          /* height: 400px; */
+          margin-bottom: 20px;
+        }
 
-    .visit-main {
-      padding: 0 10px;
-    }
+        .el-card {
+          height: 380px;
+        }
 
-    /* .visit-title {
+        .visit-main {
+          padding: 0 10px;
+          position: relative;
+        }
+
+        .visit-main-image {
+          width: 94%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-40%);
+        }
+
+        /* .visit-title {
       padding: 10px 0;
     } */
-    .visit-list {
-      margin-top: 10px;
-    }
 
-    .visit-list-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-    }
+        .visit-list {
+          margin-top: 20px;
+        }
 
-    .vist-list-txt {
-      height: 22px;
-      line-height: 22px;
-      display: flex;
-    }
+        .visit-list-item {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 0;
+        }
 
-    .visit-list-image {
-      height: 22px;
-      width: 22px;
-      margin-right: 4px;
-      /* transform: translateY(2px); */
-    }
+        .vist-list-txt {
+          height: 22px;
+          line-height: 22px;
+          display: flex;
+        }
 
-    .list-number {
-      margin-left: 20px;
-    }
-    #chart {
-      height: 380px;
-      transform: translateY(-60px);
-    }
-  </style>
-</head>
-<body>
-    <div id="app">
+        .visit-list-image {
+          height: 22px;
+          width: 22px;
+          margin-right: 10px;
+          /* transform: translateY(2px); */
+        }
+
+        .list-number {
+          margin-left: 20px;
+          color: #32a8ee;
+        }
+
+        #chart {
+          height: 380px;
+          transform: translateY(-60px);
+        }
+
+        .visit-main-title {
+          position: relative;
+        }
+
+        .visit-main-icon-list {
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: 16px;
+          line-height: 16px;
+        }
+
+        .visit-main-icon-item {
+          display: inline-block;
+          transform: translateY(-3px);
+          margin-right: 10px;
+        }
+
+        .visit-main-icon-block {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          /* margin-right: 2px; */
+          /* margin-top: 4px; */
+        }
+
+        .visit-main-icon-green {
+          background-color: #56c2aa;
+        }
+
+        .visit-main-icon-blue {
+          background-color: #4694c2;
+        }
+
+        .visit-main-icon-orange {
+          background-color: #f06a46;
+        }
+
+        .visit-main-icon-yellow {
+          background-color: #f0ae46;
+        }
+      </style>
+    </head>
+
+    <body>
+      <div id="app">
         <el-row class="data-show">
           <el-col :span="4">
             <el-card>
@@ -75,43 +131,53 @@
               <ul class="visit-list">
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
-                    <img class="visit-list-image" src="../../images/edit.png" alt="">
+                    <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myReception.png" alt="">
                     <span>来访总数</span>
                   </p>
                   <span class="list-number">3个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
-                    <img class="visit-list-image" src="../../images/edit.png" alt="">
+                    <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_follow.png" alt="">
                     <span>待跟进</span>
                   </p>
-                  <span class="list-number">1个</span>
+                  <span class="list-number">3个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
-                    <img class="visit-list-image" src="../../images/edit.png" alt="">
+                    <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_resolved.png" alt="">
                     <span>已解决</span>
                   </p>
-                  <span class="list-number">4个</span>
+                  <span class="list-number">3个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
-                    <img class="visit-list-image" src="../../images/edit.png" alt="">
+                    <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_oftenVisit.png" alt="">
                     <span>高频来访</span>
                   </p>
-                  <span class="list-number">0个</span>
+                  <span class="list-number">3个</span>
                 </li>
+
               </ul>
             </el-card>
           </el-col>
           <el-col :span="14" class="visit-main">
             <el-card>
-              <p>当月群众来访</p>
+              <div class="visit-main-title">
+                <span>案件管理流程-所领导</span>
+
+                <p class="visit-main-icon-list">
+                  <span class="visit-main-icon-block visit-main-icon-green"></span>
+                  <span class="visit-main-icon-item">所领导</span>
+
+                </p>
+              </div>
+              <img class="visit-main-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/sld.png" alt="" width="100%">
             </el-card>
           </el-col>
           <el-col :span="6">
             <el-card>
-              <p>当月群众来访</p>
+              <p>当月案件统计</p>
               <div id="chart"></div>
             </el-card>
           </el-col>
@@ -145,115 +211,153 @@
               </template>
             </el-table-column>
           </el-table>
-          <el-pagination @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页" next-text="下一页"
-            background layout="prev, pager, next">
+          <el-pagination v-if="pageCount" @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页"
+            next-text="下一页" background layout="prev, pager, next">
           </el-pagination>
         </el-card>
       </div>
-</body>
-<script src="tws/js/vue.js"></script>
-<script src="tws/js/axios.min.js"></script>
-<!-- 引入组件库 -->
-<script src="tws/js/element-ui.index.js"></script>
-<script src="tws/js/echarts.common.min.js"></script>
-<script>
-    new Vue({
-      el: '#app',
-      data: {
-        tableData: null,
-        loading: true,
-        curPage: 1,
-        pageNum: 10,
-        pageCount: 0
-      },
-      created() {
-        this.getLists()
-      },
-      mounted() {
-        this.initData()
-      },
-      methods: {
-        initData() {
-          var myChart = echarts.init(document.getElementById('chart'))
-          let option = {
-            // title: {
-            //   text: '当月案件统计',
-            //   x: 'left'
-            // },
-            color: ['#5694c2', '#fecb45', '#f15d5d'],
-            tooltip: {
-              trigger: 'item',
-              formatter: "{b} : {c} "
-            },
-            legend: {
-              left: 'center',
-              bottom: 0,
-              data: ['未审核', '已审核', '待处理']
-            },
-            series: [
-              {
-                name: '当月案件统计',
-                type: 'pie',
-                radius: '55%',
-                // center: ['50%', '60%'],
-                data: [
-                  { value: 335, name: '未审核' },
-                  { value: 310, name: '已审核' },
-                  { value: 234, name: '待处理' }
-                ],
-              }
-            ]
-          }
-          myChart.setOption(option)
+    </body>
+    <script src="tws/js/vue.js"></script>
+    <script src="tws/js/axios.min.js"></script>
+    <!-- 引入组件库 -->
+    <script src="tws/js/element-ui.index.js"></script>
+    <script src="tws/js/echarts.common.min.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          tableData: null,
+          loading: true,
+          curPage: 1,
+          pageNum: 10,
+          pageCount: 0
         },
-        getLists() {
-          this.loading = true
-          let url = 'getCase.do?method=getMyFollow&keyWord=' + this.searchTxt + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
-          axios.post(url).then(res => {
-            this.loading = false
-            let arr = res.data.list
-            if (!arr) return
-            arr.forEach(item => {
-              let curtTaskschedule = item.taskschedule
-              let curRemindersum = item.remindersum
-              // 案件进度处理，后台返回的是字符串且没有做位数处理
-              if (curtTaskschedule) {
-                if (curtTaskschedule.indexOf('.') > -1) {
-                  // item.taskschedule = parseFloat(parseFloat(cur).toFixed(2))
-                  item.taskschedule = parseInt(curtTaskschedule)
-                }
-              } else {
-                item.taskschedule = 0
-              }
-              // 催办次数，字符串转化为整型
-              item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
-              // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-              let rS = item.remindersum
-              if (rS < 1) {
-                item['sup_bac'] = 'sup_bac3'
-              } else if (rS < 4) {
-                item['sup_bac'] = 'sup_bac2'
-              } else {
-                item['sup_bac'] = 'sup_bac1'
-              }
-            })
-            this.tableData = arr
-            this.pageCount = res.data.pageCount
-          }).catch(err => {
-            this.loading = false
-          })
-        },
-        handleCurrentChange(val) {
-          console.log(`当前页: ${val}`);
-          this.curPage = val
+        created() {
           this.getLists()
         },
-        toDetail(casenumber) {
-          var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
-          matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
+        mounted() {
+          this.initData()
         },
-      }
-    })
-  
-  </script>
-</html>
+        methods: {
+          initData() {
+            var myChart = echarts.init(document.getElementById('chart'))
+            let option = {
+              title: {
+                text: '{a|40}{b| -件}\n{c|当月案件}',
+                x: 'center',
+                y: 'center',
+                textStyle: {
+                  rich: {
+                    a: {
+                      fontSize: 40,
+                      fontWeight: 600,
+                      color: '#888'
+                    },
+                    b: {
+                      fontSize: 16,
+                    },
+                    c: {
+                      fontSize: 14,
+                      lineHeight: 20
+                    },
+                  }
+                }
+              },
+              color: ['#5694c2', '#fecb45', '#f15d5d'],
+              tooltip: {
+                trigger: 'item',
+                formatter: "{b} : {c} "
+              },
+              legend: {
+                left: 'center',
+                bottom: 0,
+                data: ['未审核', '已审核', '待处理']
+              },
+              series: [
+                {
+                  name: '当月案件统计',
+                  type: 'pie',
+                  radius: '55%',
+                  // center: ['50%', '60%'],
+                  radius: ['40%', '70%'],
+                  data: [
+                    {
+                      value: 335, name: '未审核',
+                      label: {
+                        normal: {
+                          formatter: '{c}'
+                        }
+                      }
+                    },
+                    {
+                      value: 310, name: '已审核', label: {
+                        normal: {
+                          formatter: '{c}'
+                        }
+                      }
+                    },
+                    {
+                      value: 234, name: '待处理', label: {
+                        normal: {
+                          formatter: '{c}'
+                        }
+                      }
+                    }
+                  ],
+                }
+              ]
+            }
+            myChart.setOption(option)
+          },
+          getLists() {
+            this.loading = true
+            let url = 'getCase.do?method=getMyFollow&curPage=' + this.curPage + '&pageNum=' + this.pageNum
+            axios.post(url).then(res => {
+              this.loading = false
+              let arr = res.data.list
+              if (!arr) return
+              arr.forEach(item => {
+                let curtTaskschedule = item.taskschedule
+                let curRemindersum = item.remindersum
+                // 案件进度处理，后台返回的是字符串且没有做位数处理
+                if (curtTaskschedule) {
+                  if (curtTaskschedule.indexOf('.') > -1) {
+                    // item.taskschedule = parseFloat(parseFloat(cur).toFixed(2))
+                    item.taskschedule = parseInt(curtTaskschedule)
+                  }
+                } else {
+                  item.taskschedule = 0
+                }
+                // 催办次数，字符串转化为整型
+                item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                // 处理催办次数的背景色 <1 3  1-3  2  >3 1
+                let rS = item.remindersum
+                if (rS < 1) {
+                  item['sup_bac'] = 'sup_bac3'
+                } else if (rS < 4) {
+                  item['sup_bac'] = 'sup_bac2'
+                } else {
+                  item['sup_bac'] = 'sup_bac1'
+                }
+              })
+              this.tableData = arr
+              this.pageCount = res.data.pageCount
+            }).catch(err => {
+              this.loading = false
+            })
+          },
+          handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+            this.curPage = val
+            this.getLists()
+          },
+          toDetail(casenumber) {
+            var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
+            matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
+          },
+        }
+      })
+
+    </script>
+
+    </html>

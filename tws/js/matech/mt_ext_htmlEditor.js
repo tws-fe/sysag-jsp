@@ -53,7 +53,7 @@ Ext.matech.HTMLEditor = Ext.extend(Ext.form.HtmlEditor, {
                     if (!imgform.form.isValid()) {return;}
                     imgform.form.submit({
                         waitMsg : '正在上传',
-                        url : MATECH_SYSTEM_WEB_ROOT + '/general.do?method=attachUpload&handler=ProjectBugHandler&indexTable=',
+                        url : MATECH_SYSTEM_WEB_ROOT + '/general.do?method=attachUpload&handler=ProjectBugHandler&indexTable=Test',
                         success : function(form, action) {
 
                             var element = document.createElement("img");
@@ -130,6 +130,7 @@ Ext.matech.HTMLEditor = Ext.extend(Ext.form.HtmlEditor, {
     },
     createToolbar : function(editor) {
     	Ext.matech.HTMLEditor.superclass.createToolbar.call(this, editor);
+    	/*
         this.tb.insertButton(16, {
         			id:'pic',
                     cls : "x-html-editor-tip",
@@ -138,7 +139,7 @@ Ext.matech.HTMLEditor = Ext.extend(Ext.form.HtmlEditor, {
                     tooltip: '上传图片',
                     scope : this
                 });
-
+         */
     }
 });
 
@@ -149,8 +150,7 @@ Ext.QuickTips.register({
 	text:'ddd'
 });*/
 
-
-
+/*
 Ext.EmoteChooser = function(config){
     Ext.EmoteChooser.superclass.constructor.call(this, config);
     this.addEvents(
@@ -237,4 +237,4 @@ Ext.menu.EmoteMenu = function(config){
     this.relayEvents(ci, ["select"]);
 };
 Ext.extend(Ext.menu.EmoteMenu, Ext.menu.Menu);
-
+*/
