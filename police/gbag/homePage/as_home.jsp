@@ -11,17 +11,29 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/police/gbag/homePage/css/home.css">
             <style>
-                    [v-cloak] {
-                      display: none;
-                    }
-                  </style>
+                [v-cloak] {
+                    display: none;
+                }
+
+                .bar-container {
+                    position: relative;
+                }
+
+                #bar {
+                    width: 94%;
+                    height: 240px;
+                    /*background-color: #c09;*/
+                    position: absolute;
+                    bottom: -14px;
+                }
+            </style>
         </head>
 
         <body>
             <div id="app" v-cloak>
                 <el-row class="data-show">
                     <el-col :span="4">
-                        <el-card>
+                        <el-card class="bar-container">
                             <p class="visit-title">关键指标统计</p>
                             <ul class="visit-list">
                                 <li class="visit-list-item">
@@ -39,6 +51,7 @@
                                     <span class="list-number">1个</span>
                                 </li>
                             </ul>
+                            <div id="bar"></div>
                         </el-card>
                     </el-col>
                     <el-col :span="14" class="visit-main">
@@ -47,7 +60,7 @@
                                 <span>案件管理流程-案审大队</span>
 
                                 <p class="visit-main-icon-list">
-                                    <span class="visit-main-icon-block visit-main-icon-orange"></span>
+                                    <span class="visit-main-icon-block visit-main-icon-yellow"></span>
                                     <span class="visit-main-icon-item">案审大队</span>
                                 </p>
                             </div>
@@ -62,7 +75,7 @@
                     </el-col>
                 </el-row>
                 <el-card v-loading="loading" class="follow_card">
-                        <p class="follow_card_title">我的关注</p>
+                    <p class="follow_card_title">我的关注</p>
                     <el-table :data="tableData" stripe border style="width: 100%">
                         <!-- <el-table-column type="selection" width="58" align="center"></el-table-column> -->
                         <el-table-column fixed label="序号" type="index" width="55" align="center"></el-table-column>
@@ -116,11 +129,47 @@
                     this.getLists()
                 },
                 mounted() {
-                    this.initData()
+                    this.initPie()
+                    this.initBar()
                 },
                 methods: {
-                    initData() {
-                        var myChart = echarts.init(document.getElementById('chart'))
+                    initBar() {
+                        let barChart = echarts.init(document.getElementById('bar'))
+                        let option = {
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: ['未完成', '已完成']
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    data: ['派出所A', '派出所B', '派出所C']
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value'
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '未完成',
+                                    type: 'bar',
+                                    data: [23.2, 25.6, 76.7]
+                                },
+                                {
+                                    name: '已完成',
+                                    type: 'bar',
+                                    data: [26.4, 28.7, 70.7]
+                                }
+                            ]
+                        }
+                        barChart.setOption(option)
+                    },
+                    initPie() {
+                        let pieChart = echarts.init(document.getElementById('chart'))
                         let option = {
                             title: {
                                 text: '{a|40}{b| -件}\n{c|当月案件}',
@@ -151,7 +200,7 @@
                             legend: {
                                 left: 'center',
                                 bottom: 0,
-                                data: ['未审核', '已审核', '待处理']
+                                data: ['待处理', '未审核', '已审核']
                             },
                             series: [
                                 {
@@ -162,7 +211,7 @@
                                     radius: ['40%', '70%'],
                                     data: [
                                         {
-                                            value: 335, name: '未审核',
+                                            value: 335, name: '待处理',
                                             label: {
                                                 normal: {
                                                     formatter: '{c}'
@@ -177,7 +226,7 @@
                                             }
                                         },
                                         {
-                                            value: 234, name: '待处理', label: {
+                                            value: 234, name: '未审核', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
@@ -187,7 +236,7 @@
                                 }
                             ]
                         }
-                        myChart.setOption(option)
+                        pieChart.setOption(option)
                     },
                     getLists() {
                         this.loading = true

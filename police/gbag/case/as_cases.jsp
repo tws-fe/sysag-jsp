@@ -97,8 +97,8 @@
     }
     .addimg{
         position: absolute;
-        top: -45px;
-        left: 210px;
+        top: 14px;
+        left: 20px;
         z-index: 10;
         cursor: pointer;
     }
@@ -130,6 +130,7 @@
                     <el-button plain @click="select"><i class="el-icon-search"></i>&nbsp;&nbsp;查询</el-button>
                     <el-button plain  @click="refurbish"><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>
                     <el-button plain @click="downloadSheet"><i class="el-icon-download">&nbsp;&nbsp;导出</i></el-button>
+                    <el-button plain @click="clSure"><i class="el-icon-download">&nbsp;&nbsp;材料确认</i></el-button>
                     <!-- <el-button @click="postCase" plain><i class="el-icon-edit" ></i>&nbsp;&nbsp;交案</el-button> -->
                     <el-button plain v-if="listShow==true" @click="listDown"><i class="el-icon-arrow-down"></i>&nbsp;&nbsp;隐藏任务</el-button>
                     <el-button plain v-else @click="listUp"><i class="el-icon-arrow-up"></i>&nbsp;&nbsp;显示任务</el-button>
@@ -188,14 +189,9 @@
 
         <!--任务-->
         <div class="task" style="margin-top:65px" v-if="listShow==true">
-           
-            <%--任务类别--%>
-            <div>
-                <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
-                    <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                        <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
-                        <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385"
+                        <img @click="addTask" v-show="imgShow == true" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
+                        <el-table ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385"
                                   border stripe
                                   @selection-change="handleSelectionChange">
                             <el-table-column label="" width="58" fixed="left">
@@ -230,45 +226,6 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                    </el-tab-pane>
-                    <el-tab-pane label="案审任务" name="second">
-                        <el-table ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385"
-                                  border stripe
-                                  @selection-change="handleSelectionChange">
-                            <el-table-column label="" width="58" fixed="left">
-
-                            </el-table-column>
-                            <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
-                            <el-table-column label="任务状态" width="118" fixed="left">
-                                <template slot-scope="scope">
-                                    <!-- <el-button v-if="scope.row.state == 0" type="text">执行中</el-button> -->
-                                    <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
-                                    <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
-                                    <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
-                                </template>
-                            </el-table-column >
-                            <el-table-column label="催办次数" width="85" fixed="left">
-                                <template slot-scope="scope">
-                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac" ></el-badge>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
-                            <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="taskresult" label="处理结果"  width="400"></el-table-column>
-                            <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                            <el-table-column prop="handletime" label="办理时间" width="184"></el-table-column>
-                            <el-table-column prop="ispaper" label="是否有材料" width="167"></el-table-column>
-                            <el-table-column label="操作" min-width="280" width="200" fixed="right">
-                                <template slot-scope="scope">
-                                    <!-- <el-button v-show="scope.row.state == 0" type="text" @click="del(scope.row.uuid)">删除</el-button> -->
-                                    <el-button type="text" @click="look(scope.row.uuid,true,'true')">查看</el-button>
-                                    <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
-                                    <el-button v-show="scope.row.state == 0" type="text">催办</el-button> -->
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </el-tab-pane>
-                </el-tabs>
             </div>
 
         </div>
@@ -433,6 +390,8 @@
                 axios.get('getCase.do?method=getCaseReviewList&curPage='+this.currentPage2+'&pageNum='+this.pageNum+'&contain='+this.selectValue2)
                     .then( response => {
                     let data = response.data
+                    console.log(data)
+          
                     if(data.list == null){
                     this.tableData3 = data
                     
@@ -484,7 +443,8 @@
             select(){
                 this.selectValue2 = this.selectValue
                 this.currentPage2 = 1
-                this.rowClick('')
+                console.log(this.selectValue2)
+                this.rowClick(this.selectValue2)
                 this.handleCurrentChange()
 
             },
@@ -906,7 +866,7 @@
                                     this.rowClick(val)
                                 }else{
                                     this.rowClick(val)
-                                    this.handleCurrentChange()
+                                
                                 }
                              }else{
                         
@@ -924,6 +884,53 @@
             refurbish(){
                  //this.currentPage2 = 1
                  this.handleCurrentChange()
+            },
+            clSure(){
+                if (!this.multipleSelection.length) {
+                            this.$message({
+                                type: 'warning',
+                                message: '请选择案件',
+                                duration: 1000
+                            })
+                            return
+                        }
+                        let caseNumStr = ''
+                        let isSubmitcase = null
+                        this.multipleSelection.forEach(item => {
+                            caseNumStr += item.casenumber + ','
+                           
+                        })
+                       
+                        let str = caseNumStr.substr(0, caseNumStr.length - 1) + '&editType=2'
+                        axios.post('getCase.do?method=caseTransfer', {
+                            casenumber: caseNumStr,
+                            editType: '2'
+                        }).then(res => {
+                            // this.$message
+                            console.log(res)
+                            if (res.data === 1) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '案件确认成功',
+                                    duration: 1000
+                                })
+                                this.handleCurrentChange() 
+                                // 本地数据处理
+                                // this.multipleSelection.forEach(item => {
+                                //     let caseNo = item.casenumber
+                                //     let index = this.tableData.findIndex(item => {
+                                //         return item.casenumber === caseNo
+                                //     })
+                                //     this.tableData.splice(index,1)
+                                // })
+
+                                // 把最后一页的数据都删除
+                                if (this.multipleSelection.length == this.tableData.length && this.curPage == this.pageCount) {
+                                    this.curPage--
+                                }
+                                this.getLists()
+                            }
+                        })
             }
         
         },

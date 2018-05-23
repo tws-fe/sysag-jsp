@@ -22,9 +22,9 @@
                 <el-row class="data-show">
                     <el-col :span="4">
                         <el-card>
-                            <p class="visit-title">关键指标统计</p>
+                            <p class="visit-title">当月群众来访</p>
                             <ul class="visit-list">
-                                <li class="visit-list-item">
+                              <%--   <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_supervise.png" alt="">
                                         <span>案件监管</span>
@@ -37,7 +37,7 @@
                                         <span>待办案件</span>
                                     </p>
                                     <span class="list-number">1个</span>
-                                </li>
+                                </li> --%>
                                 <li class="visit-list-item visit-list-item-mt20">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myVisit.png" alt="">
@@ -52,14 +52,14 @@
                                     </p>
                                     <span class="list-number">0个</span>
                                 </li>
-                                <li class="visit-list-item">
+                                <%-- <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_visitStatistics.png"
                                             alt="">
                                         <span>来访统计</span>
                                     </p>
                                     <span class="list-number">0个</span>
-                                </li>
+                                </li> --%>
                             </ul>
                         </el-card>
                     </el-col>
@@ -151,7 +151,7 @@
                         var myChart = echarts.init(document.getElementById('chart'))
                         let option = {
                             title: {
-                                text: '{a|40}{b| -件}\n{c|当月案件}',
+                                text: '{a|60}{b| -件}\n{c|当月案件}',
                                 x: 'center',
                                 y: 'center',
                                 textStyle: {
@@ -171,7 +171,7 @@
                                     }
                                 }
                             },
-                            color: ['#5694c2', '#fecb45', '#f15d5d'],
+                            color: [ '#f15d5d', '#fecb45','#5694c2'],
                             tooltip: {
                                 trigger: 'item',
                                 formatter: "{b} : {c} "
@@ -179,7 +179,7 @@
                             legend: {
                                 left: 'center',
                                 bottom: 0,
-                                data: ['未审核', '已审核', '待处理']
+                                data: ['待处理','未审核', '已审核' ]
                             },
                             series: [
                                 {
@@ -190,7 +190,7 @@
                                     radius: ['40%', '70%'],
                                     data: [
                                         {
-                                            value: 335, name: '未审核',
+                                            value: 30, name:'待处理' ,
                                             label: {
                                                 normal: {
                                                     formatter: '{c}'
@@ -198,14 +198,14 @@
                                             }
                                         },
                                         {
-                                            value: 310, name: '已审核', label: {
+                                            value: 20, name: '未审核', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
                                             }
                                         },
                                         {
-                                            value: 234, name: '待处理', label: {
+                                            value: 10, name: '已审核', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }

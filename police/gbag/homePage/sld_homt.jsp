@@ -29,7 +29,7 @@
                     <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myReception.png" alt="">
                     <span>来访总数</span>
                   </p>
-                  <span class="list-number">3个</span>
+                  <span class="list-number">6个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
@@ -139,7 +139,7 @@
             var myChart = echarts.init(document.getElementById('chart'))
             let option = {
               title: {
-                text: '{a|40}{b| -件}\n{c|当月案件}',
+                text: '{a|50}{b| -件}\n{c|当月案件}',
                 x: 'center',
                 y: 'center',
                 textStyle: {
@@ -159,7 +159,7 @@
                   }
                 }
               },
-              color: ['#5694c2', '#fecb45', '#f15d5d'],
+              color: ['#f15d5d','#fecb45','#5694c2' ],
               tooltip: {
                 trigger: 'item',
                 formatter: "{b} : {c} "
@@ -167,7 +167,7 @@
               legend: {
                 left: 'center',
                 bottom: 0,
-                data: ['未审核', '已审核', '待处理']
+                data: ['待处理','未审核', '已审核' ]
               },
               series: [
                 {
@@ -178,7 +178,7 @@
                   radius: ['40%', '70%'],
                   data: [
                     {
-                      value: 335, name: '未审核',
+                      value: 18, name: '待处理',
                       label: {
                         normal: {
                           formatter: '{c}'
@@ -186,14 +186,14 @@
                       }
                     },
                     {
-                      value: 310, name: '已审核', label: {
+                      value: 16, name: '未审核', label: {
                         normal: {
                           formatter: '{c}'
                         }
                       }
                     },
                     {
-                      value: 234, name: '待处理', label: {
+                      value: 16, name: '已审核', label: {
                         normal: {
                           formatter: '{c}'
                         }

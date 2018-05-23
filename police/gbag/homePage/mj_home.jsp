@@ -14,6 +14,25 @@
                 [v-cloak] {
                     display: none;
                 }
+
+                .pie-btn {
+                    padding: 0;
+                }
+
+                .pie-container {
+                    position: relative;
+                }
+
+                .pie-title-btn {
+                    position: absolute;
+                    top: 10px;
+                    z-index: 999;
+                    margin-bottom: 10px;
+                }
+
+                #chart {
+                    transform: translateY(-44px);
+                }
             </style>
         </head>
 
@@ -66,14 +85,17 @@
                         </el-card>
                     </el-col>
                     <el-col :span="6">
-                        <el-card>
-                            <p>案件统计</p>
-                            <div id="chart"></div>
+                        <el-card class="pie-container">
+                            <p class="pie-title-btn">
+                                <el-button type="text" class="pie-btn" @click="changePie(1)">当月案件统计</el-button>
+                                <el-button type="text" class="pie-btn" @click="changePie(2)">当月任务统计</el-button>
+                                </p2>
+                                <div id="chart"></div>
                         </el-card>
                     </el-col>
                 </el-row>
                 <el-card v-loading="loading" class="follow_card">
-                        <p class="follow_card_title">我的关注</p>
+                    <p class="follow_card_title">我的关注</p>
                     <el-table :data="tableData" stripe border style="width: 100%">
                         <!-- <el-table-column type="selection" width="58" align="center"></el-table-column> -->
                         <el-table-column fixed label="序号" type="index" width="55" align="center"></el-table-column>
@@ -121,77 +143,153 @@
                     loading: true,
                     curPage: 1,
                     pageNum: 10,
-                    pageCount: 0
+                    pageCount: 0,
+                    pieIndex: 1,
+                    myChart: null
                 },
                 created() {
                     this.getLists()
                 },
                 mounted() {
+                    this.myChart = echarts.init(document.getElementById('chart'))
                     this.initData()
                 },
                 methods: {
                     initData() {
-                        var myChart = echarts.init(document.getElementById('chart'))
-                        let option = {
-                            title: {
-                                text: '{a|40}{b| -件}\n{c|当月案件}',
-                                x: 'center',
-                                y: 'center',
-                                textStyle: {
-                                    rich: {
-                                        a: {
-                                            fontSize: 40,
-                                            fontWeight: 600,
-                                            color: '#888'
-                                        },
-                                        b: {
-                                            fontSize: 16,
-                                        },
-                                        c: {
-                                            fontSize: 14,
-                                            lineHeight: 20
-                                        },
-                                    }
-                                }
-                            },
-                            color: ['#5694c2', '#fecb45', '#f15d5d'],
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: "{b} : {c} "
-                            },
-                            legend: {
-                                left: 'center',
-                                bottom: 0,
-                                data: ['普通任务', '案审任务']
-                            },
-                            series: [
+                        console.log(this.pieIndex)
+                        let option = {}
+                        if (this.pieIndex === 1) {
+                            option =
                                 {
-                                    name: '当月案件统计',
-                                    type: 'pie',
-                                    radius: '55%',
-                                    // center: ['50%', '60%'],
-                                    radius: ['40%', '70%'],
-                                    data: [
-                                        {
-                                            value: 335, name: '普通任务',
-                                            label: {
-                                                normal: {
-                                                    formatter: '{c}'
-                                                }
-                                            }
-                                        },
-                                        {
-                                            value: 310, name: '案审任务', label: {
-                                                normal: {
-                                                    formatter: '{c}'
-                                                }
+                                    title: {
+                                        text: '{a|40}{b| -件}\n{c|当月案件}',
+                                        x: 'center',
+                                        y: 'center',
+                                        textStyle: {
+                                            rich: {
+                                                a: {
+                                                    fontSize: 40,
+                                                    fontWeight: 600,
+                                                    color: '#888'
+                                                },
+                                                b: {
+                                                    fontSize: 16,
+                                                },
+                                                c: {
+                                                    fontSize: 14,
+                                                    lineHeight: 20
+                                                },
                                             }
                                         }
-                                    ],
+                                    },
+                                    color: ['#5694c2', '#fecb45', '#f15d5d'],
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: "{b} : {c} "
+                                    },
+                                    legend: {
+                                        left: 'center',
+                                        bottom: 0,
+                                        data: ['未完成', '已完成']
+                                    },
+                                    series: [
+                                        {
+                                            name: '当月案件统计',
+                                            type: 'pie',
+                                            radius: '55%',
+                                            // center: ['50%', '60%'],
+                                            radius: ['40%', '70%'],
+                                            data: [
+                                                {
+                                                    value: 335, name: '未完成',
+                                                    label: {
+                                                        normal: {
+                                                            formatter: '{c}'
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    value: 310, name: '已完成', label: {
+                                                        normal: {
+                                                            formatter: '{c}'
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                        }
+                                    ]
                                 }
-                            ]
+
+                        } else {
+                            option =
+                                {
+                                    title: {
+                                        text: '{a|40}{b| -件}\n{c|当月任务}',
+                                        x: 'center',
+                                        y: 'center',
+                                        textStyle: {
+                                            rich: {
+                                                a: {
+                                                    fontSize: 40,
+                                                    fontWeight: 600,
+                                                    color: '#888'
+                                                },
+                                                b: {
+                                                    fontSize: 16,
+                                                },
+                                                c: {
+                                                    fontSize: 14,
+                                                    lineHeight: 20
+                                                },
+                                            }
+                                        }
+                                    },
+                                    color: ['#5694c2', '#fecb45', '#f15d5d'],
+                                    tooltip: {
+                                        trigger: 'item',
+                                        formatter: "{b} : {c} "
+                                    },
+                                    legend: {
+                                        left: 'center',
+                                        bottom: 0,
+                                        data: ['普通任务', '案审任务']
+                                    },
+                                    series: [
+                                        {
+                                            name: '当月任务统计',
+                                            type: 'pie',
+                                            radius: '55%',
+                                            // center: ['50%', '60%'],
+                                            radius: ['40%', '70%'],
+                                            data: [
+                                                {
+                                                    value: 335, name: '普通任务',
+                                                    label: {
+                                                        normal: {
+                                                            formatter: '{c}'
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    value: 310, name: '案审任务', label: {
+                                                        normal: {
+                                                            formatter: '{c}'
+                                                        }
+                                                    }
+                                                }
+                                            ],
+                                        }
+                                    ]
+                                }
+
+
                         }
-                        myChart.setOption(option)
+                        console.log(option, this.pieIndex)
+                        this.myChart.setOption(option)
+                    },
+                    changePie(index) {
+                        this.pieIndex = index
+                        this.initData()
                     },
                     getLists() {
                         this.loading = true
@@ -230,6 +328,7 @@
                             this.loading = false
                         })
                     },
+
                     handleCurrentChange(val) {
                         console.log(`当前页: ${val}`);
                         this.curPage = val
