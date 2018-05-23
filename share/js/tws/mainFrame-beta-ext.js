@@ -687,6 +687,14 @@ MainIndex.buildLayout = function() {
 		MainIndex.addToolbar(ajjdTool);
 
 	}else if(userRoleName.indexOf("案审")>=0){
+		var asrwTool=new MainToolbar("asrw","案审任务");
+		asrwTool.setMenuId("10001630");
+		asrwTool.setIcon(CONTEXTPATH+"share/homeImg/ajqrb.png");
+		asrwTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseReview");
+		asrwTool.setIsSysBar(true);
+		MainIndex.toolsMap["asrw"]=asrwTool;
+		MainIndex.toolsMap2["10001630"]=asrwTool;		
+		MainIndex.addToolbar(asrwTool);
 		
 	}else if(userRoleName.indexOf("民警")>=0){
 		var wdajTool=new MainToolbar("wdaj","我的案件");

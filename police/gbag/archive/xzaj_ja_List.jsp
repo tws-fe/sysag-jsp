@@ -41,11 +41,15 @@
         .el-table__empty-block {
             height: 0;
         }
+        [v-cloak] {
+            display: none;
+                    }
+
     </style>
 </head>
 
 <body>
-<div id="app">
+<div id="app" v-cloak>
     <div class="follow-head">
         <span>交案状态：</span>
         <el-select v-model="caseStatus" placeholder="请选择">
@@ -67,7 +71,10 @@
             <!-- <img src="../../images/edit.png" alt="">  -->案件催交
         </el-button>
         <el-button plain @click="ajConfirm">
-            <!-- <img src="../../images/edit.png" alt="">  -->案件确认
+            <!-- <img src="../../images/edit.png" alt="">  -->交案确认
+        </el-button>
+        <el-button plain @click="refurbish">
+                <!-- <img src="../../images/edit.png" alt="">  -->刷新
         </el-button>
     </div>
     <div v-loading="loading">
@@ -79,9 +86,9 @@
                     <el-progress :percentage="scope.row.taskschedule"></el-progress>
                 </template>
             </el-table-column>
-            <el-table-column fixed label="催办次数" width="85" align="center">
+            <el-table-column fixed label="催交次数" width="85" align="center">
                 <template slot-scope="scope">
-                    <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac"></el-badge>
+                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                 </template>
             </el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="180" align="center"></el-table-column>
@@ -92,7 +99,7 @@
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145" align="center"></el-table-column>
             <el-table-column prop="ishandovername" label="是否交案" width="150" align="center"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200" align="center"></el-table-column>
-            <el-table-column prop="attendingState" label="办理状态" width="200" align="center"></el-table-column>
+            <!-- <el-table-column prop="attendingState" label="办理状态" width="200" align="center"></el-table-column> -->
             <el-table-column fixed="right" label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看更多</el-button>
@@ -109,6 +116,7 @@
 <script src="tws/js/axios.min.js"></script>
 <!-- 引入组件库 -->
 <script src="tws/js/element-ui.index.js"></script>
+<script src="tws/js/xlsx.full.min.js"></script>
 <script>
 
     new Vue({
@@ -137,6 +145,7 @@
             getLists() {
                 this.loading = true
                 let url = 'getCase.do?method=getHandOverUnConfirmList&caseStatus=' + this.caseStatus + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum+'&contain='+this.searchTxt
+                console.log(url)
                 axios.post(url).then(res => {
                     this.loading = false
                 console.log(res.data)
@@ -149,7 +158,7 @@
                 if (!arr) return
                 arr.forEach(item => {
                     let curtTaskschedule = item.taskschedule
-                    let curRemindersum = item.remindersum
+                    let curRemindersum = item.icount
                     // 案件进度处理，后台返回的是字符串且没有做位数处理
                     if (curtTaskschedule) {
                         if (curtTaskschedule.indexOf('.') > -1) {
@@ -160,9 +169,9 @@
                         item.taskschedule = 0
                 }
                 // 催办次数，字符串转化为整型
-                item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                item.icount = curRemindersum ? parseInt(curRemindersum) : 0
                 // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-                let rS = item.remindersum
+                let rS = item.icount
                 if (rS < 1) {
                     item['sup_bac'] = 'sup_bac3'
                 } else if (rS < 4) {
@@ -199,7 +208,7 @@
                     arr.push({
                     '序号': index + 1,
                     '案件进度': item.taskschedule,
-                    '催办次数': item.remindersum,
+                    '催办次数': item.icount,
                     '案件编号': item.casenumber,
                     '案件类型': item.casetype,
                     '案件性质': item.casenaturename,
@@ -239,9 +248,21 @@
                     return
                 }
                 let caseNumStr = ''
+                let isSubmitcase = null
                 this.multipleSelection.forEach(item => {
                     caseNumStr += item.casenumber + ','
+                    if(item.ishandovername !='已提交'){
+                        isSubmitcase = false
+                    }
                 })
+                if(isSubmitcase == false){
+                    this.$message({
+                        type: 'warning',
+                        message: '您所选的案件包含未交案或已确认，无法案件确认',
+                        duration: 1000
+                    })
+                    return false
+                }
                 let str = caseNumStr.substr(0, caseNumStr.length - 1)+'&editType=2'
                 axios.post('getCase.do?method=caseTransfer',{
                     casenumber:caseNumStr,
@@ -283,12 +304,25 @@
                     return
                 }
                 let caseNumStr = ''
+                let iscj = null
                 this.multipleSelection.forEach(item => {
                     caseNumStr += item.casenumber + ','
+                    if(item.ishandovername !='未交案'){
+                        iscj = false
+                    }
                 })
+                if(iscj == false){
+                    this.$message({
+                        type: 'warning',
+                        message: '案件已交案，无法催交',
+                        duration: 1000
+                    })
+                    return false
+                }
                 let str = caseNumStr.substr(0, caseNumStr.length - 1)
                 axios.post('getCase.do?method=caseExpediting&casenumber=' + str).then(res => {
                     // this.$message
+                    console.log(res)
                     if(res.data == -1){
                     this.$message.error('没有主办民警');
                 }else if (res.data === 1) {
@@ -315,6 +349,9 @@
                     this.$message.error('催交失败，请重试');
                 }
             })
+            },
+            refurbish(){
+                this.getLists()
             }
 
 
