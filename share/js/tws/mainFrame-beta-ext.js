@@ -543,7 +543,7 @@ MainIndex.buildLayout = function() {
 		var wdgzTool=new MainToolbar("wdgz","我的关注");
 		wdgzTool.setMenuId("10001626");
 		wdgzTool.setIcon(CONTEXTPATH+"share/homeImg/wdgz.png");
-		wdgzTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		wdgzTool.setUrl(CONTEXTPATH+"getCase.do?method=toSeeMyFollow");
 		wdgzTool.setIsSysBar(true);
 		MainIndex.toolsMap["wdgz"]=wdgzTool;
 		MainIndex.toolsMap2["10001626"]=wdgzTool;
@@ -571,7 +571,7 @@ MainIndex.buildLayout = function() {
 		var wdgzTool=new MainToolbar("wdgz","我的关注");
 		wdgzTool.setMenuId("10001626");
 		wdgzTool.setIcon(CONTEXTPATH+"share/homeImg/wdgz.png");
-		wdgzTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		wdgzTool.setUrl(CONTEXTPATH+"getCase.do?method=toSeeMyFollow");
 		wdgzTool.setIsSysBar(true);
 		MainIndex.toolsMap["wdgz"]=wdgzTool;
 		MainIndex.toolsMap2["10001626"]=wdgzTool;
@@ -613,20 +613,20 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001630"]=ajqrbTool;		
 		MainIndex.addToolbar(ajqrbTool);
 		
-		var kywpTool=new MainToolbar("kywp","扣押物品");
+		/*var kywpTool=new MainToolbar("kywp","扣押物品");
 		kywpTool.setMenuId("10001631");
 		kywpTool.setIcon(CONTEXTPATH+"share/homeImg/kywp.png");
 		kywpTool.setUrl(CONTEXTPATH+"jingan.do?method=caseInfoList&formType=ZFSP");
 		kywpTool.setIsSysBar(true);
 		MainIndex.toolsMap["kywp"]=kywpTool;
 		MainIndex.toolsMap2["10001631"]=kywpTool;		
-		MainIndex.addToolbar(kywpTool);
-		console.log(2);
+		MainIndex.addToolbar(kywpTool);*/
+		
 	} else if(userRoleName.indexOf("案管专员")>=0){
 		var xzjaTool=new MainToolbar("xzja","行政交案确认");
 		xzjaTool.setMenuId("10001620");
 		xzjaTool.setIcon(CONTEXTPATH+"share/homeImg/xzja.png");
-		xzjaTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		xzjaTool.setUrl(CONTEXTPATH+"getCase.do?method=toXZHandCase");
 		xzjaTool.setIsSysBar(true);
 		MainIndex.toolsMap["xzja"]=xzjaTool;
 		MainIndex.toolsMap2["10001620"]=xzjaTool;
@@ -668,18 +668,18 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001624"]=zkdaTool;
 		MainIndex.addToolbar(zkdaTool);
 		
-		var kywpTool=new MainToolbar("kywp","扣押物品");
+		/*var kywpTool=new MainToolbar("kywp","扣押物品");
 		kywpTool.setMenuId("10001625");
 		kywpTool.setIcon(CONTEXTPATH+"share/homeImg/kywp.png");
 		kywpTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
 		kywpTool.setIsSysBar(true);
 		MainIndex.toolsMap["kywp"]=kywpTool;
 		MainIndex.toolsMap2["10001625"]=kywpTool;
-		MainIndex.addToolbar(kywpTool);
+		MainIndex.addToolbar(kywpTool);*/
 		
 		var ajjdTool=new MainToolbar("ajjd","案件监督");
 		ajjdTool.setMenuId("10001626");
-		ajjdTool.setIcon(CONTEXTPATH+"share/homeImg/ajjd.png");
+		ajjdTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
 		ajjdTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseSupervise");
 		ajjdTool.setIsSysBar(true);
 		MainIndex.toolsMap["ajjd"]=ajjdTool;
@@ -725,14 +725,14 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001630"]=ajqrbTool;		
 		MainIndex.addToolbar(ajqrbTool);
 		
-		var kywpTool=new MainToolbar("kywp","扣押物品");
+		/*var kywpTool=new MainToolbar("kywp","扣押物品");
 		kywpTool.setMenuId("10001631");
 		kywpTool.setIcon(CONTEXTPATH+"share/homeImg/kywp.png");
 		kywpTool.setUrl(CONTEXTPATH+"jingan.do?method=caseInfoList&formType=ZFSP");
 		kywpTool.setIsSysBar(true);
 		MainIndex.toolsMap["kywp"]=kywpTool;
 		MainIndex.toolsMap2["10001631"]=kywpTool;		
-		MainIndex.addToolbar(kywpTool);
+		MainIndex.addToolbar(kywpTool);*/
 
 	}else{//内勤
 		console.log(6);

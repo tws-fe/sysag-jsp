@@ -45,6 +45,12 @@ Ext.onReady(function() {
 
 
 </script>
+<style>
+	/* 2018.05.23 去掉头部标签下的蓝色线 */
+.x-tab-panel-header {
+	border: 0;
+}
+</style>
 
 </head>
 
@@ -79,22 +85,22 @@ Ext.onReady(function() {
                                       <div class="col-xs-4 dropdown tisbox1" style="position:relative">
                                          <img  src="${ctx}/share/images/index/bz1.png"/>
 
-                                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                           <%-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                             
-                                            <li style="position:relative"><a href="javascript:MainIndex.openTab('menuHelpDocument','帮助文档','${pageContext.request.contextPath}/tws/help/helpMain.jsp');MainIndex.hideAllToolbar();">帮助文档</a>
+                                            <li style="position:relative"><a href="javascript:MainIndex.openTab('menuHelpDocument','帮助文档','${pageContext.request.contextPath}/tws/help/helpMain.jsp');">帮助文档</a>
                                              <div class="jiantou">
                                               <img src="${ctx}/share/images/index/867654318636691305.png">
                                             </div>
                                             </li>
-                                            <li><a href="javascript:MainIndex.openTab('menuOcxDownload','控件下载','${ctx}/ocx/downLoadOcx.jsp');MainIndex.hideAllToolbar();">控件下载</a></li>
-                                            <li><a href="javascript:MainIndex.openTab('menuFileDownload','文件下载','${ctx}/tws/help/fileDownload.jsp');MainIndex.hideAllToolbar();">文件下载</a></li>
+                                            <li><a href="javascript:MainIndex.openTab('menuOcxDownload','控件下载','${ctx}/ocx/downLoadOcx.jsp');">控件下载</a></li>
+                                            <li><a href="javascript:MainIndex.openTab('menuFileDownload','文件下载','${ctx}/tws/help/fileDownload.jsp');">文件下载</a></li>
                                         
-                                          </ul>
+                                          </ul> --%>
 
                                       </div>
                                       <div class="col-xs-4 tisbox" style="position:relative">
                                          <img  src="${ctx}/share/images/index/gr1.png"/>
-                                         <a class="tis" href="javascript:MainIndex.openTab('personalInfo','个人讯息维护','userNew.do?method=personEdit&flag=1');MainIndex.hideAllToolbar();">个人讯息</a>
+                                         <a class="tis" href="javascript:MainIndex.openTab('personalInfo','个人讯息维护','userNew.do?method=personEdit&flag=1');">个人讯息</a>
                                       </div>
                                       <div class="col-xs-4 tisbox" style="position:relative">
                                          <img src="${ctx}/share/images/index/tc2.png"/>

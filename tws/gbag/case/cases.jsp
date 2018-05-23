@@ -105,11 +105,13 @@
     .el-tabs__content{
         overflow: inherit;
     }
-
+    [v-cloak] {
+            display: none;
+              }
 
 </style>
 <body >
-    <div id="caseApp">
+    <div id="caseApp" v-cloak>
         <!--案件-->
         <div class="case">
         <el-row class="case_nav">

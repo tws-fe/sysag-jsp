@@ -106,13 +106,26 @@
         overflow: inherit;
     }
 
+    [v-cloak] {
+            display: none;
+                    }
+
 
 </style>
 <body >
-<div id="caseApp">
+<div id="caseApp"  v-cloak>
     <!--案件-->
     <div class="case">
         <el-row class="case_nav">
+         <el-col :span="4">
+                        <div class="case_nav_item">
+                            <span>交案状态：</span>
+                            <el-select v-model="caseStatus" placeholder="请选择">
+                                <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
+           </el-col>
             <el-col :span="4">
                 <div class="case_nav_item">
                     <span>呈案状态：</span>
@@ -131,8 +144,9 @@
             <el-col :span="12">
                 <div class="case_nav_item">
                     <el-button plain @click="select"><i class="el-icon-search"></i>&nbsp;&nbsp;查询</el-button>
-                    <%--<el-button plain><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>--%>
+                    <el-button plain @click="refurbish"><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>
                     <el-button plain @click="downloadSheet"><i class="el-icon-download">&nbsp;&nbsp;导出</i></el-button>
+                    <el-button @click="postCase" plain><i class="el-icon-edit" ></i>&nbsp;&nbsp;交案</el-button>
                     <el-button plain v-if="listShow==true" @click="listDown"><i class="el-icon-arrow-down"></i>&nbsp;&nbsp;隐藏任务</el-button>
                     <el-button plain v-else @click="listUp"><i class="el-icon-arrow-up"></i>&nbsp;&nbsp;显示任务</el-button>
                 </div>
@@ -157,13 +171,14 @@
                 </template>
             </el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
+            <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
-            <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
-            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
+            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column> 
+            <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>    
             <el-table-column fixed="right" label="操.作" min-width="280">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
@@ -193,7 +208,7 @@
             <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
                 <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                    <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
+                    <!-- <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/> -->
                     <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385"
                               border stripe
                               @selection-change="handleSelectionChange">
@@ -203,14 +218,14 @@
                         <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                         <el-table-column label="任务状态" width="118" fixed="left">
                             <template slot-scope="scope">
-                                <el-button v-if="scope.row.state == 0" type="text">执行中</el-button>
-                                <el-button v-else-if="scope.row.state == 1" type="text">已完成</el-button>
-                                <el-button v-else-if="scope.row.state == 2" type="text">案管已确认</el-button>
+                                <el-text v-if="scope.row.state == 0" type="text">执行中</el-text>
+                                <el-text v-else-if="scope.row.state == 1" type="text">已完成</el-text>
+                                <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
                             </template>
                         </el-table-column >
                         <el-table-column label="催办次数" width="85" fixed="left">
                             <template slot-scope="scope">
-                                <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac" ></el-badge>
+                                <el-badge :value="scope.row.icount" :class="scope.row.sup_bac" ></el-badge>
                             </template>
                         </el-table-column>
                         <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
@@ -240,14 +255,14 @@
                         <el-table-column label="任务状态" width="118" fixed="left">
                             <template slot-scope="scope">
                                 <!-- <el-button v-if="scope.row.state == 0" type="text">执行中</el-button> -->
-                                <el-button v-if="scope.row.state == 0" type="text">待签收</el-button>
-                                <el-button v-else-if="scope.row.state == 1" type="text">执行中</el-button>
-                                <el-button v-else-if="scope.row.state == 2" type="text">已确认</el-button>
+                                <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
+                                <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
+                                <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
                             </template>
                         </el-table-column >
                         <el-table-column label="催办次数" width="85" fixed="left">
                             <template slot-scope="scope">
-                                <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac" ></el-badge>
+                                <el-badge :value="scope.row.icount" :class="scope.row.sup_bac" ></el-badge>
                             </template>
                         </el-table-column>
                         <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
@@ -363,6 +378,9 @@
                 }, {
                     value: 'unCase',
                     label: '未交案'
+                }, {
+                    value: 'allJaCase',
+                    label: '所有案件'
                 }],
                 options2: [{
                     value: 'alreadyca',
@@ -509,12 +527,12 @@
                     console.log(data)
                 // 一般任务数据优化
                 data.list1.forEach(item => {
-                    let curRemindersum = item.remindersum
+                    let curRemindersum = item.icount
                     let iP = item.ispaper
                     // 催办次数，字符串转化为整型
-                    item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                    item.icount = curRemindersum ? parseInt(curRemindersum) : 0
                 // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-                let rS = item.remindersum
+                let rS = item.icount
                 if (rS < 1) {
                     item['sup_bac'] = 'sup_bac3'
                 } else if (rS < 4) {
@@ -534,12 +552,12 @@
             })
                 // 案审任务数据优化
                 data.list2.forEach(item => {
-                    let curRemindersum = item.remindersum
+                    let curRemindersum = item.icount
                     let iP = item.ispaper
                     // 催办次数，字符串转化为整型
-                    item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                    item.icount = curRemindersum ? parseInt(curRemindersum) : 0
                 // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-                let rS = item.remindersum
+                let rS = item.icount
                 if (rS < 1) {
                     item['sup_bac'] = 'sup_bac3'
                 } else if (rS < 4) {
@@ -633,9 +651,8 @@
                                 type: 'success'
                             });
                             //  console.log(this.currentRow)
+                            this.handleCurrentChange()
                             this.rowClick(this.currentRow)
-
-
                         }else{
                             this.$notify.error({
                                 title: '错误',
@@ -881,6 +898,72 @@
                     this.$message.error('请选择案件');
                 }
 
+            },
+            postCase(){
+                console.log(11);
+                console.log(this.multipleSelection);
+                let caseNumber = '';
+                let cftj = null;
+                let rwwc = null;
+                if(this.multipleSelection){
+                    this.multipleSelection.forEach((item,index) => {
+                        caseNumber = caseNumber+item.casenumber+',';                   
+                        if(item.ishandovername == "已提交"){
+                            cftj = false 
+                        }
+                        if(item.attendingState != "已完成"){
+                            rwwc = false
+                        }
+
+                    })
+                    if(cftj == false){
+                        this.$confirm('您所选择的案件包含已提交案件，请勿重复提交', '提示', {
+                            type: 'warning'
+                            }).then(() => {
+                            
+                            }).catch(() => {
+                                     
+                        });
+                        return false;
+                    }else if(rwwc == false){
+                            this.$confirm('您有未完成的任务，不能进行交案', '提示', {
+                            type: 'warning'
+                            }).then(() => {
+                            
+                            }).catch(() => {                                
+                         });
+                          return false;
+                        }
+
+                    axios.get('getCase.do?method=caseTransfer&casenumber='+caseNumber+'&editType=1')
+                        .then( response => {
+                             console.log(response)
+                             if(response.data == 1){
+                                this.$message({
+                                    type: 'success',
+                                    message: '交案成功!'
+                                });
+                            val = this.currentRow
+                            this.rowClick(val)
+                            this.handleCurrentChange()
+                            }else{
+                                this.$message.error('交案失败');
+                            
+                            }    
+                         })
+                        .catch(function (error) {
+                          
+                            });
+
+
+                }else{
+                    this.$message.error('请选择案件');
+                }
+                
+            },
+            refurbish(){
+                 //this.currentPage2 = 1
+                 this.handleCurrentChange()
             }
 
 

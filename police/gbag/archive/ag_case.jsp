@@ -9,6 +9,11 @@
             <title>案件详情</title>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
             <style>
+                    [v-cloak] {
+                      display: none;
+                    }
+            </style>
+            <style>
                 .visit-container {
                     width: 1280px;
                     margin: 20px auto 0;
@@ -74,7 +79,7 @@
         </head>
 
         <body>
-            <div id="app" class="visit-container">
+            <div id="app" v-cloak class="visit-container">
                 <el-tabs type="border-card">
                     <el-tab-pane label="案件信息详情">
                         <el-form size="mini" label-width="108px">

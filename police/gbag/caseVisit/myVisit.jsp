@@ -41,10 +41,15 @@
                     height: 0;
                 }
             </style>
+            <style>
+                [v-cloak] {
+                  display: none;
+                }
+              </style>
         </head>
 
         <body>
-                <div id="app" >
+                <div id="app" v-cloak>
                         <div class="follow-head">
                           搜索内容：
                           <p class="search-container">

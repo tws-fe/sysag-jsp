@@ -115,10 +115,15 @@
                     justify-content: center;
                 }
             </style>
+            <style>
+                    [v-cloak] {
+                      display: none;
+                    }
+                  </style>
         </head>
 
         <body>
-            <div id="app" class="visit-container">
+            <div id="app" v-cloak class="visit-container">
                 <el-tabs type="border-card" v-loading.fullscreen.lock="loading">
                     <el-tab-pane label="来访情况登记表">
                         <el-form size="mini" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">

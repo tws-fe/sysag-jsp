@@ -62,6 +62,9 @@
             cursor: pointer;
         }
 
+        [v-cloak] {
+                            display: none;
+                            }
 
     </style>
 </head>
@@ -105,11 +108,14 @@
     .el-tabs__content{
         overflow: inherit;
     }
+    .dl .el-dialog{
+        width: 35%;
+    }
 
 
 </style>
 <body>
-    <div id="caseApp" v-loading.fullscreen.lock="fullscreenLoading">
+    <div id="caseApp" v-cloak v-loading.fullscreen.lock="fullscreenLoading">
         <!--案件-->
         <div class="case">
         <el-row class="case_nav">
@@ -223,7 +229,7 @@
                             </el-table-column >
                             <el-table-column label="催办次数" width="85" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac" ></el-badge>
+                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac" ></el-badge>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
@@ -261,7 +267,7 @@
                             </el-table-column >
                             <el-table-column label="催办次数" width="85" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac" ></el-badge>
+                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac" ></el-badge>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
@@ -273,7 +279,7 @@
                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                 <template slot-scope="scope">
                                     <!-- <el-button v-show="scope.row.state == 0" type="text" @click="del(scope.row.uuid)">删除</el-button> -->
-                                    <el-button type="text" @click="look(scope.row.uuid,true)">查看</el-button>
+                                    <el-button type="text" @click="look(scope.row.uuid,true,'true')">查看</el-button>
                                     <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
                                     <el-button v-show="scope.row.state == 0" type="text">催办</el-button> -->
                                 </template>
@@ -285,7 +291,7 @@
 
         </div>
         <!--编辑框-->
-        <el-dialog :title="ftTitle" :visible.sync="dialogFormVisible">
+        <el-dialog :title="ftTitle" :visible.sync="dialogFormVisible" v-bind:class="dl">
 
             <el-form :model="formTask" :rules="rules" ref="formTask"  :inline="true" :label-width="100" :disabled="isdable">
                 <div>
@@ -335,9 +341,11 @@
                     </el-form-item>
                 </div>
                 <div>
-                    <el-form-item label="处理结果">
-                        <el-input v-show="ftShow==false" type="textarea" :rows="5" style="width:24vw;" disabled="true"></el-input>
-                        <el-input v-show="ftShow==true"  type="textarea" :rows="5" style="width:24vw;" v-model="formTask.taskresult"></el-input>
+                    <el-form-item label="处理结果" v-show="ftShow==true" prop="taskresult">
+                        <el-input  type="textarea" :rows="5" style="width:24vw;" v-model="formTask.taskresult"></el-input>
+                    </el-form-item>
+                    <el-form-item label="处理结果" v-show="ftShow==false" >
+                            <el-input  type="textarea" :rows="5" style="width:24vw;" disabled="true"></el-input>   
                     </el-form-item>
                 </div>
             </el-form>
@@ -347,8 +355,6 @@
                 <button class="close_btn" @click="dialogFormVisible = false">关 闭</button>
             </div>
         </el-dialog>
-
-
     </div>
     </div>
 
@@ -407,6 +413,9 @@
                 rules : {
                     taskcontent : [
                         { required: true, message: '请输入任务内容', trigger: 'change' }
+                    ],
+                    taskresult : [
+                       
                     ]
                 },
                 caseStatus: 'allJaCase',
@@ -427,6 +436,7 @@
                 activeName2:'first',
                 ftShow:true,
                 ftTitle:"",
+                dl:""
         
 
 
@@ -531,12 +541,13 @@
                         
                         // 一般任务数据优化
                         data.list1.forEach(item => {
-                            let curRemindersum = item.remindersum
+                            let curRemindersum = item.icount
                             let iP = item.ispaper
                             // 催办次数，字符串转化为整型
-                            item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                            item.icount = curRemindersum ? parseInt(curRemindersum) : 0
                             // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-                            let rS = item.remindersum
+                            let rS = item.icount
+                            console.log(rS)
                             if (rS < 1) {
                                 item['sup_bac'] = 'sup_bac3'
                             } else if (rS < 4) {
@@ -556,12 +567,12 @@
                      })
                 // 案审任务数据优化
                 data.list2.forEach(item => {
-                    let curRemindersum = item.remindersum
+                    let curRemindersum = item.icount
                     let iP = item.ispaper
                     // 催办次数，字符串转化为整型
-                    item.remindersum = curRemindersum ? parseInt(curRemindersum) : 0
+                    item.icount = curRemindersum ? parseInt(curRemindersum) : 0
                 // 处理催办次数的背景色 <1 3  1-3  2  >3 1
-                    let rS = item.remindersum
+                    let rS = item.icount
                     if (rS < 1) {
                         item['sup_bac'] = 'sup_bac3'
                     } else if (rS < 4) {
@@ -606,22 +617,30 @@
                 this.currentPage2 = 1
                 this.handleCurrentChange()
             },
-            look(uuid,isdable){
+            look(uuid,isdable,anguan){
                 this.ftShow = true
                 this.ftTitle = "查看任务"
                 axios.get('getCaseTask.do?method=getTaskInfo&uuid='+uuid)
                     .then( response => {
                     let data1 = response.data
-                        let sT= data1.state
+                    let sT= data1.state
+                    if(anguan){
+                        if(sT == 0){
+                            data1.state = '待签收'
+                        }else if(sT == 1 ){
+                            data1.state = '执行中'
+                        }else if(sT == 2){
+                            data1.state = '已确认'
+                        }                  
+                    }else{
                         if(sT == 0){
                             data1.state = '执行中'
                         }else if(sT == 1 ){
-                            data1.state = '待签收'
-                        }else if(sT == 2){
                             data1.state = '已完成'
-                        }else{
+                        }else if(sT == 2){
                             data1.state = '案管已确认'
                         }
+                    }
                     this.formTask = data1
                     this.dialogFormVisible = true
                     this.isdable = isdable
@@ -633,8 +652,12 @@
 
                 },
                 editor(uuid,isdable){
+                    console.log(this.rules)
+                    this.dl = ""
+                    this.rules.taskresult =[{ required: true, message: '请输入任务结果', trigger: 'blur' }]
                     this.look(uuid,isdable)
                     this.ftTitle = "编辑任务"
+                    
                 },
                 onsubmit(formName){
                     this.$refs[formName].validate((valid) => {
@@ -775,6 +798,9 @@
                 this.ftTitle = "新添任务"
                 this.formTask = []
                 this.ispaper="3"
+                this.rules.taskresult =[]
+                this.dl="dl"
+
                 
             },
             addSubmit(formName){
@@ -892,7 +918,7 @@
                             this.rowClick(val)
                             this.handleCurrentChange()
                             }else{
-                                this.$message.error('交案失败');
+                                this.$message.error('请勾选案件');
                             
                             }    
                          })
