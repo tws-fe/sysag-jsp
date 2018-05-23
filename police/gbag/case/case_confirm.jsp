@@ -79,13 +79,13 @@
           <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
             <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
+            <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
             <el-table-column fixed prop="casename" label="案件名称" width="180"></el-table-column>
-            <el-table-column fixed prop="casenumber" label="案件编号" width="360"></el-table-column>
-            <el-table-column fixed prop="casenaturename" label="案件性质" width="180"></el-table-column>
-            <el-table-column prop="_user_auditdirector" label="主办民警" width="180"></el-table-column>
-            <el-table-column prop="bjsj" label="报警时间" width="240"></el-table-column>
+            <el-table-column prop="_user_auditdirector" label="主办民警" width="100"></el-table-column>
+            <el-table-column fixed prop="casenaturename" label="案件性质" width="150"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="180"></el-table-column>
-            <el-table-column prop="assigntorname" label="指派领导" ></el-table-column>
+            <el-table-column prop="assigntorname" label="指派领导" width="180"></el-table-column>
+            <el-table-column prop="bjsj" label="报警时间" width="240"></el-table-column>
             <!-- <el-table-column prop="remark" label="备注"></el-table-column> -->
           </el-table>
           <el-pagination @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页" next-text="下一页"

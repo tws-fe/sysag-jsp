@@ -177,7 +177,7 @@
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
@@ -212,7 +212,7 @@
                 <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
                     <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                        <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
+                        <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/>
                         <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385"
                                   border stripe
                                   @selection-change="handleSelectionChange">
@@ -311,8 +311,8 @@
                         <el-input  placeholder="办理人"   disabled="true"></el-input>
                     </el-form-item>
                     <el-form-item label="是否有材料" v-show="ftShow==true">
-                        <%--<el-input  placeholder="是否有材料" v-model="formTask.ispaper"></el-input>--%>
-                                <el-radio-group v-model="formTask.ispaper" style="margin-top:13px;">
+        
+                                <el-radio-group v-model="formTask.ispaper"  disabled="true" style="margin-top:13px;">
                                     <el-radio :label="'0'">无</el-radio>
                                     <el-radio :label="'1'">有</el-radio>
                                 </el-radio-group>
@@ -341,18 +341,15 @@
                     </el-form-item>
                 </div>
                 <div>
-                    <el-form-item label="处理结果" v-show="ftShow==true" prop="taskresult">
-                        <el-input  type="textarea" :rows="5" style="width:24vw;" v-model="formTask.taskresult"></el-input>
-                    </el-form-item>
-                    <el-form-item label="处理结果" v-show="ftShow==false" >
-                            <el-input  type="textarea" :rows="5" style="width:24vw;" disabled="true"></el-input>   
+                    <el-form-item label="处理结果" prop="taskresult">
+                        <el-input  type="textarea" :rows="5" style="width:24vw;" v-model="formTask.taskresult"  disabled="true"></el-input>
                     </el-form-item>
                 </div>
             </el-form>
             <div slot="footer"  class="dialog-footer" style="text-align: center" >
-                <button v-show="isdable == false && ftShow==true" class="conserve_btn" type="primary" @click="onsubmit('formTask')">保 存</button>
+                <button v-show="isdable == false && ftShow==true" class="conserve_btn" type="primary" @click="onsubmit('formTask')">确 定</button>
                 <button v-show="isdable == false && ftShow == false" class="conserve_btn" type="primary" @click="addSubmit('formTask')">添 加</button>
-                <button class="close_btn" @click="dialogFormVisible = false">关 闭</button>
+                <button class="close_btn" @click="dialogFormVisible = false">取 消</button>
             </div>
         </el-dialog>
     </div>
@@ -414,12 +411,9 @@
                     taskcontent : [
                         { required: true, message: '请输入任务内容', trigger: 'change' }
                     ],
-                    taskresult : [
-                       
-                    ]
                 },
                 caseStatus: 'allJaCase',
-                takeCaseStatus: 'unca',
+                takeCaseStatus: 'allCase',
                 selectValue: '',//搜索值
                 selectValue2:'',
                 currentPage2: 1,
@@ -436,7 +430,8 @@
                 activeName2:'first',
                 ftShow:true,
                 ftTitle:"",
-                dl:""
+                dl:"",
+                imgShow:true
         
 
 
@@ -534,6 +529,11 @@
             },
             rowClick(val){
                 this.currentRow = val;
+                if(val.ishandovername == "案管已确认"){
+                   this.imgShow = false   
+                }else{
+                    this.imgShow = true
+                }
                 axios.get('getCaseTask.do?method=getTaskList&uuid='+val.uuid)
                     .then( response => {
                         let data = response.data
@@ -562,7 +562,7 @@
                             }else{
                                 item.ispaper = ''
                             }
-
+                         console.log(iP)
                           
                      })
                 // 案审任务数据优化
@@ -654,7 +654,6 @@
                 editor(uuid,isdable){
                     console.log(this.rules)
                     this.dl = ""
-                    this.rules.taskresult =[{ required: true, message: '请输入任务结果', trigger: 'blur' }]
                     this.look(uuid,isdable)
                     this.ftTitle = "编辑任务"
                     
@@ -797,11 +796,7 @@
                 this.ftShow = false
                 this.ftTitle = "新添任务"
                 this.formTask = []
-                this.ispaper="3"
-                this.rules.taskresult =[]
-                this.dl="dl"
-
-                
+                this.dl="dl"               
             },
             addSubmit(formName){
                 dialogFormVisible = false
@@ -906,7 +901,10 @@
                         return false;
                     }
 
-                    axios.get('getCase.do?method=caseTransfer&casenumber='+caseNumber+'&editType=1')
+                    axios.post('getCase.do?method=caseTransfer',{
+                      /*  casenumber:caseNumber,
+                        editType:1*/
+                    })
                         .then( response => {
                              console.log(response)
                              if(response.data == 1){
@@ -950,7 +948,12 @@
                                     this.handleCurrentChange()
                                 }
                              }else{
-                                this.$message.error('催办失败');
+                        
+                                this.$message({
+                                    type: 'warning',
+                                    message: '催办失败,该案件任务已在处理',
+                                    duration: 1000
+                                })
                              }    
                          })
                         .catch(function (error) {

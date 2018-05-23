@@ -17,6 +17,7 @@
 
         .search-container {
             display: inline-block;
+            width: 250px
         }
 
         .follow-head>.el-button {
@@ -58,7 +59,7 @@
         </el-select>
         搜索内容：
         <p class="search-container">
-            <el-input clearable v-model="searchTxt"></el-input>
+            <el-input clearable v-model="searchTxt" placeholder="请输入案件编号，名称，主办民警"></el-input>
         </p>
         <el-button plain @click="searchFollow">
             <!-- <img src="${pageContext.request.contextPath}/police/gbag/images/edit.png" alt="">  -->查询
@@ -103,6 +104,7 @@
             <el-table-column fixed="right" label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看更多</el-button>
+                    <el-button type="text" @click="follow(scope.row)">关注</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -128,8 +130,11 @@
             }, {
                 value: 'unCase',
                 label: '未交案'
-            }],
-            caseStatus: 'unCase',
+            },{
+                    value: 'allJaCase',
+                    label: '所有案件'
+                }],
+            caseStatus: 'allJaCase',
             searchTxt: '',
             tableData: null,
             loading: true,
@@ -352,6 +357,31 @@
             },
             refurbish(){
                 this.getLists()
+            },
+            follow(val){
+                console.log(val)
+                 axios.post('getCase.do?method=caseGz',{
+                             casenumber:val.casenumber,
+                             oper_user_id_:val.oper_user_id_
+                         })
+                  .then( response => {
+                      console.log(response.data.value)
+                      if(response.data.value == 1){
+                        this.$message({
+                            type: 'success',
+                            message: '关注成功',
+                            duration: 1000
+                        })
+                      }else{
+                        this.$message({
+                            type: 'warning',
+                            message: '关注失败',
+                            duration: 1000
+                        })
+                      }
+                      
+                  })
+
             }
 
 

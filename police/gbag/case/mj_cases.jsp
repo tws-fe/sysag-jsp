@@ -172,12 +172,12 @@
             </el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
             <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
+            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column> 
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="88px"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="180px"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
-            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column> 
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>    
             <el-table-column fixed="right" label="操.作" min-width="280">
                 <template slot-scope="scope">
@@ -317,13 +317,14 @@
                 </el-form-item>
             </div>
             <div>
-                <el-form-item label="任务内容" prop="taskcontent">
+                <el-form-item label="任务内容">
                     <el-autocomplete
                             popper-class="my-autocomplete"
                             v-model="formTask.taskcontent"
                             :fetch-suggestions="querySearch"
                             placeholder="请输入内容"
-                            @select="handleSelect" style="width:24vw">
+                            @select="handleSelect" style="width:24vw"
+                            disabled="true">
                         <i
                                 class="el-icon-edit el-input__icon"
                                 slot="suffix"
@@ -343,9 +344,9 @@
             </div>
         </el-form>
         <div slot="footer" class="dialog-footer" style="text-align: center" >
-            <button v-show="isdable == false && ftShow==true" class="conserve_btn" type="primary" @click="onsubmit('formTask')">保 存</button>
+            <button v-show="isdable == false && ftShow==true" class="conserve_btn" type="primary" @click="onsubmit('formTask')">确 定</button>
             <button v-show="isdable == false && ftShow == false" class="conserve_btn" type="primary" @click="addSubmit('formTask')">添 加</button>
-            <button class="close_btn" @click="dialogFormVisible = false">关 闭</button>
+            <button class="close_btn" @click="dialogFormVisible = false">取 消</button>
         </div>
     </el-dialog>
 
@@ -373,21 +374,22 @@
                 tableData4:null,
                 multiplPage2: 5,
                 options1: [{
-                    value: 'alreadyCase',
-                    label: '已交案'
-                }, {
                     value: 'unCase',
                     label: '未交案'
+                },{
+                    value: 'alreadyCase',
+                    label: '已交案'
                 }, {
                     value: 'allJaCase',
                     label: '所有案件'
                 }],
-                options2: [{
-                    value: 'alreadyca',
-                    label: '呈案',
-                }, {
+                options2: [
+                {
                     value: 'unca',
                     label: '未呈案',
+                },{
+                    value: 'alreadyca',
+                    label: '呈案',
                 },{
                     value: 'allCase',
                     label: '所有案件',
@@ -404,15 +406,12 @@
                     taskcontent:''
                 },
                 rules : {
-                    taskcontent : [
-                        { required: true, message: '请输入任务内容', trigger: 'change' }
-                    ],
                     taskresult : [
                         { required: true, message: '请输入处理结果', trigger: 'blur' }
                     ]
                 },
-                caseStatus: 'unCase',
-                takeCaseStatus: 'unca',
+                caseStatus: 'allJaCase',
+                takeCaseStatus: 'allCase',
                 selectValue: '',//搜索值
                 selectValue2:'',
                 currentPage2: 1,
@@ -853,57 +852,6 @@
                 console.log(this.multipleSelection);
                 let caseNumber = '';
                 let cftj = null;
-                if(this.multipleSelection){
-                    this.multipleSelection.forEach((item,index) => {
-                        caseNumber = caseNumber+item.casenumber+',';
-                    if(item.ishandovername == "已提交"){
-                        cftj = false
-                    }
-                })
-                    if(cftj == false){
-                        this.$confirm('您所选择的案件包含已提交案件，请勿重复提交', '提示', {
-                            confirmButtonText: '确定',
-                            cancelButtonText: '取消',
-                            type: 'warning'
-                        }).then(() => {
-
-                        }).catch(() => {
-
-                        });
-                        return false;
-                    }
-
-                    axios.get('getCase.do?method=caseTransfer&casenumber='+caseNumber+'&editType=1')
-                        .then( response => {
-                        console.log(response)
-                    if(response.data == 1){
-                        this.$message({
-                            type: 'success',
-                            message: '交案成功!'
-                        });
-                        val = this.currentRow
-                        this.rowClick(val)
-                        this.handleCurrentChange()
-                    }else{
-                        this.$message.error('交案失败');
-
-                    }
-                })
-                .catch(function (error) {
-
-                    });
-
-
-                }else{
-                    this.$message.error('请选择案件');
-                }
-
-            },
-            postCase(){
-                console.log(11);
-                console.log(this.multipleSelection);
-                let caseNumber = '';
-                let cftj = null;
                 let rwwc = null;
                 if(this.multipleSelection){
                     this.multipleSelection.forEach((item,index) => {
@@ -935,7 +883,10 @@
                           return false;
                         }
 
-                    axios.get('getCase.do?method=caseTransfer&casenumber='+caseNumber+'&editType=1')
+                        axios.post('getCase.do?method=caseTransfer',{
+                            casenumber:caseNumber,
+                            editType:1
+                        })
                         .then( response => {
                              console.log(response)
                              if(response.data == 1){

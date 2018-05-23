@@ -22,8 +22,8 @@
                     display: inline-block;
                     width: 26px;
                     height: 18px;
-                    background-image: url(../img/indexbg.png);
-                    /* background-image: url(${pageContext.request.contextPath}/police/gbag/img/indexbg.png); */
+                    /* background-image: url(../img/indexbg.png); */
+                    background-image: url(${pageContext.request.contextPath}/police/gbag/img/indexbg.png);
                     color: #fff;
                     font-size: 12px;
                     margin-right: 10px;
@@ -31,6 +31,7 @@
 
                 .index-bg-txt {
                     display: inline-block;
+                    font-size: 12px;
                     padding-left: 2px;
                     transform: translateY(-3px);
                 }
@@ -59,9 +60,9 @@
                                     <i class="index-bg-txt">{{(scope.$index+1)
                                         <10? ( '0'+(scope.$index+1)):(scope.$index+1)}}</i>
                                 </span>
-                                <span>提醒内容：{{scope.row.address}}</span>
-                                <el-tag type="warning">案件催交</el-tag>
-                                <el-tag type="danger">催办提醒</el-tag>
+                                <span>提醒内容：{{scope.row.content}}</span>
+                                <el-tag :type="scope.row.createmodal=='案件催交'?'warning':'danger'">{{scope.row.createmodal}}</el-tag>
+                                <!-- <el-tag type="danger">催办提醒</el-tag> -->
                             </template>
                         </el-table-column>
                         <el-table-column width="180">
@@ -69,9 +70,9 @@
                                 <span>创建人：{{scope.row.name}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column width="180">
+                        <el-table-column width="280">
                             <template slot-scope="scope">
-                                <span>创建时间：{{scope.row.date}}</span>
+                                <span>创建时间：{{scope.row.createdatetime}}</span>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -87,15 +88,21 @@
                 el: '#app',
                 data: {
                     tableData: [],
-                    loading: true
+                    loading: false
                 },
                 created () {
-                    // this.getLists()
+                    this.getLists()
                 },
                 methods: {
                     getLists () {
-                        axios.post().then(res => {
-                            this.tableData = res.list
+                        this.loading = true
+                        let url = 'getMessage.do?method=getMyRemindList&curPage=1&pageNum=100'
+                        axios.post(url).then(res => {
+                            console.log(res)
+                            this.tableData = res.data.list
+                            this.loading = false
+                        }).catch(err => {
+                            this.loading = false
                         })
                     }
                 }

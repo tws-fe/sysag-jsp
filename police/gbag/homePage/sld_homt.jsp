@@ -94,13 +94,13 @@
             </el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="180" align="center"></el-table-column>
             <el-table-column prop="casename" label="案件名称" width="152" align="center"></el-table-column>
+            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145" align="center"></el-table-column>
             <el-table-column prop="casetype" label="案件类型" width="88" align="center" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156" align="center"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="167" align="center"></el-table-column>
-            <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145" align="center"></el-table-column>
             <el-table-column prop="ishandovername" label="是否交案" width="150" align="center"></el-table-column>
-            <el-table-column prop="bjsj" label="报警时间" width="200" align="center"></el-table-column>
             <el-table-column prop="processState" label="办理状态" width="200" align="center"></el-table-column>
+             <el-table-column prop="bjsj" label="报警时间" width="200" align="center"></el-table-column>
             <el-table-column fixed="right" label="操作" align="center">
               <template slot-scope="scope">
                 <el-button type="text" @click="toDetail(scope.row.casenumber)">查看更多</el-button>

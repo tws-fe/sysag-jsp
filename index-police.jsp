@@ -82,9 +82,10 @@ Ext.onReady(function() {
                             <div class="nav_right">
                                   <div class="container-fluid" style="margin-top:10px;">
 									<div class="sys-admin">${sessionScope.userSession.userName}</div>									
-                                      <div class="col-xs-4 dropdown tisbox1" style="position:relative">
+                                      <div class="col-xs-4  tisbox1" style="position:relative">
                                          <img  src="${ctx}/share/images/index/bz1.png"/>
-
+										<a class="tis" href="javascript:MainIndex.openTab('showMyMessage','我的提醒','getMessage.do?method=toMyCaseMind');">我的提醒</a>
+                                     
                                            <%-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                             
                                             <li style="position:relative"><a href="javascript:MainIndex.openTab('menuHelpDocument','帮助文档','${pageContext.request.contextPath}/tws/help/helpMain.jsp');">帮助文档</a>
