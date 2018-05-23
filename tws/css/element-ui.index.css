@@ -4,3 +4,12 @@
 [v-cloak] {
   display: none;
 }
+
+/* 字体图标 svg */
+.icon-ag {
+  width: 16px; 
+  height: 16px;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}

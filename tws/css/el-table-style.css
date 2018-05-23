@@ -67,7 +67,7 @@
 
 .follow-head>.el-button, .img-btn {
   margin-left: 10px;
-  padding-left: 46px;
+  /*padding-left: 46px;*/
   position: relative;
 }
 

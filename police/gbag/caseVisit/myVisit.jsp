@@ -45,6 +45,13 @@
                 [v-cloak] {
                   display: none;
                 }
+                .icon-ag {
+                        width: 16px;
+                        height: 16px;
+                        vertical-align: -0.15em;
+                        fill: currentColor;
+                        overflow: hidden;
+                    }
               </style>
         </head>
 
@@ -56,11 +63,17 @@
                             <el-input clearable v-model="searchTxt"></el-input>
                           </p>
                           <el-button plain @click="searchFollow">
-                            <img src="../../images/edit.png" alt="">
+                              <svg class="icon-ag" aria-hidden="true">
+                                  <use xlink:href="#icon-AG_sousuo"></use>
+                                </svg>
+                                
                             查询
                           </el-button>
                           <!-- <el-button plain @click="exportExl">
-                            <img src="../../images/edit.png" alt="">
+                            <svg class="icon-ag" aria-hidden="true">
+  <use xlink:href="#icon-AG_daochu1"></use>
+</svg>
+
                             导出
                           </el-button> -->
                         </div>
@@ -105,6 +118,7 @@
         <script src="tws/js/axios.min.js"></script>
         <!-- 引入组件库 -->
         <script src="tws/js/element-ui.index.js"></script>
+        <script src="tws/js/iconfont.js"></script>
         <script>
               
                 new Vue({

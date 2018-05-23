@@ -49,10 +49,18 @@
                     } */
       </style>
       <style>
-          [v-cloak] {
-            display: none;
-          }
-        </style>
+        [v-cloak] {
+          display: none;
+        }
+
+        .icon-ag {
+          width: 16px;
+          height: 16px;
+          vertical-align: -0.15em;
+          fill: currentColor;
+          overflow: hidden;
+        }
+      </style>
     </head>
 
     <body>
@@ -63,16 +71,24 @@
             <el-input clearable v-model="searchTxt"></el-input>
           </p>
           <el-button plain @click="searchFollow">
-            <img src="../../images/edit.png" alt=""> 查询
+              <svg class="icon-ag" aria-hidden="true">
+                  <use xlink:href="#icon-AG_sousuo"></use>
+                </svg> 查询
           </el-button>
           <!-- <el-button plain @click="exportExl">
-            <img src="../../images/edit.png" alt=""> 导出
+            <svg class="icon-ag" aria-hidden="true">
+  <use xlink:href="#icon-AG_daochu1"></use>
+</svg> 导出
           </el-button>
           <el-button plain @click="exportExl">
-            <img src="../../images/edit.png" alt=""> 本月案件确认
+            <svg class="icon-ag" aria-hidden="true">
+  <use xlink:href="#icon-AG_daochu1"></use>
+</svg> 本月案件确认
           </el-button>
           <el-button plain @click="exportExl">
-            <img src="../../images/edit.png" alt=""> 上月案件确认
+            <svg class="icon-ag" aria-hidden="true">
+  <use xlink:href="#icon-AG_daochu1"></use>
+</svg> 上月案件确认
           </el-button> -->
         </div>
         <div v-loading="loading">
@@ -99,6 +115,7 @@
     <!-- 引入组件库 -->
     <script src="tws/js/element-ui.index.js"></script>
     <script src="tws/js/xlsx.full.min.js"></script>
+    <script src="tws/js/iconfont.js"></script>
     <script>
 
       new Vue({

@@ -177,8 +177,8 @@
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column>
             <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
+            <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
             <el-table-column fixed="right" label="操.作" min-width="280">

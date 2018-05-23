@@ -50,6 +50,20 @@ Ext.onReady(function() {
 .x-tab-panel-header {
 	border: 0;
 }
+#tsNumber{
+    position: absolute;
+    top: -5px;
+    left: 29px;
+    width: 14px;
+    height: 14px;
+    border-radius:50px;
+    background: red;
+    text-align: center;
+    line-height: 14px;
+    color: #fff;
+    font-size: 12px;
+    display: none;
+}
 </style>
 
 </head>
@@ -83,9 +97,9 @@ Ext.onReady(function() {
                                   <div class="container-fluid" style="margin-top:10px;">
 									<div class="sys-admin">${sessionScope.userSession.userName}</div>									
                                       <div class="col-xs-4  tisbox1" style="position:relative">
-                                         <img  src="${ctx}/share/images/index/bz1.png"/>
+                                         <img  src="${ctx}/share/images/index/wdtx.png"/>
 										<a class="tis" href="javascript:MainIndex.openTab('showMyMessage','我的提醒','getMessage.do?method=toMyCaseMind');">我的提醒</a>
-                                     
+                                          <div id="tsNumber"></div>
                                            <%-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                             
                                             <li style="position:relative"><a href="javascript:MainIndex.openTab('menuHelpDocument','帮助文档','${pageContext.request.contextPath}/tws/help/helpMain.jsp');">帮助文档</a>
@@ -182,10 +196,16 @@ function initMenuEnvent(){
    });
 
    $(".tisbox1").mouseenter(function() {
-     $(this).children().eq(1).show();
+       $(this).children().eq(0).hide();
+       $(this).children().eq(1).show();
+       $("#tsNumber").hide();
    });
    $(".tisbox1").mouseleave(function() {
      $(this).children().eq(1).hide();
+     $(this).children().eq(0).show();
+     if($("#tsNumber").text()>0) {
+         $("#tsNumber").show();
+     }
    });
 }
 
@@ -233,12 +253,28 @@ var refreshTimer;
 function refreshMyDealList(){
 	showMyMsgInfo();
 	clearTimeout(refreshTimer);
-	refreshTimer = setTimeout(refreshMyDealList, 5 * 1000);
+	refreshTimer = setTimeout(refreshMyDealList, 120 * 1000);
 }
 
 function showMyMsgInfo(){
-	
 	$.ajax({
+		type :"Post",
+		async:true,
+		url : "${pageContext.request.contextPath}/getMessage.do?method=getMyRemindCount",
+		data:{},
+		success : function(data) {
+			console.log("当前我的提醒数量："+data.value);
+			var num = data.value;
+			if(num>0){
+                $("#tsNumber").text(num).show();
+            }else{
+               $("#tsNumber").text(num).hide();
+            }
+		}
+	});
+	
+	
+	/* $.ajax({
 		type :"Post",
 		async:true,
 		url : "${pageContext.request.contextPath}/flowWork.do?method=getMsgInfo",
@@ -291,7 +327,7 @@ function showMyMsgInfo(){
 				window.location = "${pageContext.request.contextPath}/login.do?method=login&forseExit=true";
 			}
 		}
-	});	
+	});	 */
 	
 }
 
