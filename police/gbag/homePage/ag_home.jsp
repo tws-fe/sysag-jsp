@@ -22,7 +22,7 @@
                 <el-row class="data-show">
                     <el-col :span="4">
                         <el-card>
-                            <p class="visit-title">关键指标统计</p>
+                            <p class="visit-title">当月案件材料统计</p>
                             <ul class="visit-list">
                                 <li class="visit-list-item">
                                     <p class="vist-list-txt">
@@ -45,7 +45,7 @@
                                     </p>
                                     <span class="list-number">4个</span>
                                 </li>
-                                <li class="visit-list-item visit-list-item-mt20">
+                                <%-- <li class="visit-list-item visit-list-item-mt20">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_supervise.png" alt="">
                                         <span>案件监管</span>
@@ -59,7 +59,7 @@
                                         <span>待办案件</span>
                                     </p>
                                     <span class="list-number">0个</span>
-                                </li>
+                                </li> --%>
                             </ul>
                         </el-card>
                     </el-col>
@@ -149,7 +149,7 @@
                         var myChart = echarts.init(document.getElementById('chart'))
                         let option = {
                             title: {
-                                text: '{a|40}{b| -件}\n{c|当月案件}',
+                                text: '{a|70}{b| -件}\n{c|当月案件}',
                                 x: 'center',
                                 y: 'center',
                                 textStyle: {
@@ -188,7 +188,7 @@
                                     radius: ['40%', '70%'],
                                     data: [
                                         {
-                                            value: 335, name: '未交案件',
+                                            value: 35, name: '未交案件',
                                             label: {
                                                 normal: {
                                                     formatter: '{c}'
@@ -196,14 +196,14 @@
                                             }
                                         },
                                         {
-                                            value: 310, name: '已交案件', label: {
+                                            value: 10, name: '已交案件', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
                                             }
                                         },
                                         {
-                                            value: 234, name: '超期未交', label: {
+                                            value: 25, name: '超期未交', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }

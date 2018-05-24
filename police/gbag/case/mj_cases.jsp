@@ -105,6 +105,15 @@
     .el-tabs__content{
         overflow: inherit;
     }
+    .el-table--striped .el-table__body tr.el-table__row--striped.current-row td, .el-table__body tr.current-row>td, .el-table__body tr.hover-row.current-row>td, .el-table__body tr.hover-row.el-table__row--striped.current-row>td, .el-table__body tr.hover-row.el-table__row--striped>td{
+        background-color:#FBE3CB
+    }
+    .el-table__body tr.hover-row>td{
+        background-color:#fdf2e7 !important;
+    }
+    /* .el-table--striped .el-table__body tr.el-table__row--striped td {
+        background: #F2F9FF;
+    } */
 
     [v-cloak] {
             display: none;
@@ -183,6 +192,7 @@
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
                     <el-button type="text">主办责任人指定书</el-button>
+                    <el-button type="text" @click="follow(scope.row)">关注</el-button>
                     <!-- <el-button type="text">催办</el-button> -->
                 </template>
             </el-table-column>
@@ -650,7 +660,7 @@
                                 type: 'success'
                             });
                             //  console.log(this.currentRow)
-                            this.handleCurrentChange()
+                           // this.handleCurrentChange()
                             this.rowClick(this.currentRow)
                         }else{
                             this.$notify.error({
@@ -827,7 +837,7 @@
                         type: 'success',
                         message: '签收成功!'
                     });
-                    val = this.currentRow
+                    val = this.currentRow   
                     this.rowClick(val)
                 }else{
                     this.$message.error('签收失败');
@@ -915,7 +925,33 @@
             refurbish(){
                  //this.currentPage2 = 1
                  this.handleCurrentChange()
-            }
+            },
+            follow(val) {
+                        console.log(val)
+                        axios.post('getCase.do?method=caseGz', {
+                            casenumber: val.casenumber,
+                            oper_user_id_: val.oper_user_id_
+                        })
+                            .then(response => {
+                                console.log(response.data.value)
+                                if (response.data.value == 1) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '关注成功',
+                                        duration: 1000
+                                    })
+                                } else {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: '关注失败',
+                                        duration: 1000
+                                    })
+                                }
+
+                            })
+
+                    }
+
 
 
         },

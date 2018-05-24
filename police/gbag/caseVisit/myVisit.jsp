@@ -21,7 +21,7 @@
 
                 .follow-head>.el-button {
                     margin-left: 10px;
-                    padding-left: 46px;
+                    /* padding-left: 46px; */
                     position: relative;
                 }
 

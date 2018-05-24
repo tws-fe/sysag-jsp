@@ -22,7 +22,7 @@
 
                 .follow-head>.el-button {
                     margin-left: 10px;
-                    padding-left: 46px;
+                    /* padding-left: 46px; */
                     position: relative;
                 }
 
@@ -332,7 +332,7 @@
                         let iscj = null
                         this.multipleSelection.forEach(item => {
                             caseNumStr += item.casenumber + ','
-                            if (item.ishandovername != '未交案') {
+                            if (item.ishandovername == '案管已确认') {
                                 iscj = false
                             }
                         })

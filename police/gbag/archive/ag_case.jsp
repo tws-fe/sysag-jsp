@@ -261,6 +261,7 @@
                                     <el-table-column prop="taskresult" label="处理结果" width="400" align="center"></el-table-column>
                                     <el-table-column prop="handleperson" label="办理人 " width="180" align="center"></el-table-column>
                                     <el-table-column prop="handletime" label="办理时间" align="center"></el-table-column>
+                                    <el-table-column prop="ispaper" label="是否有材料" align="center"></el-table-column>
                                 </el-table>
                             </fieldset>
                             <!-- 办案阶段时间 -->
@@ -324,6 +325,16 @@
                             // console.log(res)
                             let data = res.data
                             this.baseInfo = data.caseBean
+                            data.caseTasks.forEach(item => {
+                                let iP = item.ispaper
+                                if(iP == 0){
+                                    item.ispaper = '无'
+                                }else if(iP == 1){
+                                    item.ispaper = '有'
+                                }else{
+                                    item.ispaper = ''
+                                }
+                            })
                             this.task = data.caseTasks
                             this.victims = data.caseVictims
                             this.suspects = data.caseSuspects

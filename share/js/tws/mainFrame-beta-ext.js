@@ -589,7 +589,7 @@ MainIndex.buildLayout = function() {
 		var wdjfTool=new MainToolbar("wdjf","我的接访");
 		wdjfTool.setMenuId("10001628");
 		wdjfTool.setIcon(CONTEXTPATH+"share/homeImg/wdjf.png");
-		wdjfTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toVisitEdit");
+		wdjfTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toVisitList");
 		wdjfTool.setIsSysBar(true);
 		MainIndex.toolsMap["wdjf"]=wdjfTool;
 		MainIndex.toolsMap2["10001628"]=wdjfTool;
@@ -635,7 +635,7 @@ MainIndex.buildLayout = function() {
 		var xzclTool=new MainToolbar("xzcl","行政材料");
 		xzclTool.setMenuId("10001621");
 		xzclTool.setIcon(CONTEXTPATH+"share/homeImg/xzcl.png");
-		xzclTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		xzclTool.setUrl(CONTEXTPATH+"getMark.do?method=toXZMarksList");
 		xzclTool.setIsSysBar(true);
 		MainIndex.toolsMap["xzcl"]=xzclTool;
 		MainIndex.toolsMap2["10001621"]=xzclTool;
@@ -644,7 +644,7 @@ MainIndex.buildLayout = function() {
 		var xsclTool=new MainToolbar("xscl","刑事材料");
 		xsclTool.setMenuId("10001622");
 		xsclTool.setIcon(CONTEXTPATH+"share/homeImg/xscl.png");
-		xsclTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		xsclTool.setUrl(CONTEXTPATH+"getMark.do?method=toXSMarksList");
 		xsclTool.setIsSysBar(true);
 		MainIndex.toolsMap["xscl"]=xsclTool;
 		MainIndex.toolsMap2["10001622"]=xsclTool;
@@ -653,7 +653,7 @@ MainIndex.buildLayout = function() {
 		var qtTool=new MainToolbar("qt","其它");
 		qtTool.setMenuId("10001623");
 		qtTool.setIcon(CONTEXTPATH+"share/homeImg/qt.png");
-		qtTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		qtTool.setUrl(CONTEXTPATH+"getMark.do?method=toOthersMarksList");
 		qtTool.setIsSysBar(true);
 		MainIndex.toolsMap["qt"]=qtTool;
 		MainIndex.toolsMap2["10001623"]=qtTool;
@@ -662,7 +662,7 @@ MainIndex.buildLayout = function() {
 		var zkdaTool=new MainToolbar("zkda","在库档案查询");
 		zkdaTool.setMenuId("10001624");
 		zkdaTool.setIcon(CONTEXTPATH+"share/homeImg/zkda.png");
-		zkdaTool.setUrl(CONTEXTPATH+"getCase.do?method=toMyCaseList");
+		zkdaTool.setUrl(CONTEXTPATH+"getMark.do?method=toQueryList");
 		zkdaTool.setIsSysBar(true);
 		MainIndex.toolsMap["zkda"]=zkdaTool;
 		MainIndex.toolsMap2["10001624"]=zkdaTool;
@@ -704,12 +704,12 @@ MainIndex.buildLayout = function() {
 		wdajTool.setIsSysBar(true);
 		MainIndex.toolsMap["wdaj"]=wdajTool;
 		MainIndex.toolsMap2["10001627"]=wdajTool;
-		MainIndex.addToolbar(wdajTool);
+		MainIndex.addToolbar(wdajTool); 
 		
 		var wdjfTool=new MainToolbar("wdjf","我的接访");
 		wdjfTool.setMenuId("10001628");
 		wdjfTool.setIcon(CONTEXTPATH+"share/homeImg/wdjf.png");
-		wdjfTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toVisitEdit");
+		wdjfTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toVisitList");
 		wdjfTool.setIsSysBar(true);
 		MainIndex.toolsMap["wdjf"]=wdjfTool;
 		MainIndex.toolsMap2["10001628"]=wdjfTool;

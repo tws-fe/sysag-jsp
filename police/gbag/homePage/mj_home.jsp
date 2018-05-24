@@ -41,15 +41,15 @@
                 <el-row class="data-show">
                     <el-col :span="4">
                         <el-card>
-                            <p class="visit-title">关键指标统计</p>
+                            <p class="visit-title">当月案件来访</p>
                             <ul class="visit-list">
-                                <li class="visit-list-item">
+                               <%--  <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_todo.png" alt="">
                                         <span>待办案件</span>
                                     </p>
                                     <span class="list-number">3个</span>
-                                </li>
+                                </li> --%>
                                 <li class="visit-list-item visit-list-item-mt20">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myVisit.png" alt="">
@@ -156,13 +156,12 @@
                 },
                 methods: {
                     initData() {
-                        console.log(this.pieIndex)
                         let option = {}
                         if (this.pieIndex === 1) {
                             option =
                                 {
                                     title: {
-                                        text: '{a|40}{b| -件}\n{c|当月案件}',
+                                        text: '{a|45}{b| -件}\n{c|当月案件}',
                                         x: 'center',
                                         y: 'center',
                                         textStyle: {
@@ -201,7 +200,7 @@
                                             radius: ['40%', '70%'],
                                             data: [
                                                 {
-                                                    value: 335, name: '未完成',
+                                                    value: 35, name: '未完成',
                                                     label: {
                                                         normal: {
                                                             formatter: '{c}'
@@ -209,7 +208,7 @@
                                                     }
                                                 },
                                                 {
-                                                    value: 310, name: '已完成', label: {
+                                                    value: 10, name: '已完成', label: {
                                                         normal: {
                                                             formatter: '{c}'
                                                         }
@@ -224,7 +223,7 @@
                             option =
                                 {
                                     title: {
-                                        text: '{a|40}{b| -件}\n{c|当月任务}',
+                                        text: '{a|64}{b| -件}\n{c|当月任务}',
                                         x: 'center',
                                         y: 'center',
                                         textStyle: {
@@ -263,7 +262,7 @@
                                             radius: ['40%', '70%'],
                                             data: [
                                                 {
-                                                    value: 335, name: '普通任务',
+                                                    value: 33, name: '普通任务',
                                                     label: {
                                                         normal: {
                                                             formatter: '{c}'
@@ -271,7 +270,7 @@
                                                     }
                                                 },
                                                 {
-                                                    value: 310, name: '案审任务', label: {
+                                                    value: 31, name: '案审任务', label: {
                                                         normal: {
                                                             formatter: '{c}'
                                                         }

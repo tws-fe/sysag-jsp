@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>其他材料列表</title>
+<title>刑事案件材料</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
 <style>

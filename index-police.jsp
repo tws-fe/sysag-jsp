@@ -64,6 +64,9 @@ Ext.onReady(function() {
     font-size: 12px;
     display: none;
 }
+.w56 {
+	width: 56%;
+}
 </style>
 
 </head>
@@ -74,7 +77,7 @@ Ext.onReady(function() {
        <div class="indexnav">
             <div id="index-nav-box" class="container-fluid nav_box">
                   <div class="row">
-                         <div class="col-xs-4 bt">
+                         <div class="col-xs-4 bt w56">
                               <div class="bt_box">
                                   <img src="${ctx}/share/images/index/sy-jh.png" />
                               </div>
@@ -255,6 +258,9 @@ function refreshMyDealList(){
 	clearTimeout(refreshTimer);
 	refreshTimer = setTimeout(refreshMyDealList, 120 * 1000);
 }
+$(".tis").click(function(){
+    showMyMsgInfo();
+})
 
 function showMyMsgInfo(){
 	$.ajax({

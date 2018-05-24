@@ -160,7 +160,7 @@
             <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
             <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
             <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-            <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column>
+            <!-- <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column> -->
             <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
             <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
             <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
@@ -168,6 +168,7 @@
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
                     <el-button type="text">主办责任人指定书</el-button>
+                    <el-button type="text" @click="follow(scope.row)">关注</el-button>
                     <el-button @click="Urge(scope.row.casenumber,'case')" type="text">催办</el-button>
                 </template>
             </el-table-column>
@@ -200,9 +201,9 @@
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                             <el-table-column label="任务状态" width="118" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-text v-if="scope.row.state == 0" type="text">执行中</el-text>
-                                    <el-text v-else-if="scope.row.state == 1" type="text">已完成</el-text>
-                                    <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
+                                    <el-text v-if="scope.row.state == 0" type="text">代签收</el-text>
+                                    <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
+                                    <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
                                 </template>
                             </el-table-column >
                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -223,6 +224,7 @@
                                     <el-button v-show="scope.row.state == 1 || scope.row.state == 2" type="text" @click="look(scope.row.uuid,true)">查看</el-button>
                                     <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
                                     <el-button v-show="scope.row.state == 0" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                    <el-button v-show="scope.row.state == 0" @click="taskSure(scope.row)" type="text">确认</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -422,11 +424,11 @@
                         }
                        //办理状态
                        if(item.allsum == 0){
-                           item['attendingState'] = '待处理'
+                           item['attendingState'] = '待处理'    
                        }else if(item.allsum !=0 && item.taskschedule<100){
-                           item['attendingState'] = '未完成'
+                           item['attendingState'] = '未审核'
                        }else if(item.allsum !=0 && item.taskschedule==100){
-                           item['attendingState'] = '已完成'
+                           item['attendingState'] = '已审核'
                        }
 
                 })
@@ -450,7 +452,7 @@
             },
             rowClick(val){
                 this.currentRow = val;
-                if(val.ishandovername == "案管已确认"){
+                if(val.attendingState == "已审核"){
                    this.imgShow = false   
                 }else{
                     this.imgShow = true
@@ -866,7 +868,7 @@
                                     this.rowClick(val)
                                 }else{
                                     this.rowClick(val)
-                                
+                                    this.handleCurrentChange()
                                 }
                              }else{
                         
@@ -904,7 +906,8 @@
                         let str = caseNumStr.substr(0, caseNumStr.length - 1) + '&editType=2'
                         axios.post('getCase.do?method=caseTransfer', {
                             casenumber: caseNumStr,
-                            editType: '2'
+                            editType: '2',
+                            type:'case'
                         }).then(res => {
                             // this.$message
                             console.log(res)
@@ -931,7 +934,60 @@
                                 this.getLists()
                             }
                         })
-            }
+            },
+            taskSure (val){
+                axios.post('getCase.do?method=caseTransfer', {
+                            casenumber: val.uuid,
+                            editType: '2',
+                            type:'task'
+                        }).then(res => {
+                            // this.$message
+                            console.log(res)
+                            if (res.data === 1) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '案件确认成功',
+                                    duration: 1000
+                                })
+                                this.handleCurrentChange() 
+                                // 本地数据处理
+                                // this.multipleSelection.forEach(item => {
+                                //     let caseNo = item.casenumber
+                                //     let index = this.tableData.findIndex(item => {
+                                //         return item.casenumber === caseNo
+                                //     })
+                                //     this.tableData.splice(index,1)
+                                // })
+
+                                this.rowClick(val)
+                            }
+                        })
+            },
+            follow(val) {
+                        console.log(val)
+                        axios.post('getCase.do?method=caseGz', {
+                            casenumber: val.casenumber,
+                            oper_user_id_: val.oper_user_id_
+                        })
+                            .then(response => {
+                                console.log(response.data.value)
+                                if (response.data.value == 1) {
+                                    this.$message({
+                                        type: 'success',
+                                        message: '关注成功',
+                                        duration: 1000
+                                    })
+                                } else {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: '关注失败',
+                                        duration: 1000
+                                    })
+                                }
+
+                            })
+
+                    }
         
         },
 

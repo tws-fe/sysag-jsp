@@ -167,7 +167,7 @@
               legend: {
                 left: 'center',
                 bottom: 0,
-                data: ['待处理','未审核', '已审核' ]
+                data: ['待处理','未完成', '已完成' ]
               },
               series: [
                 {
@@ -186,14 +186,14 @@
                       }
                     },
                     {
-                      value: 16, name: '未审核', label: {
+                      value: 16, name: '未完成', label: {
                         normal: {
                           formatter: '{c}'
                         }
                       }
                     },
                     {
-                      value: 16, name: '已审核', label: {
+                      value: 16, name: '已完成', label: {
                         normal: {
                           formatter: '{c}'
                         }

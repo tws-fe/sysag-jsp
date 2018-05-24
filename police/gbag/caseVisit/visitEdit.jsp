@@ -173,7 +173,7 @@
                                     </el-col>
                                     <el-col :span="6" :offset="2">
                                         <el-form-item prop="visittime" label="来访时间">
-                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" default-time="12:00:00"
+                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" default-time="12:00:00"
                                                 class="datetime-picker"></el-date-picker>
                                         </el-form-item>
                                     </el-col>
@@ -423,6 +423,7 @@
                         this.ruleForm.casenum = item.value
                     },
                     submitForm(formName) {
+                        console.log(this.ruleForm.visittime)
                         this.$refs[formName].validate((valid) => {
                             if (valid) {
                                 let url = 'getCaseVisit.do?method=saveVisit'
@@ -496,6 +497,7 @@
                             str += '\n' + '【主办民警】:' + caseBean.casedetails + '\n' + '【立案时间】:' + caseBean.recorddate + ' '
                             this.ruleForm.caseinfo = str
                             this.ruleForm.auditdirectorname = caseBean._user_auditdirector
+                            this.ruleForm.auditdirectors = caseBean._user_auditdirector
 
                         }).catch(err => {
                             this.loading = false

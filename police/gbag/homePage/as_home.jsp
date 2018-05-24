@@ -34,8 +34,8 @@
                 <el-row class="data-show">
                     <el-col :span="4">
                         <el-card class="bar-container">
-                            <p class="visit-title">关键指标统计</p>
-                            <ul class="visit-list">
+                            <p class="visit-title">派出所当月案审统计</p>
+                            <%-- <ul class="visit-list">
                                 <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_supervise.png" alt="">
@@ -50,7 +50,7 @@
                                     </p>
                                     <span class="list-number">1个</span>
                                 </li>
-                            </ul>
+                            </ul> --%>
                             <div id="bar"></div>
                         </el-card>
                     </el-col>
