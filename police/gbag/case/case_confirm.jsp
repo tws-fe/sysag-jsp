@@ -75,7 +75,7 @@
                   <use xlink:href="#icon-AG_sousuo"></use>
                 </svg> 查询
           </el-button>
-          <!-- <el-button plain @click="exportExl">
+           <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
   <use xlink:href="#icon-AG_daochu1"></use>
 </svg> 导出
@@ -89,7 +89,7 @@
             <svg class="icon-ag" aria-hidden="true">
   <use xlink:href="#icon-AG_daochu1"></use>
 </svg> 上月案件确认
-          </el-button> -->
+          </el-button> 
         </div>
         <div v-loading="loading">
           <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">

@@ -64,7 +64,7 @@
             }
 
             function resize(){
-                var boxHeight = docHeight-130;
+                var boxHeight = docHeight;
                 var boxWidth = docWidth;
 				$('#login-banner').height(boxHeight);
                 $('#login-banner-box li').height(boxHeight).width(boxWidth);
@@ -130,10 +130,9 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: 80px;
-            bottom: 30px;
+            top: 0px;
             overflow: hidden;
-			background:#000;
+			background:#000;    
 			_zoom:1;
         }
 
@@ -176,6 +175,13 @@
             bottom:0;
             right:0;
         }
+        .bodymain{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
 </head>
@@ -192,25 +198,17 @@
 <body id="full-body">
 <!--<![endif]-->
 
-<div id="login-top" class = "lhead">
+<!-- <div id="login-top" class = "lhead">
     <div class="one span6" style="float:left;margin-left: 2%;">
         <div style = "float:left">
             <img alt="logo" src="${pageContext.request.contextPath }/img/homePage/logo/logo-login.png" style="float:left;height: 55px; width:370px;margin: 15px 0px 0px 0px;">
         </div>
-       	<!--  
-        <div style = "float:left">
-            <ul class="inline">
-                <li class="sb">
-                    <span><%= title %></span>
-                </li>
-            </ul>
-        </div>
-        -->
+       
     </div>
     <div class="two span5" style="float:right; ">
         <ul id="xmul" class="inline" style="margin: 20px 0px 0px 0px;">
         </ul>
-    </div>
+    </div> -->
 
     <%
         String list = UTILSysProperty.getProp("登录页菜单"); //获得这个数据！
@@ -233,23 +231,23 @@
 <div id="login-main">
     <div id="login-banner">
         <ul id="login-banner-box">
-            <li><img src="${pageContext.request.contextPath }/img/login/1.png" alt=""></li>
+            <li><img src="${pageContext.request.contextPath }/img/login/bj.jpg" alt=""></li>
             <li><img src="${pageContext.request.contextPath }/img/login/2.png" alt=""></li>
             <li><img src="${pageContext.request.contextPath }/img/login/3.png" alt=""></li>
             <li><img src="${pageContext.request.contextPath }/img/login/4.png" alt=""></li>
         </ul>
     </div>
-    <div class="span5 login" id="lo">
+    <div class="span5 login" id="lo" style="display: none">
         <div class="lcont_head">
             <span>用户登录</span>
         </div>
         <div class="lcont_body">
-            <dl style="margin-top: 30px;">
+            <dl style="margin-top: 20px;">
                 <dd style="width:100%;margin-left:0">
                     <form action="${pageContext.request.contextPath}/login.do" method="post" name="thisForm">
                         <table style="text-align:left;margin: auto;">
                             <tr>
-                                <td><span>登录账号 : </span></td>
+                                <td><span>登录账号: </span></td>
                                 <td><input tabindex="1" type="text" value="${cookiesValue}"
                                            onkeydown="if(event.keyCode==13){ document.getElementById('AS_psw').focus(); return false;}"
                                            id="AS_usr" name="AS_usr" placeholder="输入账号"></td>
@@ -334,7 +332,7 @@
                             </tr>
                         </table>
                         
-                        <input name="isIE" type="hidden" id="isIE" value="true" />
+                        <input name="isIE" type="hidden" id="isIE" value="false" />
                         
                     </form>
                 </dd>
@@ -342,9 +340,188 @@
         </div>
     </div>
 </div>
+<style>
+    .guohui{
+        display: flex;
+        justify-content: center;
+        margin-top: 7%
+    }
+    .main_content{
+        display: flex;
+        justify-content:center;
+    }
+    .main_box{
+        width: 614px;
+        height: 293px;
+
+    }
+    #lo{
+        position: inherit;
+        background: none;
+        width:100%;
+        margin-top: 0;
+        float: none
+    }
+    .lcont_head{
+        background: none;
+        border:none;
+        text-align: center;
+    }
+    .dl_r{
+        background: url(${pageContext.request.contextPath }/img/login/dl-bj.png)
+    }
+    .zhmmbox{
+        background: white;
+        width: 50px;
+        float: right;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        height: 50px;
+    }
+    .longin_input{
+        height:50px !important;
+        border-bottom-left-radius: 0 !important;
+        border-top-left-radius: 0 !important;
+    }
+    .main_content{
+        margin-top: 60px;
+    }
+    .lcont_body{
+        
+    }
+    input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+        background-color: white!important;
+    }
+</style>
+<div class="bodymain">
+     <div class="guohui">
+        <img src="${pageContext.request.contextPath }/img/login/bj-jh.png">
+     </div>
+     <div class="main_content">
+          <div class="main_box">
+              <img src="${pageContext.request.contextPath }/img/login/banner.png">
+          </div>
+          <div class="main_box dl_r">
+                <div class="span5 login" id="lo" style="display: block">
+                        <div class="lcont_head">
+                            <span>用户登录</span>
+                        </div>
+                        <div class="lcont_body">
+                            <dl style="margin-top: 20px;">
+                                <dd style="width:100%;margin-left:0">
+                                    <form action="${pageContext.request.contextPath}/login.do" method="post" name="thisForm">
+                                        <table style="text-align:left;margin: auto;width:70%">
+                                            <tr>
+                                                <td>
+                                                    <div class="zhmmbox">
+                                                        <img src="${pageContext.request.contextPath }/img/login/dl-zh.png">
+                                                    </div>
+                                                </td>
+                                                <td><input class="longin_input"  tabindex="1" type="text" value="${cookiesValue}"
+                                                           onkeydown="if(event.keyCode==13){ document.getElementById('AS_psw').focus(); return false;}"
+                                                           id="AS_usr" name="AS_usr" placeholder="输入账号"></td>
+                                            </tr>
+                                            <tr style="height: 80px;">
+                                                <td>
+                                                    <div class="zhmmbox">
+                                                        <img src="${pageContext.request.contextPath }/img/login/dl-mm.png">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input class="longin_input" tabindex="2" type="password" id="AS_psw" name="AS_psw" placeholder="输入密码">
+                
+                                                    <input name="AS_dog"
+                                                           type="hidden"
+                                                           id="AS_dog"
+                                                           value=""
+                                                           style="height:18px;width:100px"
+                                                           tabindex="3">
+                
+                                                    <input name="userScreen"
+                                                           type="hidden"
+                                                           id="userScreen"
+                                                           value=""/>
+                
+                                                    <input name="psw_str"
+                                                           type="hidden"
+                                                           id="psw_str"
+                                                           value=""/>
+                                                    <input name="initheight" id="initheight" type="hidden">
+                                                    <input name="initwidth" id="initwidth" type="hidden">
+                                                </td>
+                                            </tr>
+                                            <c:if test="${ workarea eq '是' }">
+                                                <tr>
+                                                    <td><span>登录地点 : </span></td>
+                                                    <td>
+                                                        <input name="workarea"
+                                                               id="workarea"
+                                                               type="text"
+                                                               value=""
+                                                               size="10"
+                                                               tabindex="3"
+                                                               autoid='700'
+                                                               refer='登录地点'
+                                                               listWidth='180px'
+                                                        >
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                            <c:if test="${isvcode eq '是' || (isvcode eq '是1' && serverinfo ne '') }">
+                                                <tr>
+                                                    <td><span>校验码 : </span></td>
+                                                    <td>
+                                                        <input name="AS_code"
+                                                               type="text"
+                                                               id="AS_code"
+                                                               value=""
+                                                               style="width:30%"
+                                                               tabindex="2"
+                                                               onfocus="vcodefocus()"
+                                                               placeholder="输入验证码">
+                                                        <img id="codeimg"
+                                                             src="login.do?method=service"
+                                                             style="margin-top: -10px;"
+                                                             onclick="reimg();">
+                                                    </td>
+                                                </tr>
+                                            </c:if>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <div style="width:200px;color:red;"><font id="msg"></font></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <input
+                                                            type="submit"
+                                                            value=""
+                                                            tabindex="4"
+                                                            onclick="return loginChk();"
+                                                            style="background:url(${pageContext.request.contextPath }/img/login/dl-an1.png);border: 0px; color: #ffffff; font-size: 14px; width: 392px; height: 60px; margin-bottom:20px;cursor: pointer;"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <input name="isIE" type="hidden" id="isIE" value="false" />
+                                        
+                                    </form>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+          </div>
+     </div>
+</div>
 
 
-<div id="login-bottom" class="navbar-fixed-bottom lbfoot">
+<!-- <div id="login-bottom" class="navbar-fixed-bottom lbfoot">
     <div class="lbfoot_left">
         <ul id="xmult">
             <script type="text/javascript">
@@ -362,10 +539,9 @@
     <div class="lbfoot_right" style="float:right">
         <font style="line-height: 50px;margin-right: 18px;">开发及维护支持:珠海泰维思信息科技有限公司</font>
     </div>
-</div>
+</div> -->
 
 <script type="text/javascript">
-
     //获取验证码和更换验证码图片
     var code = "";
     $.post("login.do?method=getcode", function (data) {
@@ -536,6 +712,7 @@
 
 	//判断IE版本
 	function getIEVersion() {
+        return -1;
 	    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
 	    var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
 	    var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
@@ -598,9 +775,9 @@
     	$("#initheight").val(doc.height-55-33-60) ;
     	$("#initwidth").val(doc.width) ;
     	
-    	if(getIEVersion()=="-1"){
-    		document.getElementById("isIE").value="false";
-    	}
+    	// if(getIEVersion()=="-1"){
+    	// 	document.getElementById("isIE").value="false";
+    	// }
     });
 </script>
 <c:if test="${ workarea eq '是' }">

@@ -108,7 +108,12 @@
     [v-cloak] {
             display: none;
               }
-
+              .icon {
+        width: 1em; height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
 </style>
 <body >
     <div id="caseApp" v-cloak>
@@ -141,12 +146,36 @@
             </el-col>
             <el-col :span="12">
                 <div class="case_nav_item">
-                    <el-button plain @click="select"><i class="el-icon-search"></i>&nbsp;&nbsp;查询</el-button>
-                    <%--<el-button plain><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>--%>
-                    <el-button plain @click="downloadSheet"><i class="el-icon-download">&nbsp;&nbsp;导出</i></el-button>
-                    <el-button @click="postCase" plain><i class="el-icon-edit" ></i>&nbsp;&nbsp;交案</el-button>
-                    <el-button plain v-if="listShow==true" @click="listDown"><i class="el-icon-arrow-down"></i>&nbsp;&nbsp;列表展开</el-button>
-                    <el-button plain v-else @click="listUp"><i class="el-icon-arrow-up"></i>&nbsp;&nbsp;列表收起</el-button>
+                    <el-button plain @click="select">
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_sousuo"></use>
+                                  </svg>
+                        &nbsp;&nbsp;查询</el-button>
+                    <%--<el-button plain>
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_shuaxin"></use>
+                                  </svg>
+                        &nbsp;&nbsp;刷新</el-button>--%>
+                    <el-button plain @click="downloadSheet">
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_daochu1"></use>
+                                  </svg>
+                       &nbsp;&nbsp;导出</el-button>
+                    <el-button @click="postCase" plain>
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                  </svg>
+                       &nbsp;&nbsp;交案</el-button>
+                    <el-button plain v-if="listShow==true" @click="listDown">
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_yincangrenwu"></use>
+                                  </svg>
+                       &nbsp;&nbsp;列表展开</el-button>
+                    <el-button plain v-else @click="listUp">
+                            <svg class="icon" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_xianshirenwu"></use>
+                                  </svg>
+                        &nbsp;&nbsp;列表收起</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -361,6 +390,7 @@
 <!-- 引入组件库 -->
 <script src="tws/js/element-ui.index.js"></script>
 <script src="tws/js/xlsx.full.min.js"></script>
+<script src="tws/js/iconfont.js"></script>
 <script>
     // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
     new Vue({

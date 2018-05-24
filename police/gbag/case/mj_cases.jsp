@@ -61,7 +61,13 @@
             font-size: 18px;
             cursor: pointer;
         }
-
+        .icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.15em;
+                fill: currentColor;
+                overflow: hidden;
+            }
 
     </style>
 </head>
@@ -152,12 +158,37 @@
             </el-col>
             <el-col :span="12">
                 <div class="case_nav_item">
-                    <el-button plain @click="select"><i class="el-icon-search"></i>&nbsp;&nbsp;查询</el-button>
-                    <el-button plain @click="refurbish"><i class="el-icon-refresh"></i>&nbsp;&nbsp;刷新</el-button>
-                    <el-button plain @click="downloadSheet"><i class="el-icon-download">&nbsp;&nbsp;导出</i></el-button>
-                    <el-button @click="postCase" plain><i class="el-icon-edit" ></i>&nbsp;&nbsp;交案</el-button>
-                    <el-button plain v-if="listShow==true" @click="listDown"><i class="el-icon-arrow-down"></i>&nbsp;&nbsp;隐藏任务</el-button>
-                    <el-button plain v-else @click="listUp"><i class="el-icon-arrow-up"></i>&nbsp;&nbsp;显示任务</el-button>
+                        <el-button plain @click="select">
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_sousuo"></use>
+                                      </svg>
+                            &nbsp;&nbsp;查询</el-button>
+                        <el-button plain @click="refurbish">
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_shuaxin"></use>
+                                      </svg>
+                            &nbsp;&nbsp;刷新</el-button>
+                        <el-button plain @click="downloadSheet">
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_daochu1"></use>
+                                      </svg>
+                            &nbsp;&nbsp;导出
+                        </el-button>
+                        <el-button @click="postCase" plain>
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                      </svg>
+                            &nbsp;&nbsp;交案</el-button>
+                        <el-button plain v-if="listShow==true" @click="listDown">
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_yincangrenwu"></use>
+                                      </svg>
+                            &nbsp;&nbsp;隐藏任务</el-button>
+                        <el-button plain v-else @click="listUp">
+                                <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_xianshirenwu"></use>
+                                      </svg>
+                            &nbsp;&nbsp;显示任务</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -168,7 +199,7 @@
                   @current-change="rowClick"
         >
             <el-table-column type="selection" width="58"></el-table-column>
-            <el-table-column fixed label="序号" type="index" width="55"  type="index"></el-table-column>
+            <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
             <el-table-column fixed  label="案件进度" width="118">
                 <template  slot-scope="scope">
                     <el-progress :percentage="scope.row.taskschedule"></el-progress>
@@ -374,6 +405,7 @@
 <!-- 引入组件库 -->
 <script src="tws/js/element-ui.index.js"></script>
 <script src="tws/js/xlsx.full.min.js"></script>
+<script src="tws/js/iconfont.js"></script>
 <script>
     // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
     new Vue({
@@ -478,6 +510,7 @@
                     this.tableData3 = data
                 }else{
                     // 数据优化
+                    let i=0
                     data.list.forEach(item => {
                         let curtTaskschedule = item.taskschedule
                         let curRemindersum = item.remindersum
@@ -501,6 +534,9 @@
                     } else {
                         item['sup_bac'] = 'sup_bac1'
                     }
+                    i++
+                    item['indexs']=i+(this.currentPage2-1)*this.pageNum
+                    	
                     //办理状态
                     if(item.allsum == 0){
                         item['attendingState'] = '待处理'
@@ -510,7 +546,7 @@
                         item['attendingState'] = '已完成'
                     }
 
-                })
+                }) 
                     this.tableData3 = data
                     this.tableData4 = data
                     this.setCurrent(this.tableData3.list[0])
