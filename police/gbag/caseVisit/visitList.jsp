@@ -100,7 +100,7 @@
                         <el-table-column prop="casenum" label="案件编号" width="150"></el-table-column>
                         <el-table-column fixed="right" label="操作" min-width="150">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="editVisit(scope.row.uuid)">编辑</el-button>
+                                <el-button type="text" @click="editVisit(scope.row.uuid,scope.row.casenum)">编辑</el-button>
                                 <!-- <el-button type="text" @click="removeVisit(scope.row.casenum)">删除</el-button> -->
                             </template>
                         </el-table-column>
@@ -179,9 +179,9 @@
                         XLSX.utils.book_append_sheet(new_workbook, worksheet, "我的案件")
                         return XLSX.writeFile(new_workbook, new Date().getTime() + '.xlsx')
                     },
-                    editVisit(uuid) {
+                    editVisit(uuid,casenum) {
                         var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add') 
-                        matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
+                        matech.openTab(uuid+"登记", "来访情况登记表" + casenum, url, true, parent);
                     },
                     removeVisit(row) {
                         console.log('删除来访')

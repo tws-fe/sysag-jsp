@@ -68,10 +68,14 @@
         display: none;
     }
 
+    [v-cloak] {
+        display: none;
+    }
+
   </style>
 </head>
 <body>
-    <div id="app" class="visit-container">
+    <div id="app" class="visit-container" [v-cloak>
         <el-tabs type="border-card">
           <el-tab-pane label="扣押物品信息">
               <el-form size="mini" :model="ruleForm" 

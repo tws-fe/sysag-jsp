@@ -479,6 +479,7 @@
                 axios.get('getCase.do?method=getMyOrganCaseList&presentType=1&curPage='+this.currentPage2+'&pageNum='+this.pageNum+'&caseStatus='+this.caseStatus+'&takeCaseStatus='+this.takeCaseStatus+'&contain='+this.selectValue2)
                     .then( response => {
                     let data = response.data
+                    console.log(data)
                     if(data.list == null){
                     this.tableData3 = data
                     

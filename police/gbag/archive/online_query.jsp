@@ -85,20 +85,20 @@
                             style="width: 100%">
                             <el-table-column  type="selection" width="58"></el-table-column>
                             <el-table-column fixed  label="序号" type="index" width="55"></el-table-column>
-                            <el-table-column fixed prop="result"  label="案件编号" width="118"></el-table-column>
-                            <el-table-column fixed  prop="name" label="案件名称" width="85"></el-table-column>
-                            <el-table-column fixed  prop="visittime" label="报警时间" width="180"></el-table-column>
+                            <el-table-column fixed prop="caseNo"  label="案件编号" width="118"></el-table-column>
+                            <el-table-column fixed  prop="caseName" label="案件名称" width="85"></el-table-column>
+                            <el-table-column fixed  prop="alarmTime" label="报警时间" width="180"></el-table-column>
                             <!-- <el-table-column prop="casetype" label="来访次数" width="88" ></el-table-column> -->
-                            <el-table-column prop="telnum" label="案件类别" width="88" ></el-table-column>
-                            <el-table-column prop="visitfor" label="主办民警" width="156"></el-table-column>
-                            <el-table-column prop="receivereply" label="案件状态" width="152"></el-table-column>
-                            <el-table-column prop="reply" label="移交日期" width="167"></el-table-column>
-                            <el-table-column prop="receivecop" label="移交人" width="145"></el-table-column>
-                            <el-table-column prop="casenum" label="备注" width="150"></el-table-column>
-                            <el-table-column prop="casenum" label="移交状态" width="150"></el-table-column>                            
+                            <el-table-column prop="state" label="案件类别" width="88" ></el-table-column>
+                            <el-table-column prop="police" label="主办民警" width="156"></el-table-column>
+                            <el-table-column prop="caseState" label="案件状态" width="152"></el-table-column>
+                            <el-table-column prop="handDate" label="移交日期" width="167"></el-table-column>
+                            <el-table-column prop="handName" label="移交人" width="145"></el-table-column>
+                            <el-table-column prop="comment" label="备注" width="150"></el-table-column>
+                            <el-table-column prop="handState" label="移交状态" width="150"></el-table-column>                            
                             <el-table-column fixed="right"  label="操作" min-width="150">
                               <template slot-scope="scope">
-                                <el-button type="text" @click="editVisit(scope.row.uuid)">来访处理</el-button>
+                                <el-button type="text" @click="editVisit(scope.row.uuid)">查看</el-button>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -127,26 +127,32 @@
                   data: {
                     searchTxt: '',
                     tableData: null,
-                    loading: true,
+                    loading: false,
                     multipleSelection: [],
                     curPage: 1,
                     pageNum: 10,
-                    pageCount: 0
+                    pageCount: 5
                   },
                   created () {
                     this.getLists()
                   },
                   methods: {
                     getLists() {
-                        let url = 'getCaseVisit.do?method=getMyCaseVisitList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
-                        axios.post(url).then(res => {
-                          let data = res.data
-                          this.tableData = data.list
-                          this.pageCount = data.pageCount
+                        this.loading = true
+                        // let url = 'getCaseVisit.do?method=getMyCaseVisitList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
+                        // axios.post(url).then(res => {
+                        //   let data = res.data
+                        //   this.tableData = data.list
+                        //   this.pageCount = data.pageCount
+                        //   this.loading = false
+                        // }).catch(err => {
+                        //   this.loading = false
+                        // })
+
+                        setTimeout(()=>{
                           this.loading = false
-                        }).catch(err => {
-                          this.loading = false
-                        })
+                          this.tableData = this.mockData()
+                        },1000)
                     },
                     searchFollow () {
                       console.log('搜索')
@@ -194,6 +200,25 @@
                       console.log(`当前页: ${val}`)
                       this.curPage = val
                       this.getLists()
+                    },
+                    mockData () {
+                      let arr = []
+                      for (let index = 0; index < 4; index++) {
+                        arr.push({
+                          caseNo: '0246515',
+                          caseName: '偷窃案',
+                          alarmTime: '2018-03-25',
+                          state: '刑事案件',
+                          police: '张某某',
+                          caseState: 'qwqwqw',
+                          handDate: '2018-03-02',
+                          handName: '王某某',
+                          comment: '******',
+                          handState: '未移交'
+                        })
+                        
+                      }
+                      return arr
                     }
                   }
                 })

@@ -961,6 +961,45 @@
     })
 
 
+    function printWord(){
+    	
+        var uuid = _grid.chooseValue("UUID");
+    	
+    	if (uuid == '') {
+    		alert("请选择要打印案件的责任指定人文书");
+    		return;
+    	}
+    		extWordPrint('&tables=vw_ga_case1`single`uuid&uuid='+uuid+'&word=zrzd001',uuid);
+    }
+
+
+
+    function extWordPrint(param,uuid){
+       	//打印
+    	var url =contextPath+ "/case.do?method=expWord&"+param;
+    	$.ajax({ 
+    		async: true, 
+    		type : "POST", 
+    		url : url,
+        	cache:false,    
+    		success : function(data) { 
+    			var t=data;
+    			try{ 
+    				downloadOpen(t,uuid);
+    			}catch(e){alert(e);}
+    		} 
+     	}); 
+    	
+    }
+
+    function downloadOpen(path,_key){
+    	var o=police.getWebOffice();
+    	if (o){
+    		var uuid=_key;
+    		var url = police.getlocationhost() +"/"+ path;
+    		var t=o.funDownloadZipFileAndOpen(url,uuid);
+    	}	
+    }
 </script>
 </html>
 

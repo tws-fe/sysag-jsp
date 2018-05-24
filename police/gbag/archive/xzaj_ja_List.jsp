@@ -329,9 +329,11 @@
                             return
                         }
                         let caseNumStr = ''
+                        let _userNAME_auditdirector_id=''
                         let iscj = null
                         this.multipleSelection.forEach(item => {
                             caseNumStr += item.casenumber + ','
+                            _userNAME_auditdirector_id += item._userNAME_auditdirector_id + ','
                             if (item.ishandovername == '案管已确认') {
                                 iscj = false
                             }
@@ -345,7 +347,8 @@
                             return false
                         }
                         let str = caseNumStr.substr(0, caseNumStr.length - 1)
-                        axios.post('getCase.do?method=caseExpediting&casenumber=' + str).then(res => {
+                        let str1 = _userNAME_auditdirector_id.substr(0, _userNAME_auditdirector_id.length - 1)
+                        axios.post('getCase.do?method=caseExpediting&casenumber=' + str+'&receivor = '+str1).then(res => {
                             // this.$message
                             console.log(res)
                             if (res.data == -1) {

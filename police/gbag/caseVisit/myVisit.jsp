@@ -97,7 +97,7 @@
                             <el-table-column prop="casenum" label="案件编号" width="150"></el-table-column>
                             <el-table-column fixed="right"  label="操作" min-width="150">
                               <template slot-scope="scope">
-                                <el-button type="text" @click="editVisit(scope.row.uuid)">来访处理</el-button>
+                                <el-button type="text" @click="editVisit(scope.row.uuid,scope.row.casenum)">来访处理</el-button>
                               </template>
                             </el-table-column>
                           </el-table>
@@ -182,9 +182,9 @@
                       XLSX.utils.book_append_sheet(new_workbook, worksheet, "我的案件")
                       return XLSX.writeFile(new_workbook, new Date().getTime()+'.xlsx')
                     },
-                    editVisit (uuid) {
+                    editVisit (uuid,casenum) {
                       var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=update'
-                      matech.openTab(uuid, "来访情况登记表" + uuid, url, true, parent);
+                      matech.openTab(uuid+"处理", "来访处理" + casenum, url, true, parent);
                     },
                     handleSelectionChange(val) {
                       this.multipleSelection = val
