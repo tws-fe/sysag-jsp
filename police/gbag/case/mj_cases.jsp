@@ -298,7 +298,8 @@
                                 <!-- <el-button v-if="scope.row.state == 0" type="text">执行中</el-button> -->
                                 <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
                                 <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
-                                <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
+                                <el-text v-else-if="scope.row.state == 2" type="text">已完成</el-text>
+                                <el-text v-else-if="scope.row.state == 3" type="text">案审已确认</el-text>
                             </template>
                         </el-table-column >
                         <el-table-column label="催办次数" width="85" fixed="left">
@@ -538,11 +539,11 @@
                     item['indexs']=i+(this.currentPage2-1)*this.pageNum
                     	
                     //办理状态
-                    if(item.allsum == 0){
+                    if(item.state2 == 0){
                         item['attendingState'] = '待处理'
-                    }else if(item.allsum !=0 && item.taskschedule<100){
+                    }else if(item.state2 == 1){
                         item['attendingState'] = '未完成'
-                    }else if(item.allsum !=0 && item.taskschedule==100){
+                    }else if(item.state2 == 2){
                         item['attendingState'] = '已完成'
                     }
 
@@ -1013,6 +1014,9 @@
     function extWordPrint(param,uuid){
        	//打印
     	var url =contextPath+ "/case.do?method=expWord&"+param;
+
+
+
     	$.ajax({ 
     		async: true, 
     		type : "POST", 

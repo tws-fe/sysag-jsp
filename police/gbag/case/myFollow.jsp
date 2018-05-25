@@ -84,7 +84,7 @@
                 <div v-loading="loading">
                     <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
                         <el-table-column type="selection" width="58" align="center"></el-table-column>
-                        <el-table-column fixed label="序号" type="index" width="55" align="center"></el-table-column>
+                        <el-table-column fixed prop="indexs" label="序号" width="55" align="center"></el-table-column>
                         <el-table-column fixed label="案件进度" width="118" align="left">
                             <template slot-scope="scope">
                                 <el-progress :percentage="scope.row.taskschedule"></el-progress>
@@ -145,6 +145,7 @@
                             this.loading = false
                             let arr = res.data.list
                             if (!arr) return
+                            let i=0
                             arr.forEach(item => {
                                 let curtTaskschedule = item.taskschedule
                                 let curRemindersum = item.remindersum
@@ -168,6 +169,8 @@
                                 } else {
                                     item['sup_bac'] = 'sup_bac1'
                                 }
+                                i++
+                                item['indexs']=i+(this.curPage-1)*this.pageNum
                             })
                             this.tableData = arr
                             this.pageCount = res.data.pageCount

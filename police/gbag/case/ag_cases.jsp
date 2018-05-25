@@ -3,7 +3,7 @@
         <html>
 
         <head>
-            <title>案件信息</title>
+            <title>案件监管</title>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
             <!-- 引入样式 -->
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
@@ -75,6 +75,10 @@
 
                 [v-cloak] {
                     display: none;
+                }
+
+                .el-pagination.is-background .el-pager li {
+                    margin: 0 1px;
                 }
             </style>
         </head>
@@ -186,19 +190,19 @@
                         <el-col :span="12">
                             <div class="case_nav_item">
                                 <el-button plain @click="select">
-                                        <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-AG_sousuo"></use>
-                                            </svg>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_sousuo"></use>
+                                    </svg>
                                     &nbsp;&nbsp;查询</el-button>
                                 <el-button plain @click="refurbish">
-                                        <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-AG_shuaxin"></use>
-                                            </svg>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_shuaxin"></use>
+                                    </svg>
                                     &nbsp;&nbsp;刷新</el-button>
                                 <el-button plain @click="downloadSheet">
-                                        <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-AG_daochu1"></use>
-                                            </svg>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_daochu1"></use>
+                                    </svg>
                                     &nbsp;&nbsp;导出
                                 </el-button>
                                 <!-- <el-button @click="postCase" plain>
@@ -207,14 +211,14 @@
                                             </svg>
                                     &nbsp;&nbsp;交案</el-button> -->
                                 <el-button plain v-if="listShow==true" @click="listDown">
-                                        <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-AG_yincangrenwu"></use>
-                                            </svg>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_yincangrenwu"></use>
+                                    </svg>
                                     &nbsp;&nbsp;隐藏任务</el-button>
                                 <el-button plain v-else @click="listUp">
-                                        <svg class="icon" aria-hidden="true">
-                                                <use xlink:href="#icon-AG_xianshirenwu"></use>
-                                            </svg>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_xianshirenwu"></use>
+                                    </svg>
                                     &nbsp;&nbsp;显示任务</el-button>
                             </div>
                         </el-col>
@@ -222,7 +226,7 @@
                     <el-table :style="{'min-height':listShow!=true?'':'250px'}" ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
                         style="width: 100%" border stripe @selection-change="handleSelectionChange" highlight-current-row @current-change="rowClick">
                         <el-table-column type="selection" width="58"></el-table-column>
-                        <el-table-column fixed label="序号" type="index" width="55" type="index"></el-table-column>
+                        <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
                         <el-table-column fixed label="案件进度" width="118">
                             <template slot-scope="scope">
                                 <el-progress :percentage="scope.row.taskschedule"></el-progress>
@@ -242,10 +246,10 @@
                         <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column>
                         <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
                         <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
-                        <el-table-column fixed="right" label="操.作" min-width="280">
+                        <el-table-column fixed="right" label="操.作" min-width="300">
                             <template slot-scope="scope">
                                 <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
-                                <el-button type="text">主办责任人指定书</el-button>
+                                <el-button type="text" @click="downWord(scope.row.uuid)">主办责任人指定书</el-button>
                                 <el-button type="text" @click="follow(scope.row)">关注</el-button>
                                 <el-button @click="Urge(scope.row.casenumber,'case')" type="text">催办</el-button>
                             </template>
@@ -491,6 +495,12 @@
                     this.handleCurrentChange()
                 },
                 methods: {
+                    downWord(uuid) {
+                        let url = "/case.do?method=expWord&" + '&tables=vw_ga_case1`single`uuid&uuid=' + uuid + '&word=zrzd001'
+                        axios.post(url).then(res => {
+                            console.log(res)
+                        })
+                    },
                     handleClick() {
 
                     },
@@ -524,6 +534,7 @@
 
                                 } else {
                                     // 数据优化
+                                    let i = 0
                                     data.list.forEach(item => {
                                         let curtTaskschedule = item.taskschedule
                                         let curRemindersum = item.remindersum
@@ -547,12 +558,14 @@
                                         } else {
                                             item['sup_bac'] = 'sup_bac1'
                                         }
+                                        i++
+                                        item['indexs'] = i + (this.currentPage2 - 1) * this.pageNum
                                         //办理状态
-                                        if (item.allsum == 0) {
+                                        if (item.state2 == 0) {
                                             item['attendingState'] = '待处理'
-                                        } else if (item.allsum != 0 && item.taskschedule < 100) {
+                                        } else if (item.state2 == 1) {
                                             item['attendingState'] = '未完成'
-                                        } else if (item.allsum != 0 && item.taskschedule == 100) {
+                                        } else if (item.state2 == 2) {
                                             item['attendingState'] = '已完成'
                                         }
 
@@ -789,12 +802,13 @@
                                 '案件进度': item.taskschedule,
                                 '催办次数': item.remindersum,
                                 '案件编号': item.casenumber,
+                                '案件名称': item.casename,
                                 '案件类型': item.casetype,
                                 '案件性质': item.casenaturename,
-                                '案件名称': item.casename,
-                                '案件状态': item.statenames,
                                 '主办民警': item._userNAME_auditdirector,
+                                '案件状态': item.statenames,
                                 '是否交案': item.ishandovername,
+                                '办理状态': item.attendingState,
                                 '报警时间': item.bjsj
                             })
                         })

@@ -94,7 +94,7 @@
         <div v-loading="loading">
           <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
-            <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
+            <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
             <el-table-column fixed prop="casename" label="案件名称" width="180"></el-table-column>
             <el-table-column prop="_user_auditdirector" label="主办民警" width="100"></el-table-column>
@@ -134,10 +134,22 @@
         },
         methods: {
           getLists() {
+        	  let i=0
             let url = 'getCase.do?method=getCaseConfirmList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
             axios.post(url).then(res => {
-              this.tableData = res.data.list
-              this.pageCount = res.data.pageCount
+              console.log(res.data.list)
+             
+              res.data.list.forEach(item => {
+                  let curtTaskschedule = item.taskschedule
+                  let curRemindersum = item.remindersum
+                  // 案件进度处理，后台返回的是字符串且没有做位数处理
+              i++
+              item['indexs']=i+(this.curPage-1)*this.pageNum
+              	
+
+          }) 
+           this.pageCount = res.data.pageCount
+          this.tableData = res.data.list
               this.loading = false
             }).catch(err => {
               this.loading = false
@@ -157,9 +169,11 @@
               return
             }
             let arr = []
+            let i=0
             this.multipleSelection.forEach((item, index) => {
+            	i++
               arr.push({
-                '序号': index + 1,
+                '序号': i+(this.currentPage2-1)*this.pageNum,
                 '案件进度': item.taskschedule,
                 '催办次数': item.remindersum,
                 '案件编号': item.casenumber,

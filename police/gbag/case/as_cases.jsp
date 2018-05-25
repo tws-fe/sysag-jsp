@@ -199,7 +199,7 @@
                     <el-table :style="{'min-height':listShow!=true?'':'250px'}" ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
                         style="width: 100%" border stripe @selection-change="handleSelectionChange" highlight-current-row @current-change="rowClick">
                         <el-table-column type="selection" width="58"></el-table-column>
-                        <el-table-column fixed label="序号" type="index" width="55" type="index"></el-table-column>
+                        <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
                         <el-table-column fixed label="案件进度" width="118">
                             <template slot-scope="scope">
                                 <el-progress :percentage="scope.row.taskschedule"></el-progress>
@@ -247,9 +247,10 @@
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                             <el-table-column label="任务状态" width="118" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-text v-if="scope.row.state == 0" type="text">代签收</el-text>
+                                    <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
                                     <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
-                                    <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
+                                    <el-text v-else-if="scope.row.state == 2" type="text">已完成</el-text>
+                                    <el-text v-else-if="scope.row.state == 3" type="text">案审已确认</el-text>
                                 </template>
                             </el-table-column>
                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -266,11 +267,11 @@
                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                 <template slot-scope="scope">
 
-                                    <el-button v-show="scope.row.state == 0" type="text" @click="del(scope.row.uuid)">删除</el-button>
-                                    <el-button v-show="scope.row.state == 1 || scope.row.state == 2" type="text" @click="look(scope.row.uuid,true)">查看</el-button>
+                                    <el-button v-show="scope.row.state != 3" type="text" @click="del(scope.row.uuid)">删除</el-button>
+                                    <el-button  type="text" @click="look(scope.row.uuid,true)">查看</el-button>
                                     <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
-                                    <el-button v-show="scope.row.state == 0" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
-                                    <el-button v-show="scope.row.state == 0" @click="taskSure(scope.row)" type="text">确认</el-button>
+                                    <el-button v-show="scope.row.state <3" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                    <el-button v-show="scope.row.state == 2" @click="taskSure(scope.row)" type="text">确认</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -439,6 +440,7 @@
 
                                 } else {
                                     // 数据优化
+                                    let i=0
                                     data.list.forEach(item => {
                                         let curtTaskschedule = item.taskschedule
                                         let curRemindersum = item.remindersum
@@ -462,12 +464,14 @@
                                         } else {
                                             item['sup_bac'] = 'sup_bac1'
                                         }
+                                        i++
+                                        item['indexs']=i+(this.currentPage2-1)*this.pageNum
                                         //办理状态
-                                        if (item.allsum == 0) {
+                                        if (item.state3==0) {
                                             item['attendingState'] = '待处理'
-                                        } else if (item.allsum != 0 && item.taskschedule < 100) {
+                                        } else if (item.state3==1) {
                                             item['attendingState'] = '未审核'
-                                        } else if (item.allsum != 0 && item.taskschedule == 100) {
+                                        } else if (item.state3==2) {
                                             item['attendingState'] = '已审核'
                                         }
 
@@ -989,7 +993,7 @@
                                     message: '案件确认成功',
                                     duration: 1000
                                 })
-                                this.handleCurrentChange()
+                               // this.handleCurrentChange()
                                 // 本地数据处理
                                 // this.multipleSelection.forEach(item => {
                                 //     let caseNo = item.casenumber
