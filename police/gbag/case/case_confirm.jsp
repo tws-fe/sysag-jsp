@@ -71,25 +71,25 @@
             <el-input clearable v-model="searchTxt"></el-input>
           </p>
           <el-button plain @click="searchFollow">
-              <svg class="icon-ag" aria-hidden="true">
-                  <use xlink:href="#icon-AG_sousuo"></use>
-                </svg> 查询
-          </el-button>
-           <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
-  <use xlink:href="#icon-AG_daochu1"></use>
-</svg> 导出
+              <use xlink:href="#icon-AG_sousuo"></use>
+            </svg> &nbsp;&nbsp;查询
           </el-button>
           <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
-  <use xlink:href="#icon-AG_daochu1"></use>
-</svg> 本月案件确认
+              <use xlink:href="#icon-AG_daochu1"></use>
+            </svg> &nbsp;&nbsp;导出
           </el-button>
           <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
-  <use xlink:href="#icon-AG_daochu1"></use>
-</svg> 上月案件确认
-          </el-button> 
+              <use xlink:href="#icon-AG_daochu1"></use>
+            </svg> &nbsp;&nbsp;本月案件确认
+          </el-button>
+          <el-button plain @click="exportExl">
+            <svg class="icon-ag" aria-hidden="true">
+              <use xlink:href="#icon-AG_daochu1"></use>
+            </svg> &nbsp;&nbsp;上月案件确认
+          </el-button>
         </div>
         <div v-loading="loading">
           <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
@@ -134,22 +134,22 @@
         },
         methods: {
           getLists() {
-        	  let i=0
+            let i = 0
             let url = 'getCase.do?method=getCaseConfirmList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
             axios.post(url).then(res => {
               console.log(res.data.list)
-             
-              res.data.list.forEach(item => {
-                  let curtTaskschedule = item.taskschedule
-                  let curRemindersum = item.remindersum
-                  // 案件进度处理，后台返回的是字符串且没有做位数处理
-              i++
-              item['indexs']=i+(this.curPage-1)*this.pageNum
-              	
 
-          }) 
-           this.pageCount = res.data.pageCount
-          this.tableData = res.data.list
+              res.data.list.forEach(item => {
+                let curtTaskschedule = item.taskschedule
+                let curRemindersum = item.remindersum
+                // 案件进度处理，后台返回的是字符串且没有做位数处理
+                i++
+                item['indexs'] = i + (this.curPage - 1) * this.pageNum
+
+
+              })
+              this.pageCount = res.data.pageCount
+              this.tableData = res.data.list
               this.loading = false
             }).catch(err => {
               this.loading = false
@@ -169,11 +169,11 @@
               return
             }
             let arr = []
-            let i=0
+            let i = 0
             this.multipleSelection.forEach((item, index) => {
-            	i++
+              i++
               arr.push({
-                '序号': i+(this.currentPage2-1)*this.pageNum,
+                '序号': i + (this.currentPage2 - 1) * this.pageNum,
                 '案件进度': item.taskschedule,
                 '催办次数': item.remindersum,
                 '案件编号': item.casenumber,

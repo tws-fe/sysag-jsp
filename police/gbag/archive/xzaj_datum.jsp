@@ -69,7 +69,7 @@
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_sousuo"></use>
                   </svg>
-                    查询
+                  &nbsp;&nbsp;查询
                   </el-button>
             </el-form-item>
             <el-form-item>
@@ -77,7 +77,7 @@
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_daochu1"></use>
                   </svg>
-                    导出
+                  &nbsp;&nbsp;导出
                   </el-button>
             </el-form-item>
             <el-form-item>
@@ -85,7 +85,7 @@
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_piliangyijiao"></use>
                   </svg>
-                    批量移交
+                  &nbsp;&nbsp;批量移交
                   </el-button>
             </el-form-item>
           </el-form>

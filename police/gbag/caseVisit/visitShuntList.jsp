@@ -67,13 +67,13 @@
                     <el-button plain @click="searchFollow">
                             <svg class="icon-ag" aria-hidden="true">
                                     <use xlink:href="#icon-AG_sousuo"></use>
-                                  </svg> 查询
+                                  </svg> &nbsp;&nbsp;查询
                     </el-button>
                     <!-- <el-button plain @click="exportExl">
                 <svg class="icon-ag" aria-hidden="true">
   <use xlink:href="#icon-AG_daochu1"></use>
 </svg>
-                导出
+                &nbsp;&nbsp;导出
               </el-button> -->
                     <!-- <el-button plain @click="editVisit('')">
            <svg class="icon-ag" aria-hidden="true">
@@ -84,7 +84,7 @@
                 <div v-loading="loading">
                     <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
                         <!-- <el-table-column type="selection" width="58" align="center"></el-table-column> -->
-                        <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
+                        <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
                         <el-table-column fixed prop="result" label="处理结果" width="118"></el-table-column>
                         <el-table-column fixed prop="name" label="来访人" width="85"></el-table-column>
                         <el-table-column fixed prop="visittime" label="来访时间" width="180"></el-table-column>
@@ -132,11 +132,19 @@
                 methods: {
                     getLists() {
                         this.loading = true
+                        let i=0
                         let url = 'getCaseVisit.do?method=getVisitShuntList&contain=' + this.searchTxt + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
                         axios.post(url).then(res => {
                             // console.log(res)
                             this.tableData = res.data.list
                             this.pageCount = res.data.pageCount
+                            res.data.list.forEach(item => {
+                                let curtTaskschedule = item.taskschedule
+                                let curRemindersum = item.remindersum
+                                // 案件进度处理，后台返回的是字符串且没有做位数处理
+                            i++
+                            item['indexs']=i+(this.curPage-1)*this.pageNum
+                        	})
                             this.loading = false
                         }).catch(err => {
                             this.loading = false

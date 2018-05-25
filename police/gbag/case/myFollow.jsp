@@ -67,18 +67,18 @@
                     <el-button plain @click="searchFollow">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_sousuo"></use>
-                          </svg> 查询
+                          </svg> &nbsp;&nbsp;查询
                     </el-button>
                     <!-- <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_daochu1"></use>
                         </svg>
-            导出
+            &nbsp;&nbsp;导出
             </el-button> -->
                     <el-button plain @click="unfollow">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_quxiaoshoucang"></use>
-                        </svg> 取消关注
+                        </svg> &nbsp;&nbsp;取消关注
                     </el-button>
                 </div>
                 <div v-loading="loading">

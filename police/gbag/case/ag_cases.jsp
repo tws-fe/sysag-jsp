@@ -279,9 +279,9 @@
                                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                                             <el-table-column label="任务状态" width="118" fixed="left">
                                                 <template slot-scope="scope">
-                                                    <el-text v-if="scope.row.state == 0" type="text">执行中</el-text>
-                                                    <el-text v-else-if="scope.row.state == 1" type="text">已完成</el-text>
-                                                    <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
+                                                    <span v-if="scope.row.state == 0" type="text">执行中</span>
+                                                    <span v-else-if="scope.row.state == 1" type="text">已完成</span>
+                                                    <span v-else-if="scope.row.state == 2" type="text">案管已确认</span>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -316,9 +316,10 @@
                                             <el-table-column label="任务状态" width="118" fixed="left">
                                                 <template slot-scope="scope">
                                                     <!-- <el-button v-if="scope.row.state == 0" type="text">执行中</el-button> -->
-                                                    <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
-                                                    <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
-                                                    <el-text v-else-if="scope.row.state == 2" type="text">已确认</el-text>
+                                                    <span v-if="scope.row.state == 0" type="text">待签收</span>
+                                                    <span v-else-if="scope.row.state == 1" type="text">执行中</span>
+                                                    <span v-else-if="scope.row.state == 2" type="text">已完成</span>
+                                                    <span v-else-if="scope.row.state == 3" type="text">案审已确认</span>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -496,9 +497,10 @@
                 },
                 methods: {
                     downWord(uuid) {
-                        let url = "/case.do?method=expWord&" + '&tables=vw_ga_case1`single`uuid&uuid=' + uuid + '&word=zrzd001'
+                        let url = '${ctx}/case.do?method=expWord&tables=vw_ga_case1`single`uuid&uuid=' + uuid + '&word=zrzd001'
                         axios.post(url).then(res => {
-                            console.log(res)
+                            // console.log(res.data)
+                            window.open(res.data)
                         })
                     },
                     handleClick() {
@@ -690,7 +692,9 @@
                                     } else if (sT == 1) {
                                         data1.state = '执行中'
                                     } else if (sT == 2) {
-                                        data1.state = '已确认'
+                                        data1.state = '已完成'
+                                    }else if (sT == 3) {
+                                        data1.state = '案审已确认'
                                     }
                                 } else {
                                     if (sT == 0) {

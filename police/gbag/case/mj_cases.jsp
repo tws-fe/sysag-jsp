@@ -222,7 +222,7 @@
             <el-table-column fixed="right" label="操.作" min-width="280">
                 <template slot-scope="scope">
                     <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
-                    <el-button type="text">主办责任人指定书</el-button>
+                    <el-button type="text" @click="downWord(scope.row.uuid)">主办责任人指定书</el-button>
                     <el-button type="text" @click="follow(scope.row)">关注</el-button>
                     <!-- <el-button type="text">催办</el-button> -->
                 </template>
@@ -480,6 +480,13 @@
             this.handleCurrentChange()
         },
         methods: {
+            downWord(uuid) {
+                        let url = '${ctx}/case.do?method=expWord&tables=vw_ga_case1`single`uuid&uuid=' + uuid + '&word=zrzd001'
+                        axios.post(url).then(res => {
+                            // console.log(res.data)
+                            window.open(res.data)
+                        })
+                    },
             handleClick() {
 
             },
