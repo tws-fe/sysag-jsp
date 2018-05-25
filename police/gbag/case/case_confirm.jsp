@@ -75,6 +75,7 @@
               <use xlink:href="#icon-AG_sousuo"></use>
             </svg> &nbsp;&nbsp;查询
           </el-button>
+          <!-- 05.25 已处理  -->
           <el-button plain @click="exportExl">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_daochu1"></use>
@@ -174,17 +175,13 @@
               i++
               arr.push({
                 '序号': i + (this.currentPage2 - 1) * this.pageNum,
-                '案件进度': item.taskschedule,
-                '催办次数': item.remindersum,
                 '案件编号': item.casenumber,
-                '案件类型': item.casetype,
-                '案件性质': item.casenaturename,
                 '案件名称': item.casename,
-                '案件状态': item.statenames,
                 '主办民警': item._userNAME_auditdirector,
-                '是否交案': item.ishandovername,
-                '报警时间': item.bjsj,
-                '办理状态': item.processState
+                '案件性质': item.casenaturename,
+                '案件状态': item.statenames,
+                '指派领导': item.assigntorname,
+                '报警时间': item.bjsj
               })
             })
             let worksheet = XLSX.utils.json_to_sheet(arr)

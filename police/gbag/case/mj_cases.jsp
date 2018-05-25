@@ -168,6 +168,7 @@
                                         <use xlink:href="#icon-AG_shuaxin"></use>
                                       </svg>
                             &nbsp;&nbsp;刷新</el-button>
+                            <!-- 05.25 已处理 -->
                         <el-button plain @click="downloadSheet">
                                 <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_daochu1"></use>
@@ -753,7 +754,7 @@
                 });
             });
             },
-
+            // 05.25 已处理
             downloadSheet () {
                 if (!this.multipleSelection || !this.multipleSelection.length) {
                     this.$message.error('请选择案件')
@@ -766,12 +767,13 @@
                     '案件进度': item.taskschedule,
                     '催办次数': item.remindersum,
                     '案件编号': item.casenumber,
+                    '案件名称': item.casename,
+                    '主办民警': item._userNAME_auditdirector,
                     '案件类型': item.casetype,
                     '案件性质': item.casenaturename,
-                    '案件名称': item.casename,
                     '案件状态': item.statenames,
-                    '主办民警': item._userNAME_auditdirector,
                     '是否交案': item.ishandovername,
+                    '办理状态': item.attendingState,                    
                     '报警时间': item.bjsj
                 })
             })

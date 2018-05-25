@@ -43,18 +43,20 @@
                 }
             </style>
             <style>
-                    [v-cloak] {
-                      display: none;
-                    }
-                    /* 字体图标 svg */
-                    .icon-ag {
-                        width: 16px;
-                        height: 16px;
-                        vertical-align: -0.15em;
-                        fill: currentColor;
-                        overflow: hidden;
-                    }
-                  </style>
+                [v-cloak] {
+                    display: none;
+                }
+
+                /* 字体图标 svg */
+
+                .icon-ag {
+                    width: 16px;
+                    height: 16px;
+                    vertical-align: -0.15em;
+                    fill: currentColor;
+                    overflow: hidden;
+                }
+            </style>
         </head>
 
         <body>
@@ -67,14 +69,15 @@
                     <el-button plain @click="searchFollow">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_sousuo"></use>
-                          </svg> &nbsp;&nbsp;查询
+                        </svg> &nbsp;&nbsp;查询
                     </el-button>
-                    <!-- <el-button plain @click="exportExl">
-            <svg class="icon-ag" aria-hidden="true">
+                    <!-- 05.25 处理 -->
+                    <el-button plain @click="exportExl">
+                        <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_daochu1"></use>
                         </svg>
-            &nbsp;&nbsp;导出
-            </el-button> -->
+                        &nbsp;&nbsp;导出
+                    </el-button>
                     <el-button plain @click="unfollow">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_quxiaoshoucang"></use>
@@ -145,7 +148,7 @@
                             this.loading = false
                             let arr = res.data.list
                             if (!arr) return
-                            let i=0
+                            let i = 0
                             arr.forEach(item => {
                                 let curtTaskschedule = item.taskschedule
                                 let curRemindersum = item.remindersum
@@ -170,7 +173,7 @@
                                     item['sup_bac'] = 'sup_bac1'
                                 }
                                 i++
-                                item['indexs']=i+(this.curPage-1)*this.pageNum
+                                item['indexs'] = i + (this.curPage - 1) * this.pageNum
                             })
                             this.tableData = arr
                             this.pageCount = res.data.pageCount
@@ -202,14 +205,14 @@
                                 '案件进度': item.taskschedule,
                                 '催办次数': item.remindersum,
                                 '案件编号': item.casenumber,
+                                '案件名称': item.casename,
+                                '主办民警': item._userNAME_auditdirector,
                                 '案件类型': item.casetype,
                                 '案件性质': item.casenaturename,
-                                '案件名称': item.casename,
                                 '案件状态': item.statenames,
-                                '主办民警': item._userNAME_auditdirector,
                                 '是否交案': item.ishandovername,
+                                '办理状态': item.processState,
                                 '报警时间': item.bjsj,
-                                '办理状态': item.processState
                             })
                         })
                         let worksheet = XLSX.utils.json_to_sheet(arr)

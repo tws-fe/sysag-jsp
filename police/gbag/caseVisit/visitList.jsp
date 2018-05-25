@@ -43,17 +43,18 @@
                 }
             </style>
             <style>
-                    [v-cloak] {
-                      display: none;
-                    }
-                    .icon-ag {
-                        width: 16px;
-                        height: 16px;
-                        vertical-align: -0.15em;
-                        fill: currentColor;
-                        overflow: hidden;
-                    }
-                  </style>
+                [v-cloak] {
+                    display: none;
+                }
+
+                .icon-ag {
+                    width: 16px;
+                    height: 16px;
+                    vertical-align: -0.15em;
+                    fill: currentColor;
+                    overflow: hidden;
+                }
+            </style>
         </head>
 
         <body>
@@ -64,23 +65,24 @@
                         <el-input clearable v-model="searchTxt"></el-input>
                     </p>
                     <el-button plain @click="searchFollow">
-                            <svg class="icon-ag" aria-hidden="true">
-                                    <use xlink:href="#icon-AG_sousuo"></use>
-                                  </svg>
-                                  &nbsp;&nbsp;查询
+                        <svg class="icon-ag" aria-hidden="true">
+                            <use xlink:href="#icon-AG_sousuo"></use>
+                        </svg>
+                        &nbsp;&nbsp;查询
                     </el-button>
-                    <!-- <el-button plain @click="exportExl">
-                            <svg class="icon-ag" aria-hidden="true">
-  <use xlink:href="#icon-AG_daochu1"></use>
-</svg>
+                    <!-- 05.25 已处理 -->
+                    <el-button plain @click="exportExl">
+                        <svg class="icon-ag" aria-hidden="true">
+                            <use xlink:href="#icon-AG_daochu1"></use>
+                        </svg>
 
-                            &nbsp;&nbsp;导出
-                          </el-button> -->
+                        &nbsp;&nbsp;导出
+                    </el-button>
                     <el-button plain @click="editVisit('')">
-                            <svg class="icon-ag" aria-hidden="true">
-                                    <use xlink:href="#icon-AG_xinzeng"></use>
-                                  </svg>
-                                   新增
+                        <svg class="icon-ag" aria-hidden="true">
+                            <use xlink:href="#icon-AG_xinzeng"></use>
+                        </svg>
+                        新增
                     </el-button>
                 </div>
                 <div v-loading="loading">
@@ -134,7 +136,7 @@
                 methods: {
                     getLists() {
                         this.loading = true
-                        let i=0
+                        let i = 0
                         let url = 'getCaseVisit.do?method=getVisitList&contain=' + this.searchTxt + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
                         axios.post(url).then(res => {
                             // console.log(res)
@@ -142,9 +144,9 @@
                                 let curtTaskschedule = item.taskschedule
                                 let curRemindersum = item.remindersum
                                 // 案件进度处理，后台返回的是字符串且没有做位数处理
-                            i++
-                            item['indexs']=i+(this.curPage-1)*this.pageNum
-                        	})
+                                i++
+                                item['indexs'] = i + (this.curPage - 1) * this.pageNum
+                            })
                             this.tableData = res.data.list
                             this.pageCount = res.data.pageCount
                             this.loading = false
@@ -169,33 +171,31 @@
                         this.multipleSelection.forEach((item, index) => {
                             arr.push({
                                 '序号': index + 1,
-                                '案件进度': item.taskschedule,
-                                '催办次数': item.remindersum,
-                                '案件编号': item.casenumber,
-                                '案件类型': item.casetype,
-                                '案件性质': item.casenaturename,
-                                '案件名称': item.casename,
-                                '案件状态': item.statenames,
-                                '主办民警': item._userNAME_auditdirector,
-                                '是否交案': item.ishandovername,
-                                '报警时间': item.bjsj,
-                                '办理状态': item.processState
+                                '处理结果': item.result,
+                                '来访人': item.name,
+                                '来访时间': item.visittime,
+                                '联系电话': item.telnum,
+                                '来访事由': item.visitfor,
+                                '前台答复': item.receivereply,
+                                '答复内容': item.reply,
+                                '主办民警': item.receivecop,
+                                '案件编号': item.casenum
                             })
                         })
                         let worksheet = XLSX.utils.json_to_sheet(arr)
                         let new_workbook = XLSX.utils.book_new()
-                        XLSX.utils.book_append_sheet(new_workbook, worksheet, "我的案件")
+                        XLSX.utils.book_append_sheet(new_workbook, worksheet, "来访登记列表")
                         return XLSX.writeFile(new_workbook, new Date().getTime() + '.xlsx')
                     },
-                    editVisit(uuid,casenum,type) {
-                    	if(type=="1"){
-                    		var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add') 
-                            matech.openTab(uuid+"登记", "来访情况登记表" + casenum, url, true, parent);
-                    	}else{
-                    		var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add') 
-                            matech.openTab(uuid+"登记", "来访情况登记表", url, true, parent);
-                    	}
-                        
+                    editVisit(uuid, casenum, type) {
+                        if (type == "1") {
+                            var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add')
+                            matech.openTab(uuid + "登记", "来访情况登记表" + casenum, url, true, parent);
+                        } else {
+                            var url = "${ctx}/getCaseVisit.do?method=toVisitEdit&uuid=" + uuid + '&editType=' + (uuid ? 'update' : 'add')
+                            matech.openTab(uuid + "登记", "来访情况登记表", url, true, parent);
+                        }
+
                     },
                     removeVisit(row) {
                         console.log('删除来访')

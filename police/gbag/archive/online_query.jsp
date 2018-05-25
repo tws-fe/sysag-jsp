@@ -69,13 +69,15 @@
                                 
                                 &nbsp;&nbsp;查询
                           </el-button>
-                          <!-- <el-button plain @click="exportExl">
+
+                            <!-- 05.25 页面字段未确定 -->
+                           <el-button plain @click="exportExl">
                             <svg class="icon-ag" aria-hidden="true">
   <use xlink:href="#icon-AG_daochu1"></use>
 </svg>
 
                             &nbsp;&nbsp;导出
-                          </el-button> -->
+                          </el-button>
                         </div>
                         <div v-loading="loading">
                           <el-table

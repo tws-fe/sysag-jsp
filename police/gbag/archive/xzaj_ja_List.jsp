@@ -75,6 +75,7 @@
                         </svg>
                         &nbsp;&nbsp;查询
                     </el-button>
+                    <!-- 05.25 已处理 -->
                     <el-button plain @click="exportExl">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_daochu1"></use>
@@ -222,6 +223,7 @@
                         this.curPage = 1
                         this.getLists()
                     },
+                    // 05.25 已处理
                     exportExl() {
                         if (!this.multipleSelection.length) {
                             this.$message({
@@ -245,7 +247,7 @@
                                 '主办民警': item._userNAME_auditdirector,
                                 '是否交案': item.ishandovername,
                                 '报警时间': item.bjsj,
-                                '办理状态': item.processState
+                                // '办理状态': item.processState
                             })
                         })
                         let worksheet = XLSX.utils.json_to_sheet(arr)
