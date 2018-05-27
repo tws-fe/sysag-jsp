@@ -123,10 +123,17 @@
                     loading: true,
                     curPage: 1,
                     pageNum: 10,
-                    pageCount: 0
+                    pageCount: 0,
+                    lD:null,
+                    IDstandbyname:[],
+                    IDSHCount:[],
+                    undealCount:[],
+                    IDunSHCount:[]
+
                 },
                 created() {
                     this.getLists()
+                    this.getLeftdata()
                 },
                 mounted() {
                     this.initPie()
@@ -140,12 +147,12 @@
                                 trigger: 'axis'
                             },
                             legend: {
-                                data: ['未完成', '已完成']
+                                data: ['待处理', '未审核','已审核']
                             },
                             xAxis: [
                                 {
                                     type: 'category',
-                                    data: ['派出所A', '派出所B', '派出所C']
+                                    data: this.IDstandbyname
                                 }
                             ],
                             yAxis: [
@@ -155,14 +162,19 @@
                             ],
                             series: [
                                 {
-                                    name: '未完成',
+                                    name: '待处理',
                                     type: 'bar',
-                                    data: [23.2, 25.6, 76.7]
+                                    data: this.undealCount
                                 },
                                 {
-                                    name: '已完成',
+                                    name: '未审核',
                                     type: 'bar',
-                                    data: [26.4, 28.7, 70.7]
+                                    data: this.IDunSHCount
+                                },
+                                {
+                                    name: '已审核',
+                                    type: 'bar',
+                                    data: this.IDSHCount
                                 }
                             ]
                         }
@@ -284,6 +296,30 @@
                         var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
                         matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
                     },
+                    getLeftdata(){
+                        let url = 'getCase.do?method=myCaseCheckStatistics'
+                        axios.get(url).then(res => {                      
+                            this.lD = res.data.list
+                            // let IDstandbyname = []
+                            // let unSHCount =[]
+                            // let undealCount = []
+                            // let IDunSHCount =[]
+                         this.$nextTick(() => {
+                            res.data.list.forEach(item => {
+                                this.IDstandbyname.push(item.standbyname)
+                                this.IDSHCount.push(item.SHCount)
+                                this.undealCount.push(item.undealCount)
+                                this.IDunSHCount.push(item.unSHCount)
+                            })
+                         })
+                            console.log(this.IDstandbyname)
+                            console.log(this.IDSHCount)
+                            console.log(this.undealCount)
+                            console.log(this.IDunSHCount)
+                        }).catch(err => {
+                        
+                        })
+                    }
                 }
             })
 

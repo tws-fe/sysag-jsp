@@ -29,21 +29,21 @@
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myVisit.png" alt="">
                                         <span>行政案件材料</span>
                                     </p>
-                                    <span class="list-number">3个</span>
+                                    <span class="list-number">{{xzajCount}}个</span>
                                 </li>
                                 <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myReception.png" alt="">
                                         <span>刑事案件材料</span>
                                     </p>
-                                    <span class="list-number">1个</span>
+                                    <span class="list-number">{{xsajCount}}个</span>
                                 </li>
                                 <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_other.png" alt="">
                                         <span>其他案件材料</span>
                                     </p>
-                                    <span class="list-number">4个</span>
+                                    <span class="list-number">{{qtCount}}个</span>
                                 </li>
                                 <%-- <li class="visit-list-item visit-list-item-mt20">
                                     <p class="vist-list-txt">
@@ -136,10 +136,14 @@
                     loading: true,
                     curPage: 1,
                     pageNum: 10,
-                    pageCount: 0
+                    pageCount: 0,
+                    qtCount:0,
+                    xsajCount:0,
+                    xzajCount:0
                 },
                 created() {
                     this.getLists()
+                    this.getLeftdata()
                 },
                 mounted() {
                     this.initData()
@@ -261,6 +265,17 @@
                         var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
                         matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
                     },
+                    getLeftdata(){
+                        let url = 'getMark.do?method=fileStatistics'
+                        axios.get(url).then(res => {
+                        this.xzajCount = res.data.list[0].xzajCount
+                        this.xsajCount = res.data.list[0].xsajCount
+                        this.qtCount = res.data.list[0].qtCount
+                            console.log(res)
+                        }).catch(err => {
+                        
+                        })
+                    }
                 }
             })
 

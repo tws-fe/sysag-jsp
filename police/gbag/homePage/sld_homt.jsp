@@ -29,28 +29,28 @@
                     <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myReception.png" alt="">
                     <span>来访总数</span>
                   </p>
-                  <span class="list-number">6个</span>
+                  <span class="list-number">{{leftData.LfCount}}个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
                     <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_follow.png" alt="">
                     <span>待跟进</span>
                   </p>
-                  <span class="list-number">3个</span>
+                  <span class="list-number">{{leftData.dgjLfCount}}个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
                     <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_resolved.png" alt="">
                     <span>已解决</span>
                   </p>
-                  <span class="list-number">3个</span>
+                  <span class="list-number">{{leftData.yclLfCount}}个</span>
                 </li>
                 <li class="visit-list-item">
                   <p class="vist-list-txt">
                     <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_oftenVisit.png" alt="">
                     <span>高频来访</span>
                   </p>
-                  <span class="list-number">3个</span>
+                  <span class="list-number">{{leftData.gpLfcount}}个</span>
                 </li>
 
               </ul>
@@ -126,10 +126,12 @@
           loading: true,
           curPage: 1,
           pageNum: 10,
-          pageCount: 0
+          pageCount: 0,
+          leftData:null
         },
         created() {
           this.getLists()
+          this.getLeftdata()
         },
         mounted() {
           this.initData()
@@ -251,6 +253,15 @@
             var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
             matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
           },
+          getLeftdata(){
+            let url = 'getCaseVisit.do?method=visitStatistics'
+            axios.get(url).then(res => {
+              this.leftData = res.data.list[0]
+                 console.log(res)
+            }).catch(err => {
+              
+            })
+          }
         }
       })
 

@@ -920,7 +920,6 @@
                 let caseid = this.multipleSelection.map(item => {
                     return item.uuid
                 }).join(',')
-                console.log(caseid)
                 // 已移交材料才可以提交材料
                 let taskid = this.taskMultipleSelection.filter(item => {
                     return item.state1 == 1

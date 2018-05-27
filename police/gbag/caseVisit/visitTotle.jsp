@@ -105,7 +105,7 @@
             <el-table-column fixed prop="casename" label="案件名称" width="380"></el-table-column>
             <!-- <el-table-column prop="casetype" label="来访次数" width="88" ></el-table-column> -->
             <el-table-column prop="casetype" label="案件类型" width="380"></el-table-column>
-            <el-table-column prop="_user_auditdirector" label="主办民警" width="180"></el-table-column>
+            <el-table-column prop="_username_auditdirector" label="主办民警" width="180"></el-table-column>
             <el-table-column fixed="right" label="操作">
               <template slot-scope="scope">
                 <!-- <el-button type="text" @click="editVisit(scope.row.uuid,scope.row.casenum)">查看更多</el-button> -->

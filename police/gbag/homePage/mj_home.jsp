@@ -55,14 +55,14 @@
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myVisit.png" alt="">
                                         <span>我的来访</span>
                                     </p>
-                                    <span class="list-number">1个</span>
+                                    <span class="list-number">{{myLFCount}}个</span>
                                 </li>
                                 <li class="visit-list-item">
                                     <p class="vist-list-txt">
                                         <img class="visit-list-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/icon_myReception.png" alt="">
                                         <span>我的接访</span>
                                     </p>
-                                    <span class="list-number">4个</span>
+                                    <span class="list-number">{{myJFCount}}个</span>
                                 </li>
                             </ul>
                         </el-card>
@@ -145,10 +145,13 @@
                     pageNum: 10,
                     pageCount: 0,
                     pieIndex: 1,
-                    myChart: null
+                    myChart: null,
+                    myJFCount:null,
+                    myLFCount:null
                 },
                 created() {
                     this.getLists()
+                    this.getLeftdata()
                 },
                 mounted() {
                     this.myChart = echarts.init(document.getElementById('chart'))
@@ -337,6 +340,22 @@
                         var url = "${ctx}/getCase.do?method=toSeeCaseInfo&casenumber=" + casenumber;
                         matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
                     },
+                    getLeftdata(){
+                        let url = 'getCaseVisit.do?method=myVisitStatistics&visitType=0'
+                        let url1 = 'getCaseVisit.do?method=myVisitStatistics&visitType=1'
+                        axios.get(url).then(res => {
+                            this.myJFCount = res.data.list[0].myJFCount
+                            console.log(res)
+                        }).catch(err => {
+                        
+                        })
+                        axios.get(url1).then(res => {
+                            this.myLFCount = res.data.list[0].myJFCount
+                            console.log(res)
+                        }).catch(err => {
+                        
+                        })
+                    }
                 }
             })
 
