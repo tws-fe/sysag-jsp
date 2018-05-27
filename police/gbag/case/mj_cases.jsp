@@ -179,7 +179,7 @@
                                 <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                       </svg>
-                            &nbsp;&nbsp;交案</el-button>
+                            &nbsp;&nbsp;材料提交</el-button>
                         <el-button plain v-if="listShow==true" @click="listDown">
                                 <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_yincangrenwu"></use>
@@ -253,16 +253,17 @@
                     <!-- <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"/> -->
                     <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385"
                               border stripe
-                              @selection-change="handleSelectionChange">
-                        <el-table-column label="" width="58" fixed="left">
+                              @selection-change="taskSelectionChange">
+                        <el-table-column type="selection" width="58" fixed="left">
 
                         </el-table-column>
                         <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                         <el-table-column label="任务状态" width="118" fixed="left">
                             <template slot-scope="scope">
-                                <el-text v-if="scope.row.state == 0" type="text">执行中</el-text>
-                                <el-text v-else-if="scope.row.state == 1" type="text">已完成</el-text>
-                                <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
+                                <span v-if="scope.row.state1 == 0" type="text">无材料</span>
+                                <span v-else-if="scope.row.state1 == 1" type="text">未移交材料</span>
+                                <span v-else-if="scope.row.state1 == 2" type="text">已移交材料</span>
+                                <span v-else-if="scope.row.state1 == 3" type="text">案管已确认</span>                 
                             </template>
                         </el-table-column >
                         <el-table-column label="催办次数" width="85" fixed="left">
@@ -471,8 +472,9 @@
                 ispaper:'',
                 activeName2:'first',
                 ftShow:true,
-                ftTitle:""
-
+                ftTitle:"",
+                multipleSelection: [], //案件的选中
+                taskMultipleSelection: [] //任务的选中
 
             }
         },
@@ -504,9 +506,11 @@
                     this.$refs.multipleTable.clearSelection();
                 }
             },
+            taskSelectionChange (val) {
+                this.taskMultipleSelection = val
+            },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
-                // console.log(val)
             },
             handleSizeChange(val) {
                 // console.log(`每页 ${val} 条`);
@@ -904,8 +908,37 @@
             });
             },
             postCase(){
-                console.log(11);
-                console.log(this.multipleSelection);
+                // 05.27 修改功能和接口
+                if (this.multipleSelection.length===0&&this.taskMultipleSelection.length===0) {
+                    this.$message({
+                        type: 'warning',
+                        message: '请选择案件或任务',
+                        duration: 1000
+                    })
+                    return
+                }
+                let caseid = this.multipleSelection.map(item => {
+                    return item.uuid
+                }).join(',')
+                console.log(caseid)
+                // 已移交材料才可以提交材料
+                let taskid = this.taskMultipleSelection.filter(item => {
+                    return item.state1 == 1
+                }).map(item => {
+                    return item.uuid
+                }).join(',')
+                // if (caseid==''&&taskid=='') return
+                let url = 'getCaseTask.do?method=caseBookSubmit&caseid='+caseid+'&taskid='+taskid
+                axios.post(url).then(res => {
+                    let message = res.data == 1 ? '材料提交成功' : '材料提交失败'
+                    let type = res.data == 1 ? 'success' : 'error'
+                    this.$message({
+                        type: type,
+                        message: message,
+                        duration: 1000
+                    })
+                })
+                /*
                 let caseNumber = '';
                 let cftj = null;
                 let rwwc = null;
@@ -939,6 +972,7 @@
                           return false;
                         }
 
+                        
                         axios.post('getCase.do?method=caseTransfer',{
                             casenumber:caseNumber,
                             editType:1
@@ -966,7 +1000,7 @@
                 }else{
                     this.$message.error('请选择案件');
                 }
-                
+                */
             },
             refurbish(){
                  //this.currentPage2 = 1

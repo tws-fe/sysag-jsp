@@ -806,6 +806,7 @@
                         }).map(item => {
                             return item.uuid
                         }).join(',')
+                        
                         let url = 'getCaseTask.do?method=caseBookConfirm&taskid='+taskid
                         axios.post(url).then(res => {
                             let message = res.data == 1 ? '材料确认成功' : '材料确认失败'
@@ -837,13 +838,13 @@
                         }).join(',')
                         let url = 'getCaseTask.do?method=caseBookConfirm&caseid='+caseid+'&taskid='+taskid
                         axios.post(url).then(res => {
-                            if (res.data === 1) {
-                                this.$message({
-                                    type: 'success',
-                                    message: '材料确认成功',
-                                    duration: 1000
-                                })
-                            }
+                            let message = res.data == 1 ? '材料确认成功' : '材料确认失败'
+                            let type = res.data == 1 ? 'success' : 'error'
+                            this.$message({
+                                type: type,
+                                message: message,
+                                duration: 1000
+                            })
                         })
                     },
                     ajcj() {
