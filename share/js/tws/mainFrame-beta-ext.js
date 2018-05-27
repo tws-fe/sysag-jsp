@@ -530,18 +530,18 @@ MainIndex.toolbarClick=function(){
 
 MainIndex.buildLayout = function() {
 	if(userRoles.indexOf("分局领导")>=0){
-		var ajjgTool=new MainToolbar("ajjg","案件统计");
-		ajjgTool.setMenuId("10001624");
-		ajjgTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
-		ajjgTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseTJ");
-		ajjgTool.setIsSysBar(true);
-		MainIndex.toolsMap["ajjg"]=ajjgTool;
-		MainIndex.toolsMap2["10001624"]=ajjgTool;
-		MainIndex.addToolbar(ajjgTool);		
+		var ajtjTool=new MainToolbar("ajtj","案件统计");
+		ajtjTool.setMenuId("10001624");
+		ajtjTool.setIcon(CONTEXTPATH+"share/homeImg/ajtj.png");
+		ajtjTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseTJ");
+		ajtjTool.setIsSysBar(true);
+		MainIndex.toolsMap["ajtj"]=ajtjTool;
+		MainIndex.toolsMap2["10001624"]=ajtjTool;
+		MainIndex.addToolbar(ajtjTool);		
 	}else if(userRoles.indexOf("所队领导")>=0||userRoles.indexOf("系统管理员")>=0){
 		var lftjTool=new MainToolbar("lftj","来访统计");
 		lftjTool.setMenuId("10001623");
-		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
+		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/lftj.png");
 		lftjTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toCaseVisitTotle");
 		lftjTool.setIsSysBar(true);
 		MainIndex.toolsMap["lftj"]=lftjTool;
@@ -578,7 +578,7 @@ MainIndex.buildLayout = function() {
 	}else if(userRoles.indexOf("探长")>=0){
 		var lftjTool=new MainToolbar("lftj","来访统计");
 		lftjTool.setMenuId("10001623");
-		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
+		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/lftj.png");
 		lftjTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toCaseVisitTotle");
 		lftjTool.setIsSysBar(true);
 		MainIndex.toolsMap["lftj"]=lftjTool;

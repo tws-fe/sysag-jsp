@@ -278,8 +278,10 @@
                                 <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
                                     <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                                            <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
-                                            />
+                                            <!-- <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
+                                            /> -->
+                                            <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" />
+                                            
                                             <el-button class="save" plain @click="onSubmit">
                                                     &nbsp;&nbsp;保存</el-button>
 
@@ -290,6 +292,13 @@
                                             </el-table-column>
                                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                                             <el-table-column label="任务状态" width="118" fixed="left">
+                                                <template slot-scope="scope">
+                                                    <el-text v-if="scope.row.state == 0" type="text">执行中</el-text>
+                                                    <el-text v-else-if="scope.row.state == 1" type="text">已完成</el-text>
+                                                    <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
+                                                </template>
+                                            </el-table-column>
+                                            <el-table-column label="交案状态" width="118" fixed="left">
                                                 <template slot-scope="scope">
                                                         <!-- 05.27 调整 -->
                                                         <span v-if="scope.row.state1 == 0" type="text">无材料</span>
@@ -303,7 +312,8 @@
                                                     <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
+                                            <el-table-column prop="oper_user_id_" label="指派人" width="180" fixed="left"></el-table-column>
+                                            <el-table-column prop="oper_time_" label="指派时间" width="180"></el-table-column>
                                             <el-table-column label="任务内容" width="272" show-overflow-tooltip>
                                                 <template slot-scope="scope">
                                                  
@@ -320,7 +330,7 @@
                                             </el-table-column>
                                             <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
                                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                                            <el-table-column prop="handletime" label="办理时间" width="184"></el-table-column>
+                                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                             <el-table-column prop="ispaper" label="是否有材料" width="167">
                                               <template slot-scope="scope">
                                                     <el-radio-group v-model="scope.row.ispaper" :disabled="scope.row.isAdd">
@@ -911,12 +921,14 @@
 
                         let data = {
                             state: '0',
+                            state1: '0',
                             icount: 0,
                             oper_user_id_: name,
                             taskcontent:'', 
                             taskresult:'',
                             handleperson: this.currentRow._userNAME_auditdirector,
-                            handletime: formartTime(),
+                            oper_time_: formartTime(),
+                            update_time_: '',
                             ispaper:'',
                             'sup_bac': 'sup_bac3',
                             isAdd: true,
