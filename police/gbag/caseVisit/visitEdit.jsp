@@ -244,7 +244,7 @@
                                 <el-row>
                                     <el-col :span="6">
                                         <el-form-item label="接访民警">
-                                            <el-input v-model="ruleForm.receivecop" :disabled="!!uuid"></el-input>
+                                            <el-input v-model="ruleForm.receiveName" :disabled="!!uuid"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="6" :offset="2">
@@ -353,7 +353,7 @@
                         workunit: '',
                         address: '',
                         visitfor: '', //来访事由
-                        receivecop: '' || user, //接访民警
+                        receiveName: '' || user, //接访民警
                         auditdirectorname: '', //主办民警
                         receivereply: '', //前台答复
                         reply: '', //答复内容
@@ -371,7 +371,7 @@
                             { required: true, message: '请输入联系电话', trigger: 'blur' }
                         ],
                         visitfor: [{ required: true, message: '请填写来访事由', trigger: 'blur' }],
-                        receivecop: [{ required: true, message: '请填写接访民警', trigger: 'blur' }],
+                        receiveName: [{ required: true, message: '请填写接访民警', trigger: 'blur' }],
                         auditdirectorname: [{ required: true, message: '请填写主办民警', trigger: 'blur' }],
                         result: [{ required: true, message: '请选择访问结果', trigger: 'change' }],
                        
@@ -417,7 +417,7 @@
                         axios.post(url).then(res => {
                             this.ruleForm = res.data.caseVisit
                             this.showMsgBtn = this.ruleForm.auditdirectors == userid
-                            this.ruleForm.receivecop = res.data.caseVisit.receivecop || this.user
+                            this.ruleForm.receiveName = res.data.caseVisit.receiveName || this.user
                             this.tableData = res.data.list
                             this.loading = false
                         }).catch(err => {
@@ -531,7 +531,6 @@
                             this.ruleForm.caseinfo = str
                             this.ruleForm.auditdirectorname = users.name
                             this.ruleForm.auditdirectors = users.loginid
-							console.log(users);
                         }).catch(err => {
                             this.loading = false
                         })

@@ -149,6 +149,19 @@
                     <el-row class="case_nav">
                         <el-col :span="4">
                             <div class="case_nav_item case_nave_search">
+                                <span>派出所:&nbsp;</span>
+                                <el-select v-model="organ" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in organList"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </div>
+                        </el-col>
+                        <el-col :span="4">
+                            <div class="case_nav_item case_nave_search">
                                 <span>搜索内容：</span>
                                 <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
                             </div>
@@ -220,7 +233,7 @@
                         <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
                         <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
                         <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
-                        <el-table-column fixed="right" label="操.作" min-width="280">
+                        <el-table-column fixed="right" label="操.作" min-width="300">
                             <template slot-scope="scope">
                                 <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
                                 <el-button type="text" @click="downWord(scope.row.uuid)">主办责任人指定书</el-button>
@@ -393,8 +406,14 @@
                         ftShow: true,
                         ftTitle: "",
                         dl: "",
-                        imgShow: true
-
+                        imgShow: true,
+                        organList: [{
+                            value: '选项1',
+                            label: '黄金糕'
+                            }, {
+                            value: '选项2',
+                            label: '双皮奶'
+                        }]
 
 
                     }
@@ -405,8 +424,15 @@
                 created: function () {
                     this.loadAll();
                     this.handleCurrentChange()
+                    this.getOrganList()
                 },
                 methods: {
+                    getOrganList() {
+                        let url = 'getOrgan.do?method=getOrganList'
+                        axios.post(url).then(res => {
+                            this.organList = res.data.list
+                        })
+                    },
                     downWord(uuid) {
                         let url = '${ctx}/case.do?method=expWord&tables=vw_ga_case1`single`uuid&uuid=' + uuid + '&word=zrzd001'
                         axios.post(url).then(res => {

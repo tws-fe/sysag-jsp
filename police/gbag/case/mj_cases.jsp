@@ -307,8 +307,8 @@
                                             <el-table-column prop="oper_time_" label="指派时间" width="180"></el-table-column>
                                             <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip>
                                                 <template slot-scope="scope">
-                                                    <!-- <span v-if="scope.row.state1 == 2">{{scope.row.taskcontent}}</span> -->
-                                                    <el-autocomplete popper-class="my-autocomplete" v-model="scope.row.taskcontent" :fetch-suggestions="querySearch" placeholder="请输入内容"
+                                                    <span v-if="!scope.row.isAdd">{{scope.row.taskcontent}}</span>
+                                                    <el-autocomplete v-else popper-class="my-autocomplete" v-model="scope.row.taskcontent" :fetch-suggestions="querySearch" placeholder="请输入内容"
                                                         @select="handleSelect" @focus="handleblur(scope)" style="width:250px"
                                                         clearable>
                                                         <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
@@ -319,16 +319,27 @@
                                                     </el-autocomplete>
                                                 </template>
                                             </el-table-column>
-                                            <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
+                                            <el-table-column prop="taskresult" label="处理结果" width="400">
+                                                <template slot-scope="scope">
+                                                    <el-input v-model="scope.row.taskresult"></el-input>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
                                             <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
-                                            <el-table-column prop="ispaper" label="是否有材料" width="167"></el-table-column>
+                                            <el-table-column prop="ispaper" label="是否有材料" width="167">
+                                                    <template slot-scope="scope">
+                                                          <el-radio-group v-model="scope.row.ispaper" :disabled="scope.row.isAdd">
+                                                                  <el-radio :label="'0'">无</el-radio>
+                                                                  <el-radio :label="'1'">有</el-radio>
+                                                              </el-radio-group>
+                                                    </template>
+                                                  </el-table-column>
                                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                                 <template slot-scope="scope">
                                                     <p v-show="!scope.row.isAdd">
                                                         <el-button v-show="scope.row.oper_user_id_==scope.row.handleperson" type="text" @click="del(scope.row.uuid)">删除</el-button>
                                                         <el-button type="text" @click="look(scope.row.uuid,true)">查看</el-button>
-                                                        <el-button v-show="scope.row.state == 0 || scope.row.state == 1" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
+                                                        <!-- <el-button v-show="scope.row.state == 0 || scope.row.state == 1" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
                                                         <!-- <el-button type="text">催办</el-button> -->
                                                     </p>
                                                     <p v-show="scope.row.isAdd">
@@ -413,6 +424,7 @@
                             </div>
                             <div>
                                 <el-form-item label="任务内容">
+                                    
                                     <el-autocomplete popper-class="my-autocomplete" v-model="formTask.taskcontent" :fetch-suggestions="querySearch" placeholder="请输入内容"
                                         @select="handleSelect" style="width:24vw" disabled="true">
                                         <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
@@ -654,8 +666,7 @@
                                             item['attendingState'] = '已完成'
                                         }
 
-                                        // 非新增任务
-                                        item.isAdd = false
+                                       
                                     })
                                     this.tableData3 = data
                                     this.tableData4 = data
@@ -695,13 +706,8 @@
                                     } else {
                                         item['sup_bac'] = 'sup_bac1'
                                     }
-                                    if (iP == 0) {
-                                        item.ispaper = '无'
-                                    } else if (iP == 1) {
-                                        item.ispaper = '有'
-                                    } else {
-                                        item.ispaper = ''
-                                    }
+                                    // 非新增任务
+                                    item.isAdd = false
 
 
                                 })
