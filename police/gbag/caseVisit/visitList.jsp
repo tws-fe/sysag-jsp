@@ -98,7 +98,7 @@
                         <el-table-column prop="receivereply" label="前台答复" width="152"></el-table-column>
                         <el-table-column prop="reply" label="答复内容" width="167"></el-table-column>
                         <el-table-column prop="auditdirectorname" label="主办民警" width="145"></el-table-column>
-                        <el-table-column prop="receivecop" label="接访民警" width="145"></el-table-column>
+                        <el-table-column prop="receivecopname" label="接访民警" width="145"></el-table-column>
                         <el-table-column prop="casenum" label="案件编号" width="150"></el-table-column>
                         <el-table-column fixed="right" label="操作" min-width="150">
                             <template slot-scope="scope">

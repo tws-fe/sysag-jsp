@@ -192,6 +192,18 @@
                                             <el-input v-model="ruleForm.telnum"></el-input>
                                         </el-form-item>
                                     </el-col>
+                                    <el-col :span="6" :offset="2">
+                                            <el-form-item label="与涉案人关系" prop="relation">
+                                                    <el-select v-model="ruleForm.relation" filterable placeholder="请选择" style="width:100%">
+                                                            <el-option
+                                                              v-for="item in options2"
+                                                              :key="item.value"
+                                                              :label="item.label"
+                                                              :value="item.value">
+                                                            </el-option>
+                                                          </el-select>
+                                            </el-form-item>
+                                        </el-col>
                                 </el-row>
                                 <el-row>
                                     <el-col :span="14">
@@ -345,7 +357,8 @@
                         auditdirectorname: '', //主办民警
                         receivereply: '', //前台答复
                         reply: '', //答复内容
-                        result: '' // 访问结果
+                        result: '', // 访问结果,
+                        relation:''//与涉案人关系
                     },
                     rules: {
                         casenum: [{ required: true, message: '请选择或填写案件编号', trigger: 'change' }],
@@ -360,7 +373,8 @@
                         visitfor: [{ required: true, message: '请填写来访事由', trigger: 'blur' }],
                         receivecop: [{ required: true, message: '请填写接访民警', trigger: 'blur' }],
                         auditdirectorname: [{ required: true, message: '请填写主办民警', trigger: 'blur' }],
-                        result: [{ required: true, message: '请选择访问结果', trigger: 'change' }]
+                        result: [{ required: true, message: '请选择访问结果', trigger: 'change' }],
+                       
                     },
                     dialogRules: {
                         userPhone: [{ required: true, message: '请填写联系电话', trigger: 'blur' }],
@@ -371,7 +385,24 @@
                         userPhone: '',
                         userName: '',
                         content: ''
-                    }
+                    },
+                    options2:[{
+                        value: '朋友',
+                        label: '朋友'
+                        }, {
+                        value: '亲戚',
+                        label: '亲戚'
+                        }, {
+                        value: '子女',
+                        label: '子女'
+                        }, {
+                        value: '父母',
+                        label: '父母'
+                        }, {
+                        value: '单位',
+                        label: '单位'
+                        }],
+                    
                 },
                 created() {
                     this.getCaseList()
@@ -423,11 +454,12 @@
                         this.ruleForm.casenum = item.value
                     },
                     submitForm(formName) {
-                        console.log(this.ruleForm.visittime)
+                       
                         this.$refs[formName].validate((valid) => {
                             if (valid) {
                                 let url = 'getCaseVisit.do?method=saveVisit'
                                 axios.post(url, this.ruleForm).then(res => {
+                                    console.log(res.data)
                                     if (res.data === 1) {
                                         this.$message({
                                             type: 'success',
@@ -486,6 +518,7 @@
                             this.loading = false
                             let data = res.data
                             let caseBean = data.caseBean
+                            let users=data.users
                             let str = '【受害报案人】:'
                             data.caseVictims.forEach(item => {
                                 str += item.ctype + ' ' + item.victimname + ' ' + item.victimidcard + ' 联系电话:' + item.victimphone + ' '
@@ -494,11 +527,11 @@
                             data.caseSuspects.forEach(item => {
                                 str += item.name + ' ' + item.idcard + ' ' + item.birthdate
                             })
-                            str += '\n' + '【主办民警】:' + caseBean.casedetails + '\n' + '【立案时间】:' + caseBean.recorddate + ' '
+                            str += '\n' + '【主办民警】:' + users.name + '\n' + '【立案时间】:' + caseBean.recorddate + ' '
                             this.ruleForm.caseinfo = str
-                            this.ruleForm.auditdirectorname = caseBean._user_auditdirector
-                            this.ruleForm.auditdirectors = caseBean._user_auditdirector
-
+                            this.ruleForm.auditdirectorname = users.name
+                            this.ruleForm.auditdirectors = users.loginid
+							console.log(users);
                         }).catch(err => {
                             this.loading = false
                         })

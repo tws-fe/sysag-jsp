@@ -529,8 +529,25 @@ MainIndex.toolbarClick=function(){
 }
 
 MainIndex.buildLayout = function() {
-
-	if(userRoleName.indexOf("所领导")>=0||userRoleName.indexOf("系统管理员")>=0){
+	if(userRoles.indexOf("分局领导")>=0){
+		var ajjgTool=new MainToolbar("ajjg","案件统计");
+		ajjgTool.setMenuId("10001624");
+		ajjgTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
+		ajjgTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseTJ");
+		ajjgTool.setIsSysBar(true);
+		MainIndex.toolsMap["ajjg"]=ajjgTool;
+		MainIndex.toolsMap2["10001624"]=ajjgTool;
+		MainIndex.addToolbar(ajjgTool);		
+	}else if(userRoles.indexOf("所队领导")>=0||userRoles.indexOf("系统管理员")>=0){
+		var lftjTool=new MainToolbar("lftj","来访统计");
+		lftjTool.setMenuId("10001623");
+		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
+		lftjTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toCaseVisitTotle");
+		lftjTool.setIsSysBar(true);
+		MainIndex.toolsMap["lftj"]=lftjTool;
+		MainIndex.toolsMap2["10001623"]=lftjTool;
+		MainIndex.addToolbar(lftjTool);
+		
 		var ajjgTool=new MainToolbar("ajjg","案件监管");
 		ajjgTool.setMenuId("10001625");
 		ajjgTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
@@ -558,7 +575,16 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001630"]=ajqrbTool;		
 		MainIndex.addToolbar(ajqrbTool);
 
-	}else if(userRoleName.indexOf("探长")>=0){
+	}else if(userRoles.indexOf("探长")>=0){
+		var lftjTool=new MainToolbar("lftj","来访统计");
+		lftjTool.setMenuId("10001623");
+		lftjTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
+		lftjTool.setUrl(CONTEXTPATH+"getCaseVisit.do?method=toCaseVisitTotle");
+		lftjTool.setIsSysBar(true);
+		MainIndex.toolsMap["lftj"]=lftjTool;
+		MainIndex.toolsMap2["10001623"]=lftjTool;
+		MainIndex.addToolbar(lftjTool);
+		
 		var ajjgTool=new MainToolbar("ajjg","案件监管");
 		ajjgTool.setMenuId("10001625");
 		ajjgTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
@@ -622,8 +648,8 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001631"]=kywpTool;		
 		MainIndex.addToolbar(kywpTool);*/
 		
-	} else if(userRoleName.indexOf("案管专员")>=0){
-		var xzjaTool=new MainToolbar("xzja","行政交案确认");
+	} else if(userRoles.indexOf("案管专员")>=0){
+		var xzjaTool=new MainToolbar("xzja","案件监管");
 		xzjaTool.setMenuId("10001620");
 		xzjaTool.setIcon(CONTEXTPATH+"share/homeImg/xzja.png");
 		xzjaTool.setUrl(CONTEXTPATH+"getCase.do?method=toXZHandCase");
@@ -676,17 +702,8 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap["kywp"]=kywpTool;
 		MainIndex.toolsMap2["10001625"]=kywpTool;
 		MainIndex.addToolbar(kywpTool);*/
-		
-		var ajjdTool=new MainToolbar("ajjd","案件监督");
-		ajjdTool.setMenuId("10001626");
-		ajjdTool.setIcon(CONTEXTPATH+"share/homeImg/ajjg.png");
-		ajjdTool.setUrl(CONTEXTPATH+"getCase.do?method=toCaseSupervise");
-		ajjdTool.setIsSysBar(true);
-		MainIndex.toolsMap["ajjd"]=ajjdTool;
-		MainIndex.toolsMap2["10001626"]=ajjdTool;
-		MainIndex.addToolbar(ajjdTool);
 
-	}else if(userRoleName.indexOf("案审")>=0){
+	}else if(userRoles.indexOf("案审")>=0){
 		var asrwTool=new MainToolbar("asrw","案审任务");
 		asrwTool.setMenuId("10001630");
 		asrwTool.setIcon(CONTEXTPATH+"share/homeImg/ajqrb.png");
@@ -696,7 +713,7 @@ MainIndex.buildLayout = function() {
 		MainIndex.toolsMap2["10001630"]=asrwTool;		
 		MainIndex.addToolbar(asrwTool);
 		
-	}else if(userRoleName.indexOf("民警")>=0){
+	}else if(userRoles.indexOf("民警")>=0){
 		var wdajTool=new MainToolbar("wdaj","我的案件");
 		wdajTool.setMenuId("10001627");
 		wdajTool.setIcon(CONTEXTPATH+"share/homeImg/wdaj.png");

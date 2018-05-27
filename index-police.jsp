@@ -243,6 +243,7 @@ Ext.EventManager.onWindowResize(function(width, height) {
 
 
 var _CUR_USER="${sessionScope.userSession.userId}";
+var userRoles="${sessionScope.userSession.userRoleNames}";
    
 var _WebOffice=true;
 function getWebOffice(){
@@ -256,7 +257,7 @@ var refreshTimer;
 function refreshMyDealList(){
 	showMyMsgInfo();
 	clearTimeout(refreshTimer);
-	refreshTimer = setTimeout(refreshMyDealList, 120 * 1000);
+	refreshTimer = setTimeout(refreshMyDealList, 20 * 1000);
 }
 $(".tis").click(function(){
     showMyMsgInfo();
