@@ -328,7 +328,7 @@
                                             <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                             <el-table-column prop="ispaper" label="是否有材料" width="167">
                                                     <template slot-scope="scope">
-                                                          <el-radio-group v-model="scope.row.ispaper" :disabled="scope.row.isAdd">
+                                                          <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
                                                                   <el-radio :label="'0'">无</el-radio>
                                                                   <el-radio :label="'1'">有</el-radio>
                                                               </el-radio-group>
@@ -539,6 +539,9 @@
                     this.handleCurrentChange()
                 },
                 methods: {
+                    newTaskChange(row) {
+                        row.state1 = row.ispaper
+                    },
                      // 保存任务
                      onSubmit(formName) {
                         let list = this.tableData4.list1

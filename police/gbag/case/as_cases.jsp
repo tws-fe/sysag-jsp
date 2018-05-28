@@ -153,9 +153,9 @@
                                 <el-select v-model="organ" placeholder="请选择">
                                     <el-option
                                         v-for="item in organList"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        :key="item.departid"
+                                        :label="item.standbyname"
+                                        :value="item.departid">
                                     </el-option>
                                 </el-select>
                             </div>
@@ -407,6 +407,8 @@
                         ftTitle: "",
                         dl: "",
                         imgShow: true,
+                        organ: '', //选中派出所
+                        // 派出所列表
                         organList: [{
                             value: '选项1',
                             label: '黄金糕'
@@ -430,7 +432,7 @@
                     getOrganList() {
                         let url = 'getOrgan.do?method=getOrganList'
                         axios.post(url).then(res => {
-                            this.organList = res.data.list
+                            this.organList = res.data
                         })
                     },
                     downWord(uuid) {
@@ -464,7 +466,7 @@
                         // console.log(`每页 ${val} 条`);
                     },
                     handleCurrentChange() {
-                        axios.get('getCase.do?method=getCaseReviewList&curPage=' + this.currentPage2 + '&pageNum=' + this.pageNum + '&contain=' + this.selectValue2)
+                        axios.get('getCase.do?method=getCaseReviewList&curPage=' + this.currentPage2 + '&pageNum=' + this.pageNum + '&contain=' + this.selectValue2 + '&organid=' + this.organ)
                             .then(response => {
                                 let data = response.data
                                 console.log(data)

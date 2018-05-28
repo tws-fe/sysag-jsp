@@ -178,7 +178,7 @@
                             <el-row class="case_nav">
                                 <el-col :span="4">
                                     <div class="case_nav_item">
-                                        <span>交案状态：</span>
+                                        <span>筛选条件：</span>
                                         <el-select v-model="caseStatus" placeholder="请选择" >
                                             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
                                             </el-option>
@@ -194,19 +194,21 @@
                                         </el-select>
                                     </div>
                                 </el-col> -->
-                                <el-col :span="4">
-                                    <div class="case_nav_item case_nave_search">
-                                        <span>搜索内容：</span>
-                                        <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
+                                <el-col :span="3">
+                                    <div class="case_nav_item case_nave_search" style="padding-left: 0;">
+                                        <!-- <span>搜索内容：</span> -->
+                                        <el-input v-model="selectValue" placeholder="案件编号或案件名称">
+                                            <el-button slot="append" icon="el-icon-search"  @click="select"></el-button>
+                                        </el-input>
                                     </div>
                                 </el-col>
                                 <el-col :span="16">
                                     <div class="case_nav_item">
-                                        <el-button plain @click="select">
+                                        <!-- <el-button plain @click="select">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_sousuo"></use>
                                             </svg>
-                                            &nbsp;&nbsp;查询</el-button>
+                                            &nbsp;&nbsp;查询</el-button> -->
                                             
                                         <el-button plain @click="refurbish">
                                             <svg class="icon" aria-hidden="true">
@@ -241,6 +243,7 @@
                             <el-row class="case_nav">   
                                     <el-col>
                                         <div class="case_nav_item">
+                                            功能操作：
                                                 <el-button type="primary" plain @click="ajcj">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_cuijiao"></use>

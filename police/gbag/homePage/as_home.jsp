@@ -124,12 +124,6 @@
                     curPage: 1,
                     pageNum: 10,
                     pageCount: 0,
-                    lD:null,
-                    IDstandbyname:[],
-                    IDSHCount:[],
-                    undealCount:[],
-                    IDunSHCount:[]
-
                 },
                 created() {
                     this.getLists()
@@ -142,49 +136,75 @@
                 methods: {
                     initBar() {
                         let barChart = echarts.init(document.getElementById('bar'))
-                        let option = {
-                            tooltip: {
-                                trigger: 'axis'
-                            },
-                            legend: {
-                                data: ['待处理', '未审核','已审核']
-                            },
-                            xAxis: [
-                                {
-                                    type: 'category',
-                                    data: this.IDstandbyname
-                                }
-                            ],
-                            yAxis: [
-                                {
-                                    type: 'value'
-                                }
-                            ],
-                            series: [
-                                {
-                                    name: '待处理',
-                                    type: 'bar',
-                                    data: this.undealCount
+                        let url = 'getCase.do?method=myCaseCheckStatistics'
+                        axios.get(url).then(res => {   
+                         this.$nextTick(() => {                   
+                         let IDstandbyname = []
+                         let IDSHCount = []
+                         let undealCount = []
+                         let IDunSHCount = []                      
+                            res.data.list.forEach(item => {
+                                IDstandbyname.push(item.standbyname)
+                                IDSHCount.push(parseInt(item.SHCount))
+                                undealCount.push(parseInt(item.undealCount))
+                                IDunSHCount.push(parseInt(item.unSHCount))
+                            })
+                         let option = {
+                                tooltip: {
+                                    trigger: 'axis'
                                 },
-                                {
-                                    name: '未审核',
-                                    type: 'bar',
-                                    data: this.IDunSHCount
+                                legend: {
+                                    data: ['待处理', '未审核','已审核']
                                 },
-                                {
-                                    name: '已审核',
-                                    type: 'bar',
-                                    data: this.IDSHCount
-                                }
-                            ]
-                        }
-                        barChart.setOption(option)
+                                xAxis: [
+                                    {
+                                        type: 'category',
+                                        data: IDstandbyname
+                                    }
+                                ],
+                                yAxis: [
+                                    {
+                                        type: 'value'
+                                    }
+                                ],
+                                series: [
+                                    {
+                                        name: '待处理',
+                                        type: 'bar',
+                                        data: undealCount
+                                        // data: [23.2, 25.6, 76.7]
+                                    },
+                                    {
+                                        name: '未审核',
+                                        type: 'bar',
+                                        data: IDunSHCount
+                                        // data: [23.2, 25.6, 76.7]
+                                    },
+                                    {
+                                        name: '已审核',
+                                        type: 'bar',
+                                        data: IDSHCount
+                                        // data: [23.2, 25.6, 76.7]
+                                    }
+                                ]
+                            }
+                            barChart.setOption(option)
+                        })
+                        }).catch(err => {
+                        
+                        })
+
+                      
                     },
                     initPie() {
                         let pieChart = echarts.init(document.getElementById('chart'))
-                        let option = {
+                        let url = 'getCase.do?method=caseCheckStatistics'
+                        axios.get(url).then(res => { 
+                        this.$nextTick(() => {           
+                         console.log(res.data.list[0])
+                         let option = {
                             title: {
-                                text: '{a|40}{b| -件}\n{c|当月案件}',
+                                text: '{a|'+res.data.list[0].zsum+'}{b| -件}\n{c|当月案件}',
                                 x: 'center',
                                 y: 'center',
                                 textStyle: {
@@ -223,7 +243,7 @@
                                     radius: ['40%', '70%'],
                                     data: [
                                         {
-                                            value: 335, name: '待处理',
+                                            value: res.data.list[0].undealCount, name: '待处理',
                                             label: {
                                                 normal: {
                                                     formatter: '{c}'
@@ -231,14 +251,14 @@
                                             }
                                         },
                                         {
-                                            value: 310, name: '已审核', label: {
+                                            value: res.data.list[0].SHCount, name: '已审核', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
                                             }
                                         },
                                         {
-                                            value: 234, name: '未审核', label: {
+                                            value: res.data.list[0].unSHCount, name: '未审核', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
@@ -249,6 +269,11 @@
                             ]
                         }
                         pieChart.setOption(option)
+                        })
+                        }).catch(err => {
+                        
+                         })
+                    
                     },
                     getLists() {
                         this.loading = true
@@ -297,28 +322,7 @@
                         matech.openTab(casenumber, "案件详情" + casenumber, url, true, parent);
                     },
                     getLeftdata(){
-                        let url = 'getCase.do?method=myCaseCheckStatistics'
-                        axios.get(url).then(res => {                      
-                            this.lD = res.data.list
-                            // let IDstandbyname = []
-                            // let unSHCount =[]
-                            // let undealCount = []
-                            // let IDunSHCount =[]
-                         this.$nextTick(() => {
-                            res.data.list.forEach(item => {
-                                this.IDstandbyname.push(item.standbyname)
-                                this.IDSHCount.push(item.SHCount)
-                                this.undealCount.push(item.undealCount)
-                                this.IDunSHCount.push(item.unSHCount)
-                            })
-                         })
-                            console.log(this.IDstandbyname)
-                            console.log(this.IDSHCount)
-                            console.log(this.undealCount)
-                            console.log(this.IDunSHCount)
-                        }).catch(err => {
-                        
-                        })
+                     
                     }
                 }
             })

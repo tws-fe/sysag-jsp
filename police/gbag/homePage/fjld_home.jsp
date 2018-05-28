@@ -32,7 +32,7 @@
         <body>
             <div id="app" v-cloak>
                 <el-row class="data-show">
-                    <el-col :span="4">
+                    <el-col :span="18">
                         <el-card class="bar-container">
                             <p class="visit-title">派出所当月案审统计</p>
                             <%-- <ul class="visit-list">
@@ -54,7 +54,7 @@
                             <div id="bar"></div>
                         </el-card>
                     </el-col>
-                    <el-col :span="14" class="visit-main">
+                    <!-- <el-col :span="14" class="visit-main">
                         <el-card>
                             <div class="visit-main-title">
                                 <span>案件管理流程-案审大队</span>
@@ -66,7 +66,7 @@
                             </div>
                             <img class="visit-main-image" src="${pageContext.request.contextPath}/police/gbag/homePage/img/as.png" alt="" width="100%">
                         </el-card>
-                    </el-col>
+                    </el-col> -->
                     <el-col :span="6">
                         <el-card>
                             <p>当月案件统计</p>
@@ -135,12 +135,15 @@
                 methods: {
                     initBar() {
                         let barChart = echarts.init(document.getElementById('bar'))
+                        let url = 'getCase.do?method=myCaseStatisticsOfDepart'
+                        axios.get(url).then(res => { 
+                            console.log(res)
                         let option = {
                             tooltip: {
                                 trigger: 'axis'
                             },
                             legend: {
-                                data: ['未完成', '已完成']
+                                data: ['待处理','未完成', '已完成']
                             },
                             xAxis: [
                                 {
@@ -167,6 +170,9 @@
                             ]
                         }
                         barChart.setOption(option)
+                        }).catch(err => {
+                            
+                        })
                     },
                     initPie() {
                         let pieChart = echarts.init(document.getElementById('chart'))

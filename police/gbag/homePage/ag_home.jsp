@@ -151,9 +151,12 @@
                 methods: {
                     initData() {
                         var myChart = echarts.init(document.getElementById('chart'))
+                        let url = 'getMark.do?method=fileCaseStatistics'
+                        axios.get(url).then(res => { 
+                            console.log(res.data.list[0])
                         let option = {
                             title: {
-                                text: '{a|70}{b| -件}\n{c|当月案件}',
+                                text: '{a|'+res.data.list[0].totalCase+'}{b| -件}\n{c|当月案件}',
                                 x: 'center',
                                 y: 'center',
                                 textStyle: {
@@ -192,7 +195,7 @@
                                     radius: ['40%', '70%'],
                                     data: [
                                         {
-                                            value: 35, name: '未交案件',
+                                            value: res.data.list[0].unJaCount, name: '未交案件',
                                             label: {
                                                 normal: {
                                                     formatter: '{c}'
@@ -200,14 +203,14 @@
                                             }
                                         },
                                         {
-                                            value: 10, name: '已交案件', label: {
+                                            value: res.data.list[0].JaCount, name: '已交案件', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
                                             }
                                         },
                                         {
-                                            value: 25, name: '超期未交', label: {
+                                            value: res.data.list[0].passUnjaCount, name: '超期未交', label: {
                                                 normal: {
                                                     formatter: '{c}'
                                                 }
@@ -218,6 +221,9 @@
                             ]
                         }
                         myChart.setOption(option)
+                        }).catch(err => {
+                        
+                         })
                     },
                     getLists() {
                         this.loading = true
