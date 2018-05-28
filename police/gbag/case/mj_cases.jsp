@@ -155,11 +155,26 @@
 
             .save {
                 position: absolute;
-                top: -57px;
+                top: -52px;
                 left: 260px;
                 z-index: 10;
                 cursor: pointer;
             }
+
+            /* 分页优化 */
+.el-pagination.is-background .btn-prev, 
+.el-pagination.is-background .btn-next {
+  min-width: 68px;
+}
+
+.el-pagination.is-background .el-pager li {
+  margin: 0 1px;
+}
+
+/* 无数据 */
+.el-table__empty-block {
+  height: 0;
+}
         </style>
 
         <body>
@@ -262,7 +277,7 @@
                     </el-table>
                     <div class="block paging">
                         <el-pagination background :page-size="5" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage2"
-                            layout="prev, pager, next" :total="this.tableData3.pageCount*5">
+                            layout="prev, pager, next" :total="this.tableData3.pageCount*5" prev-text="上一页" next-text="下一页">
                         </el-pagination </div>
                     </div>
 
@@ -274,11 +289,27 @@
                                 <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
                                     <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                                        <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" />
+                                        <!-- <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" />
                                         <el-button class="save" plain @click="onSubmit">
-                                            &nbsp;&nbsp;保存</el-button>
-                                        <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385" border stripe
-                                            @selection-change="taskSelectionChange">
+                                            &nbsp;&nbsp;保存</el-button> -->
+
+                                        <el-button-group  class="save">
+                                            <el-button type="primary" plain  @click="addTask">
+                                                <svg class="icon-ag" aria-hidden="true">
+                                                    <use xlink:href="#icon-AG_xinzeng"></use>
+                                                </svg>&nbsp;&nbsp;
+                                                新增
+                                            </el-button>
+                                            <el-button type="primary" plain @click="onSubmit">
+                                                <svg class="icon-ag" aria-hidden="true">
+                                                    <use xlink:href="#icon-AG_tubiaocu-"></use>
+                                                </svg>&nbsp;&nbsp;
+                                                保存
+                                            </el-button>
+                                        </el-button-group>     
+
+                                        <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
+                                            @selection-change="taskSelectionChange" v-loading="tableLoading">
                                             <el-table-column type="selection" width="58" fixed="left">
 
                                             </el-table-column>
@@ -339,7 +370,7 @@
                                                     <p v-show="!scope.row.isAdd">
                                                         <el-button v-show="scope.row.oper_user_id_==scope.row.handleperson" type="text" @click="del(scope.row.uuid)">删除</el-button>
                                                         <el-button type="text" @click="look(scope.row.uuid,true)">查看</el-button>
-                                                        <el-button type="text" @click="postCase(scope.row.uuid)">材料提交</el-button>
+                                                        <el-button type="text" v-show="scope.row.state == 1 && scope.row.state1 == 1" @click="postCase(scope.row.uuid)">材料提交</el-button>
                                                         <!-- <el-button v-show="scope.row.state == 0 || scope.row.state == 1" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
                                                         <!-- <el-button type="text">催办</el-button> -->
                                                     </p>
@@ -531,8 +562,8 @@
                         ftShow: true,
                         ftTitle: "",
                         multipleSelection: [], //案件的选中
-                        taskMultipleSelection: [] //任务的选中
-
+                        taskMultipleSelection: [], //任务的选中
+                        tableLoading: false
                     }
                 },
                 created: function () {
@@ -690,9 +721,11 @@
 
                     },
                     rowClick(val) {
+                        this.tableLoading = true
                         this.currentRow = val;
                         axios.get('getCaseTask.do?method=getTaskList&uuid=' + val.uuid)
                             .then(response => {
+                                this.tableLoading = false
                                 let data = response.data
                                 console.log(data)
                                 // 一般任务数据优化
@@ -743,7 +776,7 @@
                                 console.log(response.data)
                             })
                             .catch(function (error) {
-
+                                this.tableLoading = false
                             });
                     },
                     setCurrent(row) {

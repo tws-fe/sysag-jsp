@@ -73,6 +73,7 @@
           <el-col :span="6">
             <el-card>
               <p>当月案件统计</p>
+              <div v-show="datashow">暂无数据</div>
               <div id="chart"></div>
             </el-card>
           </el-col>
@@ -130,7 +131,8 @@
           LfCount:'',
           dgjLfCount:'',
           gpLfcount:'',
-          yclLfCount:''
+          yclLfCount:'',
+          datashow:false // 判断饼图是否有数据显示文字
         },
         created() {
           this.getLists()
@@ -142,12 +144,16 @@
         methods: {
           initData() {
             var myChart = echarts.init(document.getElementById('chart'))
-            let url = 'getCase?method=caseStatistics'
+            let url = 'getCase.do?method=caseStatistics'
             axios.get(url).then(res => { 
               console.log(res)
+              res.data.list = []
+              if(res.data.list == []){
+                this.datashow = true
+              }
             let option = {
               title: {
-                text: '{a|50}{b| -件}\n{c|当月案件}',
+                text: '{a|'+res.data.list[0].zsum+'}{b| -件}\n{c|当月案件}',
                 x: 'center',
                 y: 'center',
                 textStyle: {
@@ -186,7 +192,7 @@
                   radius: ['40%', '70%'],
                   data: [
                     {
-                      value: 18, name: '待处理',
+                      value: res.data.list[0].undealCount, name: '待处理',
                       label: {
                         normal: {
                           formatter: '{c}'
@@ -194,14 +200,14 @@
                       }
                     },
                     {
-                      value: 16, name: '未完成', label: {
+                      value: res.data.list[0].unfinishCount, name: '未完成', label: {
                         normal: {
                           formatter: '{c}'
                         }
                       }
                     },
                     {
-                      value: 16, name: '已完成', label: {
+                      value: res.data.list[0].finishCount, name: '已完成', label: {
                         normal: {
                           formatter: '{c}'
                         }
@@ -269,7 +275,6 @@
               this.dgjLfCount = res.data.list[0].dgjLfCount
               this.gpLfcount = res.data.list[0].gpLfcount
               this.yclLfCount = res.data.list[0].yclLfCount
-              console.log(res)
             }).catch(err => {
               
             })

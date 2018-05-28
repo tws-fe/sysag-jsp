@@ -137,18 +137,27 @@
                         let barChart = echarts.init(document.getElementById('bar'))
                         let url = 'getCase.do?method=myCaseStatisticsOfDepart'
                         axios.get(url).then(res => { 
-                            console.log(res)
+                       // console.log(res)
+                        this.$nextTick(() => {    
+                         let standbyname = []
+                         let unFinishCount = []
+                         let FinishCount = []                 
+                            res.data.list.forEach(item => {
+                                standbyname.push(item.standbyname)
+                                unFinishCount.push(parseInt(item.unFinishCount))
+                                FinishCount.push(parseInt(item.FinishCount))
+                            })                             
                         let option = {
                             tooltip: {
                                 trigger: 'axis'
                             },
                             legend: {
-                                data: ['待处理','未完成', '已完成']
+                                data: ['未完成', '已完成']
                             },
                             xAxis: [
                                 {
                                     type: 'category',
-                                    data: ['派出所A', '派出所B', '派出所C']
+                                    data: standbyname
                                 }
                             ],
                             yAxis: [
@@ -160,22 +169,27 @@
                                 {
                                     name: '未完成',
                                     type: 'bar',
-                                    data: [23.2, 25.6, 76.7]
+                                    data: unFinishCount
                                 },
                                 {
                                     name: '已完成',
                                     type: 'bar',
-                                    data: [26.4, 28.7, 70.7]
+                                    data: FinishCount
                                 }
                             ]
                         }
                         barChart.setOption(option)
+                        })
                         }).catch(err => {
                             
                         })
                     },
                     initPie() {
                         let pieChart = echarts.init(document.getElementById('chart'))
+                        let url = 'getCase.do?method=myCaseCheckStatisticsOfDepart'
+                        axios.get(url).then(res => { 
+                        this.$nextTick(() => {
+                        console.log(res)          
                         let option = {
                             title: {
                                 text: '{a|40}{b| -件}\n{c|当月案件}',
@@ -243,6 +257,11 @@
                             ]
                         }
                         pieChart.setOption(option)
+                        })
+                        }).catch(err => {
+                            
+                        })
+               
                     },
                     getLists() {
                         this.loading = true

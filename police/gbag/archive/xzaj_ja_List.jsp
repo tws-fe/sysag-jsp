@@ -20,6 +20,7 @@
                 .case_nave_search {
                     display: flex;
                     align-items: center;
+                    height: 42px;
                 }
 
                 .case_nave_search>span {
@@ -158,7 +159,7 @@
             }
             .save{
                 position: absolute;
-                top: -57px;
+                top: -52px;
                 left: 260px;
                 z-index: 10;
                 cursor: pointer;
@@ -166,6 +167,10 @@
             .el-tabs__header {
                 margin-bottom: 10px;
             }
+            /* 无数据 */
+.el-table__empty-block {
+  height: 0;
+}
         </style>
 
         <body>
@@ -256,17 +261,17 @@
                                                 </el-button> 
                                                 <el-button type="primary" plain @click="ajConfirm">
                                                     <svg class="icon-ag" aria-hidden="true">
-                                                        <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                                        <use xlink:href="#icon-AG_zhifazhiliangkaoping"></use>
                                                     </svg>&nbsp;&nbsp;执法质量考评
                                                 </el-button> 
                                                 <el-button type="primary" plain @click="ajConfirm">
                                                     <svg class="icon-ag" aria-hidden="true">
-                                                        <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                                        <use xlink:href="#icon-AG_piliangyijiao"></use>
                                                     </svg>&nbsp;&nbsp;移交档案室
                                                 </el-button> 
                                                 <el-button type="primary"  plain @click="ajConfirm">
                                                     <svg class="icon-ag" aria-hidden="true">
-                                                        <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                                        <use xlink:href="#icon-AG_sheancaiwubaoguan"></use>
                                                     </svg>&nbsp;&nbsp;涉案财物保管
                                                 </el-button>                                                               
                                         </div>
@@ -281,11 +286,11 @@
                                         <el-progress :percentage="scope.row.taskschedule"></el-progress>
                                     </template>
                                 </el-table-column>
-                                <el-table-column fixed label="催办次数" width="85">
+                                <!-- <el-table-column fixed label="催办次数" width="85">
                                     <template slot-scope="scope">
                                         <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac"></el-badge>
                                     </template>
-                                </el-table-column>
+                                </el-table-column> -->
                                 <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
                                 <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
                                 <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
@@ -300,7 +305,7 @@
                                         <el-button type="text" @click="toDetail(scope.row.casenumber)">查看详情</el-button>
                                         <el-button type="text" @click="downWord(scope.row.uuid)">主办责任人指定书</el-button>
                                         <el-button type="text" @click="follow(scope.row)">关注</el-button>
-                                        <el-button @click="Urge(scope.row.casenumber,'case')" type="text">催办</el-button>
+                                        <!-- <el-button @click="Urge(scope.row.casenumber,'case')" type="text">催办</el-button> -->
                                     </template>
                                 </el-table-column>
                             </el-table>
@@ -318,13 +323,29 @@
                                         <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
                                             <el-tab-pane class="nomal_task" label="普通任务" name="first">
-                                                    <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
-                                                    />
-                                                    <img  @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" />
-                                                    <el-button class="save" plain @click="onSubmit">
-                                                            &nbsp;&nbsp;保存</el-button>
+                                                    <!-- <img v-show="imgShow == true" @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
+                                                    /> -->
+                                                    <!-- <img  @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" /> -->
 
-                                                <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385" border stripe
+                                                    <!-- <el-button class="save" plain @click="onSubmit">
+                                                            &nbsp;&nbsp;保存</el-button> -->
+
+                                                    <el-button-group  class="save">
+                                                        <el-button type="primary" plain  @click="addTask">
+                                                            <svg class="icon-ag" aria-hidden="true">
+                                                                <use xlink:href="#icon-AG_xinzeng"></use>
+                                                            </svg>&nbsp;&nbsp;
+                                                            新增
+                                                        </el-button>
+                                                        <el-button type="primary" plain @click="onSubmit">
+                                                            <svg class="icon-ag" aria-hidden="true">
+                                                                <use xlink:href="#icon-AG_tubiaocu-"></use>
+                                                            </svg>&nbsp;&nbsp;
+                                                            保存
+                                                        </el-button>
+                                                    </el-button-group>        
+
+                                                <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
                                                     @selection-change="taskSelectionChange">
                                                         <el-table-column type="selection" width="58" fixed="left"></el-table-column> 
                                                     <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
@@ -335,17 +356,17 @@
                                                                 <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
                                                             </template>
                                                         </el-table-column>
+                                                    <!-- <el-table-column label="催办次数" width="85" fixed="left">
+                                                        <template slot-scope="scope">
+                                                            <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
+                                                        </template>
+                                                    </el-table-column> -->
                                                     <el-table-column label="交案状态" width="118" fixed="left">
                                                         <template slot-scope="scope">
                                                             <span v-if="scope.row.state1 == 0" type="text">无材料</span>
                                                             <span v-else-if="scope.row.state1 == 1" type="text">未移交材料</span>
                                                             <span v-else-if="scope.row.state1 == 2" type="text">已移交材料</span>
                                                             <span v-else-if="scope.row.state1 == 3" type="text">案管已确认</span>                                                        
-                                                        </template>
-                                                    </el-table-column>
-                                                    <el-table-column label="催办次数" width="85" fixed="left">
-                                                        <template slot-scope="scope">
-                                                            <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                                                         </template>
                                                     </el-table-column>
                                                     <el-table-column prop="oper_user_id_" label="指派人" width="180" fixed="left"></el-table-column>
@@ -364,8 +385,6 @@
                                                         </template>
                                                     </el-table-column>
                                                     <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
-                                                    <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                                                    <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                                     <el-table-column prop="ispaper" label="是否有材料" width="167">
                                                         <template slot-scope="scope">
                                                             <el-radio-group v-model="scope.row.ispaper" :disabled="scope.row.isAdd">
@@ -374,14 +393,16 @@
                                                                 </el-radio-group>
                                                         </template>
                                                     </el-table-column>
+                                                    <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
+                                                    <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                                     <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                                         <template slot-scope="scope" >
                                                             <p v-show="!scope.row.isAdd">
                                                                 <el-button v-show="scope.row.state == 0" type="text" @click="del(scope.row.uuid)">删除</el-button>
                                                                 <el-button v-show="scope.row.state == 1 || scope.row.state == 2" type="text" @click="look(scope.row.uuid,true)">查看</el-button>
-                                                                <el-button v-show="scope.row.state1 == 2" type="text" @click="singleConfirm(scope.row.uuid)">材料确认</el-button>                                                            
+                                                                <el-button v-show="scope.row.state == 1 && scope.row.state1 == 2" type="text" @click="singleConfirm(scope.row.uuid)">材料确认</el-button>                                                            
                                                                 <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
-                                                                <el-button v-show="scope.row.state == 0" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                                                <!-- <el-button v-show="scope.row.state == 0" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button> -->
                                                             </p>
                                                             <p v-show="scope.row.isAdd">
                                                                 <el-button type="text" @click="delNewTask(scope.$index)">删除</el-button>                                  
@@ -762,6 +783,8 @@
                     singleConfirm (uuid) {
                         let url = 'getCaseTask.do?method=caseBookConfirm&taskid='+uuid
                         axios.post(url).then(res => {
+                            // 刷新任务列表
+                            this.rowClick(this.currentRow)
                             if (res.data === 1) {
                                 this.$message({
                                     type: 'success',
@@ -820,6 +843,7 @@
                         
                         let url = 'getCaseTask.do?method=caseBookConfirm&taskid='+taskid
                         axios.post(url).then(res => {
+                            this.handleCurrentChange()
                             let message = res.data == 1 ? '材料确认成功' : '材料确认失败'
                             let type = res.data == 1 ? 'success' : 'error'
                             this.$message({
