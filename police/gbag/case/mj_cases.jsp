@@ -290,17 +290,17 @@
                                                     <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
                                                 </template>
                                             </el-table-column>
+                                            <el-table-column label="催办次数" width="85" fixed="left">
+                                                <template slot-scope="scope">
+                                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column label="交案状态" width="118" fixed="left">
                                                 <template slot-scope="scope">
                                                     <span v-if="scope.row.state1 == 0" type="text">无材料</span>
                                                     <span v-else-if="scope.row.state1 == 1" type="text">未移交材料</span>
                                                     <span v-else-if="scope.row.state1 == 2" type="text">已移交材料</span>
                                                     <span v-else-if="scope.row.state1 == 3" type="text">案管已确认</span>
-                                                </template>
-                                            </el-table-column>
-                                            <el-table-column label="催办次数" width="85" fixed="left">
-                                                <template slot-scope="scope">
-                                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column prop="oper_user_id_" label="指派人" width="180" fixed="left"></el-table-column>
@@ -324,21 +324,22 @@
                                                     <el-input v-model="scope.row.taskresult"></el-input>
                                                 </template>
                                             </el-table-column>
+                                            <el-table-column prop="ispaper" label="是否有材料" width="167">
+                                                <template slot-scope="scope">
+                                                        <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
+                                                                <el-radio :label="'0'">无</el-radio>
+                                                                <el-radio :label="'1'">有</el-radio>
+                                                            </el-radio-group>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
                                             <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
-                                            <el-table-column prop="ispaper" label="是否有材料" width="167">
-                                                    <template slot-scope="scope">
-                                                          <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
-                                                                  <el-radio :label="'0'">无</el-radio>
-                                                                  <el-radio :label="'1'">有</el-radio>
-                                                              </el-radio-group>
-                                                    </template>
-                                                  </el-table-column>
                                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                                 <template slot-scope="scope">
                                                     <p v-show="!scope.row.isAdd">
                                                         <el-button v-show="scope.row.oper_user_id_==scope.row.handleperson" type="text" @click="del(scope.row.uuid)">删除</el-button>
                                                         <el-button type="text" @click="look(scope.row.uuid,true)">查看</el-button>
+                                                        <el-button type="text" @click="postCase(scope.row.uuid)">材料提交</el-button>
                                                         <!-- <el-button v-show="scope.row.state == 0 || scope.row.state == 1" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
                                                         <!-- <el-button type="text">催办</el-button> -->
                                                     </p>
@@ -1029,25 +1030,32 @@
                             });
                         });
                     },
-                    postCase() {
-                        // 05.27 修改功能和接口
-                        if (this.multipleSelection.length === 0 && this.taskMultipleSelection.length === 0) {
-                            this.$message({
-                                type: 'warning',
-                                message: '请选择案件或任务',
-                                duration: 1000
-                            })
-                            return
+                    postCase(uuid) {
+                        let caseid = ''
+                        let taskid = ''
+                        // 单个任务-材料提交
+                        if (uuid && typeof uuid === 'string') {
+                            taskid = uuid
+                        } else {
+                            // 05.27 修改功能和接口
+                            if (this.multipleSelection.length === 0 && this.taskMultipleSelection.length === 0) {
+                                this.$message({
+                                    type: 'warning',
+                                    message: '请选择案件或任务',
+                                    duration: 1000
+                                })
+                                return
+                            }
+                            caseid = this.multipleSelection.map(item => {
+                                return item.uuid
+                            }).join(',')
+                            // 已移交材料才可以提交材料
+                            taskid = this.taskMultipleSelection.filter(item => {
+                                return item.state1 == 1
+                            }).map(item => {
+                                return item.uuid
+                            }).join(',')
                         }
-                        let caseid = this.multipleSelection.map(item => {
-                            return item.uuid
-                        }).join(',')
-                        // 已移交材料才可以提交材料
-                        let taskid = this.taskMultipleSelection.filter(item => {
-                            return item.state1 == 1
-                        }).map(item => {
-                            return item.uuid
-                        }).join(',')
                         // if (caseid==''&&taskid=='') return
                         let url = 'getCaseTask.do?method=caseBookSubmit&caseid=' + caseid + '&taskid=' + taskid
                         axios.post(url).then(res => {

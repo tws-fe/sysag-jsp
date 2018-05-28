@@ -298,6 +298,11 @@
                                                     <el-text v-else-if="scope.row.state == 2" type="text">案管已确认</el-text>
                                                 </template>
                                             </el-table-column>
+                                            <el-table-column label="催办次数" width="85" fixed="left">
+                                                <template slot-scope="scope">
+                                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column label="交案状态" width="118" fixed="left">
                                                 <template slot-scope="scope">
                                                         <!-- 05.27 调整 -->
@@ -305,11 +310,6 @@
                                                         <span v-else-if="scope.row.state1 == 1" type="text">未移交材料</span>
                                                         <span v-else-if="scope.row.state1 == 2" type="text">已移交材料</span>
                                                         <span v-else-if="scope.row.state1 == 3" type="text">案管已确认</span>
-                                                </template>
-                                            </el-table-column>
-                                            <el-table-column label="催办次数" width="85" fixed="left">
-                                                <template slot-scope="scope">
-                                                    <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column prop="oper_user_id_" label="指派人" width="180" fixed="left"></el-table-column>
@@ -329,8 +329,6 @@
                                                 </template>
                                             </el-table-column>
                                             <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
-                                            <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                             <el-table-column prop="ispaper" label="是否有材料" width="167">
                                               <template slot-scope="scope">
                                                     <el-radio-group v-model="scope.row.ispaper" :disabled="scope.row.isAdd">
@@ -339,6 +337,8 @@
                                                         </el-radio-group>
                                               </template>
                                             </el-table-column>
+                                            <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
+                                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                                 <template slot-scope="scope" >
                                                     <p v-show="!scope.row.isAdd">
@@ -697,13 +697,13 @@
                                     } else {
                                         item['sup_bac'] = 'sup_bac1'
                                     }
-                                    if (iP == 0) {
-                                        item.ispaper = '无'
-                                    } else if (iP == 1) {
-                                        item.ispaper = '有'
-                                    } else {
-                                        item.ispaper = ''
-                                    }
+                                    // if (iP == 0) {
+                                    //     item.ispaper = '无'
+                                    // } else if (iP == 1) {
+                                    //     item.ispaper = '有'
+                                    // } else {
+                                    //     item.ispaper = ''
+                                    // }
                                 })
                                 this.tableData4 = data
                                 this.dialogFormVisible = false

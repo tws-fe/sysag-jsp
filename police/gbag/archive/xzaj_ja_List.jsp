@@ -1071,13 +1071,13 @@
                                     } else {
                                         item['sup_bac'] = 'sup_bac1'
                                     }
-                                    if (iP == 0) {
-                                        item.ispaper = '无'
-                                    } else if (iP == 1) {
-                                        item.ispaper = '有'
-                                    } else {
-                                        item.ispaper = ''
-                                    }
+                                    // if (iP == 0) {
+                                    //     item.ispaper = '无'
+                                    // } else if (iP == 1) {
+                                    //     item.ispaper = '有'
+                                    // } else {
+                                    //     item.ispaper = ''
+                                    // }
                                 })
                                 this.tableData4 = data
                                 this.dialogFormVisible = false

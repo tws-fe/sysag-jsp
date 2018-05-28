@@ -59,11 +59,11 @@
           <el-col :span="14" class="visit-main">
             <el-card>
               <div class="visit-main-title">
-                <span>案件管理流程-所领导</span>
+                <span>案件管理流程-所队领导</span>
 
                 <p class="visit-main-icon-list">
                   <span class="visit-main-icon-block visit-main-icon-green"></span>
-                  <span class="visit-main-icon-item">所领导</span>
+                  <span class="visit-main-icon-item">所队领导</span>
 
                 </p>
               </div>
