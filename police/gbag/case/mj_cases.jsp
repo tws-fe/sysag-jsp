@@ -162,19 +162,30 @@
             }
 
             /* 分页优化 */
-.el-pagination.is-background .btn-prev, 
-.el-pagination.is-background .btn-next {
-  min-width: 68px;
-}
 
-.el-pagination.is-background .el-pager li {
-  margin: 0 1px;
-}
+            .el-pagination.is-background .btn-prev,
+            .el-pagination.is-background .btn-next {
+                min-width: 68px;
+            }
 
-/* 无数据 */
-.el-table__empty-block {
-  height: 0;
-}
+            .el-pagination.is-background .el-pager li {
+                margin: 0 1px;
+            }
+
+            /* 无数据 */
+
+            .el-table__empty-block {
+                height: 0;
+            }
+
+            .case_nave_search {
+                display: flex;
+                align-items: center;
+            }
+
+            .case_nave_search>span {
+                white-space: nowrap;
+            }
         </style>
 
         <body>
@@ -183,7 +194,7 @@
                 <div class="case">
                     <el-row class="case_nav">
                         <el-col :span="4">
-                            <div class="case_nav_item">
+                            <div class="case_nav_item case_nave_search">
                                 <span>交案状态：</span>
                                 <el-select v-model="caseStatus" placeholder="请选择">
                                     <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
@@ -192,7 +203,7 @@
                             </div>
                         </el-col>
                         <el-col :span="4">
-                            <div class="case_nav_item">
+                            <div class="case_nav_item case_nave_search">
                                 <span>呈案状态：</span>
                                 <el-select v-model="takeCaseStatus" placeholder="请选择">
                                     <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
@@ -206,7 +217,7 @@
                                 <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="16">
                             <div class="case_nav_item">
                                 <el-button plain @click="select">
                                     <svg class="icon" aria-hidden="true">
@@ -294,22 +305,20 @@
                                             &nbsp;&nbsp;保存</el-button> -->
 
                                         <div class="save">
-                                            <el-button type="primary" plain  @click="addTask" size="small">
+                                            <el-button type="primary" plain @click="addTask" size="small">
                                                 <svg class="icon-ag" aria-hidden="true">
                                                     <use xlink:href="#icon-AG_xinzeng"></use>
-                                                </svg>&nbsp;&nbsp;
-                                                新增
+                                                </svg>&nbsp;&nbsp; 新增
                                             </el-button>
-                                            <el-button type="primary" plain @click="onSubmit" size="small">
+                                            <el-button type="primary" plain @click="onSubmit('list1')" size="small">
                                                 <svg class="icon-ag" aria-hidden="true">
                                                     <use xlink:href="#icon-AG_tubiaocu-"></use>
-                                                </svg>&nbsp;&nbsp;
-                                                保存
+                                                </svg>&nbsp;&nbsp; 保存
                                             </el-button>
-                                        </div>     
+                                        </div>
 
-                                        <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
-                                            @selection-change="taskSelectionChange" v-loading="tableLoading">
+                                        <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" border stripe @selection-change="taskSelectionChange"
+                                            v-loading="tableLoading">
                                             <el-table-column type="selection" width="58" fixed="left">
 
                                             </el-table-column>
@@ -357,10 +366,10 @@
                                             </el-table-column>
                                             <el-table-column prop="ispaper" label="是否有材料" width="167">
                                                 <template slot-scope="scope">
-                                                        <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
-                                                                <el-radio :label="'0'">无</el-radio>
-                                                                <el-radio :label="'1'">有</el-radio>
-                                                            </el-radio-group>
+                                                    <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
+                                                        <el-radio :label="'0'">无</el-radio>
+                                                        <el-radio :label="'1'">有</el-radio>
+                                                    </el-radio-group>
                                                 </template>
                                             </el-table-column>
                                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
@@ -382,6 +391,18 @@
                                         </el-table>
                                     </el-tab-pane>
                                     <el-tab-pane label="案审任务" name="second">
+                                            <div class="save">
+                                                    <!-- <el-button type="primary" plain @click="addTask" size="small">
+                                                        <svg class="icon-ag" aria-hidden="true">
+                                                            <use xlink:href="#icon-AG_xinzeng"></use>
+                                                        </svg>&nbsp;&nbsp; 新增
+                                                    </el-button> -->
+                                                    <el-button type="primary" plain @click="onSubmit('list2')" size="small">
+                                                        <svg class="icon-ag" aria-hidden="true">
+                                                            <use xlink:href="#icon-AG_tubiaocu-"></use>
+                                                        </svg>&nbsp;&nbsp; 保存
+                                                    </el-button>
+                                                </div>
                                         <el-table ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385" border stripe
                                             @selection-change="handleSelectionChange">
                                             <el-table-column label="" width="58" fixed="left">
@@ -405,10 +426,21 @@
                                             </el-table-column>
                                             <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
                                             <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip></el-table-column>
-                                            <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
+                                            <el-table-column prop="taskresult" label="处理结果" width="400">
+                                                <template slot-scope="scope">
+                                                    <el-input v-model="scope.row.taskresult"></el-input>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
                                             <el-table-column prop="handletime" label="办理时间" width="184"></el-table-column>
-                                            <el-table-column prop="ispaper" label="是否有材料" width="167"></el-table-column>
+                                            <el-table-column prop="ispaper" label="是否有材料" width="167">
+                                                <template slot-scope="scope">
+                                                    <el-radio-group v-model="scope.row.ispaper" @change="newTaskChange(scope.row)">
+                                                        <el-radio :label="'0'">无</el-radio>
+                                                        <el-radio :label="'1'">有</el-radio>
+                                                    </el-radio-group>
+                                                </template>
+                                            </el-table-column>
                                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                                 <template slot-scope="scope">
                                                     <!-- <el-button type="text" @click="del(scope.row.uuid)">删除</el-button> -->
@@ -456,7 +488,7 @@
                             </div>
                             <div>
                                 <el-form-item label="任务内容">
-                                    
+
                                     <el-autocomplete popper-class="my-autocomplete" v-model="formTask.taskcontent" :fetch-suggestions="querySearch" placeholder="请输入内容"
                                         @select="handleSelect" style="width:24vw" disabled="true">
                                         <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
@@ -574,9 +606,9 @@
                     newTaskChange(row) {
                         row.state1 = row.ispaper
                     },
-                     // 保存任务
-                     onSubmit(formName) {
-                        let list = this.tableData4.list1
+                    // 保存任务
+                    onSubmit(listName) {
+                        let list = this.tableData4[listName]
                         let index = list.findIndex(item => {
                             return item.taskcontent == ""
                         })
@@ -584,32 +616,32 @@
                             this.$message({
                                 message: '保存失败,任务内容不能为空',
                                 type: 'error',
-                                duration:1000
+                                duration: 1000
                             });
                             return
                         }
 
-                        axios.post('getCaseTask.do?method=saveTask', {list:list}).then(response => {
-                                if (response.data == 1) {
-                                    this.$notify({
-                                        title: '成功',
-                                        message: '保存成功',
-                                        type: 'success'
-                                    });
-                                 
-                                    this.rowClick(this.currentRow)
+                        axios.post('getCaseTask.do?method=saveTask', { list: list }).then(response => {
+                            if (response.data == 1) {
+                                this.$notify({
+                                    title: '成功',
+                                    message: '保存成功',
+                                    type: 'success'
+                                });
+
+                                this.rowClick(this.currentRow)
 
 
-                                } else {
-                                    this.$notify.error({
-                                        title: '错误',
-                                        message: '保存失败请重试'
-                                    });
-                                }
+                            } else {
+                                this.$notify.error({
+                                    title: '错误',
+                                    message: '保存失败请重试'
+                                });
+                            }
                         }).catch(function (err) {
-                          
+
                         });
-               
+
                     },
                     handleblur(val) {
                         this.inde = val.$index
@@ -701,7 +733,7 @@
                                             item['attendingState'] = '已完成'
                                         }
 
-                                       
+
                                     })
                                     this.tableData3 = data
                                     this.tableData4 = data
@@ -763,13 +795,14 @@
                                     } else {
                                         item['sup_bac'] = 'sup_bac1'
                                     }
-                                    if (iP == 0) {
-                                        item.ispaper = '无'
-                                    } else if (iP == 1) {
-                                        item.ispaper = '有'
-                                    } else {
-                                        item.ispaper = ''
-                                    }
+                                    // if (iP == 0) {
+                                    //     item.ispaper = '无'
+                                    // } else if (iP == 1) {
+                                    //     item.ispaper = '有'
+                                    // } else {
+                                    //     item.ispaper = ''
+                                    // }
+                                    item.atype =  "2"
                                 })
                                 this.tableData4 = data
                                 this.dialogFormVisible = false
@@ -830,45 +863,45 @@
                         this.look(uuid, isdable)
                         this.ftTitle = "编辑任务"
                     },
-                    onsubmit(formName) {
-                        this.$refs[formName].validate((valid) => {
-                            if (valid) {
-                                axios.post('getCaseTask.do?method=saveTask', {
-                                    handleperson: this.formTask.handleperson,
-                                    ispaper: this.formTask.ispaper,
-                                    taskcontent: this.formTask.taskcontent,
-                                    taskresult: this.formTask.taskresult,
-                                    uuid: this.formTask.uuid,
-                                    editType: 'update'
-                                })
-                                    .then(response => {
-                                        if (response.data == 1) {
-                                            this.$notify({
-                                                title: '成功',
-                                                message: '保存成功',
-                                                type: 'success'
-                                            });
-                                            //  console.log(this.currentRow)
-                                            // this.handleCurrentChange()
-                                            this.rowClick(this.currentRow)
-                                        } else {
-                                            this.$notify.error({
-                                                title: '错误',
-                                                message: '保存失败请重试'
-                                            });
-                                        }
-                                    })
-                                    .catch(function (err) {
-                                        console.log(err);
-                                    });
+                    // onsubmit(formName) {
+                    //     this.$refs[formName].validate((valid) => {
+                    //         if (valid) {
+                    //             axios.post('getCaseTask.do?method=saveTask', {
+                    //                 handleperson: this.formTask.handleperson,
+                    //                 ispaper: this.formTask.ispaper,
+                    //                 taskcontent: this.formTask.taskcontent,
+                    //                 taskresult: this.formTask.taskresult,
+                    //                 uuid: this.formTask.uuid,
+                    //                 editType: 'update'
+                    //             })
+                    //                 .then(response => {
+                    //                     if (response.data == 1) {
+                    //                         this.$notify({
+                    //                             title: '成功',
+                    //                             message: '保存成功',
+                    //                             type: 'success'
+                    //                         });
+                    //                         //  console.log(this.currentRow)
+                    //                         // this.handleCurrentChange()
+                    //                         this.rowClick(this.currentRow)
+                    //                     } else {
+                    //                         this.$notify.error({
+                    //                             title: '错误',
+                    //                             message: '保存失败请重试'
+                    //                         });
+                    //                     }
+                    //                 })
+                    //                 .catch(function (err) {
+                    //                     console.log(err);
+                    //                 });
 
-                            } else {
-                                console.log('error submit!!');
-                                return false;
-                            }
-                        });
+                    //         } else {
+                    //             console.log('error submit!!');
+                    //             return false;
+                    //         }
+                    //     });
 
-                    },
+                    // },
                     del(uuid) {
                         this.$confirm('此操作将永久删除该任务, 是否继续?', '提示', {
                             confirmButtonText: '确定',

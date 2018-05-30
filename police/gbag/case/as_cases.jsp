@@ -166,7 +166,7 @@
                                 <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="16">
                             <div class="case_nav_item">
                                 <el-button plain @click="select">
                                     <svg class="icon" aria-hidden="true">
@@ -274,10 +274,10 @@
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                             <el-table-column label="任务状态" width="118" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-text v-if="scope.row.state2 == 0" type="text">待签收</el-text>
-                                    <el-text v-else-if="scope.row.state2 == 1" type="text">执行中</el-text>
-                                    <el-text v-else-if="scope.row.state2 == 2" type="text">已完成</el-text>
-                                    <el-text v-else-if="scope.row.state2 == 3" type="text">案审已确认</el-text>
+                                    <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
+                                    <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
+                                    <el-text v-else-if="scope.row.state == 2" type="text">已完成</el-text>
+                                    <el-text v-else-if="scope.row.state == 3" type="text">案审已确认</el-text>
                                 </template>
                             </el-table-column>
                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -305,14 +305,16 @@
                             <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
                             <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
-                            <el-table-column prop="ispaper" label="是否有材料" width="167"></el-table-column>
+                            <el-table-column prop="ispaper" label="是否有材料" width="167">
+                                
+                            </el-table-column>
                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                 <template slot-scope="scope">
                                     <p v-show="!scope.row.isAdd">
-                                        <el-button v-show="scope.row.state2 != 3" type="text" @click="del(scope.row.uuid)">删除</el-button>
+                                        <el-button v-show="scope.row.state != 3" type="text" @click="del(scope.row.uuid)">删除</el-button>
                                         <!-- <el-button  type="text" @click="look(scope.row.uuid,true)">查看</el-button> -->
                                         <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
-                                        <el-button v-show="scope.row.state2 <2" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                        <el-button v-show="scope.row.state <2" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
                                         <!-- <el-button v-show="scope.row.state == 2" @click="taskSure(scope.row)" type="text">确认</el-button> -->
                                     </p>
                                     <p v-show="scope.row.isAdd">
@@ -457,7 +459,8 @@
                 methods: {
                     addTask () {
                         let data = {
-                            state2: '0',
+                            "atype": "2",
+                            state: '0',
                             icount: 0,
                             oper_user_id_: name,
                             taskcontent:'', 
@@ -605,14 +608,14 @@
                                     } else {
                                         item['sup_bac'] = 'sup_bac1'
                                     }
-                                    if (iP == 0) {
-                                        item.ispaper = '无'
-                                    } else if (iP == 1) {
-                                        item.ispaper = '有'
-                                    } else {
-                                        item.ispaper = ''
-                                    }
-                                    console.log(iP)
+                                    // if (iP == 0) {
+                                    //     item.ispaper = '无'
+                                    // } else if (iP == 1) {
+                                    //     item.ispaper = '有'
+                                    // } else {
+                                    //     item.ispaper = ''
+                                    // }
+                                    // console.log(iP)
 
                                 })
                                 // 案审任务数据优化

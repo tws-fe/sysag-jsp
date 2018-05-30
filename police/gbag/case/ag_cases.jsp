@@ -163,6 +163,14 @@
                 z-index: 10;
                 cursor: pointer;
             }
+            .case_nave_search {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .case_nave_search>span {
+                    white-space: nowrap;
+                }
         </style>
 
         <body>
@@ -171,7 +179,7 @@
                 <div class="case">
                     <el-row class="case_nav">
                         <el-col :span="4">
-                            <div class="case_nav_item">
+                            <div class="case_nav_item case_nave_search">
                                 <span>交案状态：</span>
                                 <el-select v-model="caseStatus" placeholder="请选择">
                                     <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
@@ -180,7 +188,7 @@
                             </div>
                         </el-col>
                         <el-col :span="4">
-                            <div class="case_nav_item">
+                            <div class="case_nav_item case_nave_search">
                                 <span>呈案状态：</span>
                                 <el-select v-model="takeCaseStatus" placeholder="请选择">
                                     <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
