@@ -158,8 +158,8 @@
             }
             .save{
                 position: absolute;
-                top: -52px;
-                left: 260px;
+                top: -54px;
+                left: 214px;
                 z-index: 10;
                 cursor: pointer;
             }
@@ -285,20 +285,20 @@
                                             <el-button class="save" plain @click="onSubmit">
                                                     &nbsp;&nbsp;保存</el-button> -->
 
-                                        <el-button-group  class="save">
-                                            <el-button type="primary" plain  @click="addTask">
+                                        <div class="save">
+                                            <el-button type="primary" plain  @click="addTask" size="small">
                                                 <svg class="icon-ag" aria-hidden="true">
                                                     <use xlink:href="#icon-AG_xinzeng"></use>
                                                 </svg>&nbsp;&nbsp;
                                                 新增
                                             </el-button>
-                                            <el-button type="primary" plain @click="onSubmit">
+                                            <el-button type="primary" plain @click="onSubmit" size="small">
                                                 <svg class="icon-ag" aria-hidden="true">
                                                     <use xlink:href="#icon-AG_tubiaocu-"></use>
                                                 </svg>&nbsp;&nbsp;
                                                 保存
                                             </el-button>
-                                        </el-button-group>             
+                                        </div>             
 
                                         <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%" height="385" border stripe
                                             @selection-change="handleSelectionChange">
