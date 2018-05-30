@@ -250,21 +250,34 @@
 
                     <!--任务-->
                     <div class="task" style="margin-top:65px" v-if="listShow==true">
-
-                        <img @click="addTask" v-show="imgShow == true" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
-                        />
+                        <div class="save" style="margin: 0 0 4px 10px;">
+                            <el-button type="primary" plain  @click="addTask" size="small">
+                                <svg class="icon-ag" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_xinzeng"></use>
+                                </svg>&nbsp;&nbsp;
+                                新增
+                            </el-button>
+                            <el-button type="primary" plain @click="onSubmit" size="small">
+                                <svg class="icon-ag" aria-hidden="true">
+                                    <use xlink:href="#icon-AG_tubiaocu-"></use>
+                                </svg>&nbsp;&nbsp;
+                                保存
+                            </el-button>
+                        </div>        
+                        <!-- <img @click="addTask" v-show="imgShow == true" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png"
+                        /> -->
                         <el-table ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385" border stripe
                             @selection-change="handleSelectionChange">
-                            <el-table-column label="" width="58" fixed="left">
+                            <!-- <el-table-column label="" width="58" fixed="left">
 
-                            </el-table-column>
+                            </el-table-column> -->
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                             <el-table-column label="任务状态" width="118" fixed="left">
                                 <template slot-scope="scope">
-                                    <el-text v-if="scope.row.state == 0" type="text">待签收</el-text>
-                                    <el-text v-else-if="scope.row.state == 1" type="text">执行中</el-text>
-                                    <el-text v-else-if="scope.row.state == 2" type="text">已完成</el-text>
-                                    <el-text v-else-if="scope.row.state == 3" type="text">案审已确认</el-text>
+                                    <el-text v-if="scope.row.state2 == 0" type="text">待签收</el-text>
+                                    <el-text v-else-if="scope.row.state2 == 1" type="text">执行中</el-text>
+                                    <el-text v-else-if="scope.row.state2 == 2" type="text">已完成</el-text>
+                                    <el-text v-else-if="scope.row.state2 == 3" type="text">案审已确认</el-text>
                                 </template>
                             </el-table-column>
                             <el-table-column label="催办次数" width="85" fixed="left">
@@ -273,19 +286,38 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="oper_user_id_" label="任务指派人" width="180" fixed="left"></el-table-column>
-                            <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="oper_time_" label="指派时间" width="180" fixed="left"></el-table-column>                            
+                            <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip>
+                                <template slot-scope="scope">
+                                                 
+                                    <el-autocomplete popper-class="my-autocomplete" v-model="scope.row.taskcontent" :fetch-suggestions="querySearch" placeholder="请输入内容"
+                                        @select="handleSelect" @focus="handleblur(scope)" style="width:250px" clearable>
+                                        <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
+                                        </i>
+                                        <template slot-scope="{item}">
+                                            <span class="">{{ item.VALUE }}</span>
+                                        </template>
+                                    </el-autocomplete>
+                             
+                                </template>
+
+                            </el-table-column>
                             <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
                             <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                            <el-table-column prop="handletime" label="办理时间" width="184"></el-table-column>
+                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                             <el-table-column prop="ispaper" label="是否有材料" width="167"></el-table-column>
                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                 <template slot-scope="scope">
-
-                                    <el-button v-show="scope.row.state != 3" type="text" @click="del(scope.row.uuid)">删除</el-button>
-                                    <el-button  type="text" @click="look(scope.row.uuid,true)">查看</el-button>
-                                    <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button>
-                                    <el-button v-show="scope.row.state <3" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
-                                    <el-button v-show="scope.row.state == 2" @click="taskSure(scope.row)" type="text">确认</el-button>
+                                    <p v-show="!scope.row.isAdd">
+                                        <el-button v-show="scope.row.state2 != 3" type="text" @click="del(scope.row.uuid)">删除</el-button>
+                                        <!-- <el-button  type="text" @click="look(scope.row.uuid,true)">查看</el-button> -->
+                                        <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
+                                        <el-button v-show="scope.row.state2 <2" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                        <!-- <el-button v-show="scope.row.state == 2" @click="taskSure(scope.row)" type="text">确认</el-button> -->
+                                    </p>
+                                    <p v-show="scope.row.isAdd">
+                                        <el-button type="text" @click="delNewTask(scope.$index)">删除</el-button>                                  
+                                    </p>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -409,13 +441,7 @@
                         imgShow: true,
                         organ: '', //选中派出所
                         // 派出所列表
-                        organList: [{
-                            value: '选项1',
-                            label: '黄金糕'
-                            }, {
-                            value: '选项2',
-                            label: '双皮奶'
-                        }]
+                        organList: []
 
 
                     }
@@ -429,6 +455,27 @@
                     this.getOrganList()
                 },
                 methods: {
+                    addTask () {
+                        let data = {
+                            state2: '0',
+                            icount: 0,
+                            oper_user_id_: name,
+                            taskcontent:'', 
+                            taskresult:'',
+                            handleperson: this.currentRow._userNAME_auditdirector,
+                            oper_time_: formartTime(),
+                            update_time_: '',
+                            ispaper:'',
+                            'sup_bac': 'sup_bac3',
+                            isAdd: true,
+                            mainformid: this.currentRow.casenumber
+                        }
+                        this.tableData4.list2.push(data)
+                    },
+                    // 删除新增的任务
+                    delNewTask(index) {
+                        this.tableData4.list1.splice(index,1)
+                    },
                     getOrganList() {
                         let url = 'getOrgan.do?method=getOrganList'
                         axios.post(url).then(res => {
@@ -590,6 +637,7 @@
                                     } else {
                                         item.ispaper = ''
                                     }
+                                    item.isAdd = false
                                 })
                                 this.tableData4 = data
                                 this.dialogFormVisible = false
@@ -661,47 +709,85 @@
                         this.ftTitle = "编辑任务"
 
                     },
-                    onsubmit(formName) {
-                        this.$refs[formName].validate((valid) => {
+                     // 保存任务
+                     onSubmit(formName) {
+                        let list = this.tableData4.list2
+                        let index = list.findIndex(item => {
+                            return item.taskcontent == ""
+                        })
+                        if (index > -1) {
+                            this.$message({
+                                message: '保存失败,任务内容不能为空',
+                                type: 'error',
+                                duration:1000
+                            });
+                            return
+                        }
 
-                            if (valid) {
-                                axios.post('getCaseTask.do?method=saveTask', {
-                                    handleperson: this.formTask.handleperson,
-                                    ispaper: this.formTask.ispaper,
-                                    taskcontent: this.formTask.taskcontent,
-                                    taskresult: this.formTask.taskresult,
-                                    uuid: this.formTask.uuid,
-                                    editType: 'update'
-                                })
-                                    .then(response => {
-                                        if (response.data == 1) {
-                                            this.$notify({
-                                                title: '成功',
-                                                message: '保存成功',
-                                                type: 'success'
-                                            });
-                                            //  console.log(this.currentRow)
-                                            this.rowClick(this.currentRow)
-
-
-                                        } else {
-                                            this.$notify.error({
-                                                title: '错误',
-                                                message: '保存失败请重试'
-                                            });
-                                        }
-                                    })
-                                    .catch(function (err) {
-                                        console.log(err);
+                        axios.post('getCaseTask.do?method=saveTask', {list:list}).then(response => {
+                                if (response.data == 1) {
+                                    this.$notify({
+                                        title: '成功',
+                                        message: '保存成功',
+                                        type: 'success'
                                     });
+                                 
+                                    this.rowClick(this.currentRow)
 
-                            } else {
-                                console.log('error submit!!');
-                                return false;
-                            }
+
+                                } else {
+                                    this.$notify.error({
+                                        title: '错误',
+                                        message: '保存失败请重试'
+                                    });
+                                }
+                        }).catch(function (err) {
+                          
                         });
-
+               
                     },
+                    
+                    // onsubmit(formName) {
+                    //     this.$refs[formName].validate((valid) => {
+
+                    //         if (valid) {
+                    //             axios.post('getCaseTask.do?method=saveTask', {
+                    //                 handleperson: this.formTask.handleperson,
+                    //                 ispaper: this.formTask.ispaper,
+                    //                 taskcontent: this.formTask.taskcontent,
+                    //                 taskresult: this.formTask.taskresult,
+                    //                 uuid: this.formTask.uuid,
+                    //                 editType: 'update'
+                    //             })
+                    //                 .then(response => {
+                    //                     if (response.data == 1) {
+                    //                         this.$notify({
+                    //                             title: '成功',
+                    //                             message: '保存成功',
+                    //                             type: 'success'
+                    //                         });
+                    //                         //  console.log(this.currentRow)
+                    //                         this.rowClick(this.currentRow)
+
+
+                    //                     } else {
+                    //                         this.$notify.error({
+                    //                             title: '错误',
+                    //                             message: '保存失败请重试'
+                    //                         });
+                    //                     }
+                    //                 })
+                    //                 .catch(function (err) {
+                    //                     console.log(err);
+                    //                 });
+
+                    //         } else {
+                    //             console.log('error submit!!');
+                    //             return false;
+                    //         }
+                    //     });
+
+                    // },
                     del(uuid) {
                         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
                             confirmButtonText: '确定',
@@ -788,20 +874,29 @@
                         };
                     },
                     handleSelect(item) {
-                        console.log(item);
-                        this.formTask.taskcontent = item.VALUE
+                        // console.log(item);
+                        // this.formTask.taskcontent = item.VALUE
+                        this.$nextTick(() => {  
+                           
+                           this.taskcontent = item.VALUE 
+                           this.tableData4.list2[this.inde].taskcontent = this.taskcontent
+                                                                     
+                        })
                     },
                     handleIconClick(ev) {
                         console.log(this.restaurant)
                     },
-                    addTask() {
-                        this.dialogFormVisible = true
-                        this.isdable = false
-                        this.ftShow = false
-                        this.ftTitle = "新添任务"
-                        this.formTask = []
-                        this.dl = "dl"
+                    handleblur(val){
+                       this.inde = val.$index
                     },
+                    // addTask() {
+                    //     this.dialogFormVisible = true
+                    //     this.isdable = false
+                    //     this.ftShow = false
+                    //     this.ftTitle = "新添任务"
+                    //     this.formTask = []
+                    //     this.dl = "dl"
+                    // },
                     addSubmit(formName) {
                         dialogFormVisible = false
                         this.$refs[formName].validate((valid) => {
@@ -1077,7 +1172,15 @@
                 }
             })
 
-
+            function formartTime() {
+                let d = new Date().toLocaleString('zh', {hour12:false})
+                let arr = []
+                d.split(' ')[0].split('/').forEach(item => {
+                    let curItem = parseInt(item)
+                    arr.push(curItem > 10 ? item : ('0' + item))
+                })
+                return arr.join('-')+' '+d.split(' ')[1]
+            }
         </script>
 
         </html>
