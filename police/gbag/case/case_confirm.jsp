@@ -10,45 +10,6 @@
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
       <style>
-        .follow-head {
-          padding-left: 10px;
-          margin: 12px 0;
-        }
-
-        .search-container {
-          display: inline-block;
-        }
-
-        .follow-head>.el-button {
-          margin-left: 10px;
-          /* padding-left: 46px; */
-          position: relative;
-        }
-
-        .follow-head>.el-button img {
-          position: absolute;
-          top: 50%;
-          left: 20px;
-          transform: translateY(-50%);
-        }
-
-        .el-pagination {
-          float: right;
-          margin-right: 40px;
-          margin-top: 24px;
-        }
-
-        /* 原来表格的td默认上下padding：12px，前面带el-button的操作的 */
-
-        /* td因为el-button默认padding：12px 20px，所以全局处理的时候应该处理el-button */
-
-        /* 而不是el-table */
-
-        /* .el-table td{
-                      padding: 12px 0;
-                    } */
-      </style>
-      <style>
         [v-cloak] {
           display: none;
         }
@@ -68,25 +29,25 @@
         <div class="follow-head">
           搜索内容：
           <p class="search-container">
-            <el-input clearable v-model="searchTxt"></el-input>
+            <el-input clearable v-model="searchTxt" size="small"></el-input>
           </p>
-          <el-button plain @click="searchFollow">
+          <el-button plain @click="searchFollow" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_sousuo"></use>
             </svg> &nbsp;&nbsp;查询
           </el-button>
           <!-- 05.25 已处理  -->
-          <el-button plain @click="exportExl">
+          <el-button plain @click="exportExl" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_daochu1"></use>
             </svg> &nbsp;&nbsp;导出
           </el-button>
-          <el-button plain @click="exportExlMoth('thismonth')">
+          <el-button plain @click="exportExlMoth('thismonth')" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_daochu1"></use>
             </svg> &nbsp;&nbsp;本月案件确认
           </el-button>
-          <el-button plain @click="exportExlMoth('lastmonth')">
+          <el-button plain @click="exportExlMoth('lastmonth')" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_daochu1"></use>
             </svg> &nbsp;&nbsp;上月案件确认
@@ -94,7 +55,7 @@
         </div>
         <div v-loading="loading">
           <!--  按袁工要求调整字段顺序？？ -->
-          <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+          <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
             <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
             <el-table-column fixed prop="casenumber" label="案件编号" width="240"></el-table-column>

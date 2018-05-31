@@ -10,39 +10,6 @@
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
       <style>
-        .follow-head {
-          padding-left: 10px;
-          margin: 12px 0;
-        }
-
-        .search-container {
-          display: inline-block;
-        }
-
-        .follow-head>.el-button {
-          margin-left: 10px;
-          /* padding-left: 46px; */
-          position: relative;
-        }
-
-        .follow-head>.el-button img {
-          position: absolute;
-          top: 50%;
-          left: 20px;
-          transform: translateY(-50%);
-        }
-
-        .el-pagination {
-          float: right;
-          margin-right: 40px;
-          margin-top: 24px;
-        }
-
-        .el-table__empty-block {
-          height: 0;
-        }
-      </style>
-      <style>
         [v-cloak] {
           display: none;
         }
@@ -62,9 +29,9 @@
         <div class="follow-head">
           搜索内容：
           <p class="search-container">
-            <el-input clearable v-model="searchTxt"></el-input>
+            <el-input clearable v-model="searchTxt" size="small"></el-input>
           </p>
-          <el-button plain @click="searchFollow">
+          <el-button plain @click="searchFollow" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_sousuo"></use>
             </svg>
@@ -72,7 +39,7 @@
             &nbsp;&nbsp;查询
           </el-button>
           <!-- 05.25 已处理 -->
-          <el-button plain @click="exportExl">
+          <el-button plain @click="exportExl" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_daochu1"></use>
             </svg>
@@ -81,7 +48,7 @@
           </el-button>
         </div>
         <div v-loading="loading">
-          <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+          <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
             <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
             <el-table-column fixed prop="result" label="处理结果" width="118"></el-table-column>
