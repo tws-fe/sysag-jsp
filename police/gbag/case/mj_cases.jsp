@@ -254,7 +254,7 @@
                             </div>
                         </el-col>
                     </el-row>
-                    <el-table size="small" :style="{'min-height':listShow!=true?'':'250px'}" ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
+                    <el-table size="mini"  ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
                         style="width: 100%" border stripe @selection-change="handleSelectionChange" highlight-current-row @current-change="rowClick">
                         <el-table-column type="selection" width="58"></el-table-column>
                         <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>

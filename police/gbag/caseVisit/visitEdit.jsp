@@ -8,6 +8,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>来访登记信息表</title>
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
             <style>
                 .visit-container {
                     width: 1280px;
@@ -118,6 +119,10 @@
                     display: flex;
                     justify-content: center;
                 }
+
+                .el-dialog__body {
+                    padding: 0 20px;
+                }
             </style>
             <style>
                 [v-cloak] {
@@ -131,9 +136,10 @@
                     fill: currentColor;
                     overflow: hidden;
                 }
+
                 .case_nav {
                     display: flex;
-                    padding: 20px 0;
+                    padding: 4px 0;
                 }
 
                 .case_nav_item {
@@ -147,6 +153,14 @@
 
                 .case_nave_search>span {
                     white-space: nowrap;
+                }
+
+                .pagination-wraper {
+                    height: 40px;
+                }
+
+                .el-dialog__headerbtn .el-dialog__close {
+                    color: #fff;
                 }
             </style>
         </head>
@@ -171,13 +185,13 @@
 
                                 </el-row>
                                 <el-row>
-                                    <el-col :span="6">
+                                    <el-col :span="10">
                                         <el-form-item label="案件编号" prop="casenum">
                                             <!-- <el-select v-model="ruleForm.casenum" filterable placeholder="请选择" class="caseno-selection" v-if="radio==1&&!uuid">
                                                 <el-option v-for="item in options" :key="item.casenumber" :label="item.casenumber+item.casename" :value="item.casenumber">
                                                 </el-option>
                                             </el-select> -->
-                                            <el-input placeholder="请输入内容" v-model="ruleForm.casenum" v-if="radio==1&&!uuid">
+                                            <el-input placeholder="请搜索案件" v-model="curCase.casenoandname" v-if="radio==1&&!uuid">
                                                 <el-button slot="append" icon="el-icon-search" @click="caseVisible = true"></el-button>
                                             </el-input>
                                             <el-input v-model="ruleForm.casenum" placeholder="请输入内容" v-if="radio==2||uuid"></el-input>
@@ -344,58 +358,42 @@
                 </el-dialog>
 
                 <!-- 选择案件 -->
-                <el-dialog title="选择案件" :visible.sync="caseVisible" width="60%">
+                <el-dialog title="选择案件" :visible.sync="caseVisible" width="40%">
                     <el-row class="case_nav">
                         <el-col :span="8">
                             <div class="case_nav_item case_nave_search">
                                 <span>搜索内容：</span>
-                                <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
+                                <el-input v-model="selectValue" placeholder="案件编号或案件名称" size="small"></el-input>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="case_nav_item">
-                                <el-button plain @click="select">
+                                <el-button plain @click="sreachCase" size="small">
                                     <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_sousuo"></use>
                                     </svg>
                                     &nbsp;&nbsp;查询
-                                </el-button>  
+                                </el-button>
                             </div>
                         </el-col>
                     </el-row>
-                    <el-table  :data="tableData3.list" tooltip-effect="dark"
-                        style="width: 100%" border stripe @selection-change="handleSelectionChange" highlight-current-row @current-change="rowClick">
-                        <el-table-column type="selection" width="58"></el-table-column>
-                        <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
-                        <el-table-column fixed label="案件进度" width="118">
+                    <el-table size="small" :data="options" tooltip-effect="dark" style="width: 100%" border stripe highlight-current-row>
+                        <el-table-column fixed type="index" label="序号" width="40" align="center"></el-table-column>
+                        <el-table-column fixed prop="casenumber" label="案件编号" width="180" align="center"></el-table-column>
+                        <el-table-column prop="casename" label="案件名称" width="140" align="center"></el-table-column>
+                        <el-table-column prop="casenatureName" label="案件性质" width="120" align="center"></el-table-column>
+                        <el-table-column prop="casestate" label="案件状态" width="100" align="center"></el-table-column>
+                        <el-table-column fixed="right" label="操作" min-width="60" align="center">
                             <template slot-scope="scope">
-                                <el-progress :percentage="scope.row.taskschedule"></el-progress>
-                            </template>
-                        </el-table-column>
-                        <el-table-column fixed label="催办次数" width="85">
-                            <template slot-scope="scope">
-                                <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac"></el-badge>
-                            </template>
-                        </el-table-column>
-                        <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
-                        <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
-                        <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
-                        <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
-                        <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
-                        <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
-                        <!-- 05.27 屏蔽 -->
-                        <!-- <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column> -->
-                        <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
-                        <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
-                        <el-table-column fixed="right" label="操作" min-width="300">
-                            <template slot-scope="scope">
-                                <el-button type="text" @click="toDetail(scope.row.casenumber)">选择</el-button>                    
+                                <el-button type="text" @click="selectCase(scope.row)">选择</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
-                    <el-pagination @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页" next-text="下一页"
-                        background layout="prev, pager, next">
-                    </el-pagination>
+                    <div class="pagination-wraper">
+                        <el-pagination @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页" next-text="下一页"
+                            background layout="prev, pager, next">
+                        </el-pagination>
+                    </div>
                 </el-dialog>
             </div>
         </body>
@@ -414,6 +412,14 @@
             new Vue({
                 el: '#app',
                 data: {
+                    curCase: {
+                        casenumber: '',
+                        casename: ''
+                    },
+                    pageNum: 10,
+                    curPage: 1,
+                    pageCount: 0,
+                    selectValue: '',
                     caseVisible: false,
                     dialogVisible: false,
                     uuid,
@@ -493,6 +499,19 @@
                     }
                 },
                 methods: {
+                    sreachCase() {
+                        this.curPage = 1
+                        this.getCaseList()
+                    },
+                    selectCase(row) {
+                        this.curCase = row
+                        this.ruleForm.casenum = row.casenumber
+                        this.caseVisible = false
+                    },
+                    handleCurrentChange(val) {
+                        this.curPage = val
+                        this.getCaseList()
+                    },
                     getData() {
                         this.loading = true
                         let url = 'getCaseVisit.do?method=getVisitInfo&uuid=' + uuid
@@ -509,10 +528,12 @@
 
                     getCaseList() {
                         this.loading = true
-                        let url = 'getCase.do?method=getCaseList'
+                        // let url = 'getCase.do?method=getCaseList'
+                        let url = 'getCase.do?method=visitFindCase&casenumber=' + this.selectValue + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
                         axios.post(url).then(res => {
                             this.loading = false
-                            this.options = res.data
+                            this.options = res.data.list
+                            this.pageCount = res.data.pageCount
                         }).catch(err => {
                             this.loading = false
                         })
