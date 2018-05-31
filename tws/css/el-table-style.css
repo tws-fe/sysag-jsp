@@ -47,7 +47,7 @@
 .el-pagination {
   float: right;
   margin-right: 40px;
-  margin-top: 24px;
+  margin-top: 6px;
 }
 
 /* 无数据 */
@@ -58,7 +58,8 @@
 /* 头部操作优化 */
 .follow-head, .head-form {
   padding-left: 10px;
-  margin: 12px 0;
+  /* margin: 12px 0; */
+  margin-bottom: 4px;
 }
 
 .search-container {
