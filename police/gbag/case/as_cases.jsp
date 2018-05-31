@@ -396,6 +396,7 @@
         <script src="tws/js/xlsx.full.min.js"></script>
         <script src="tws/js/iconfont.js"></script>
         <script>
+            let name = '${name}'
             // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
             new Vue({
                 el: '#caseApp',
@@ -477,7 +478,7 @@
                     },
                     // 删除新增的任务
                     delNewTask(index) {
-                        this.tableData4.list1.splice(index,1)
+                        this.tableData4.list2.splice(index,1)
                     },
                     getOrganList() {
                         let url = 'getOrgan.do?method=getOrganList'

@@ -20,7 +20,7 @@
                 .case_nave_search {
                     display: flex;
                     align-items: center;
-                    height: 42px;
+                    /* height: 42px; */
                 }
 
                 .case_nave_search>span {
@@ -159,8 +159,8 @@
             }
             .save{
                 position: absolute;
-                top: -52px;
-                left: 260px;
+                top: -49px;
+                left: 214px;
                 z-index: 10;
                 cursor: pointer;
             }
@@ -182,9 +182,9 @@
                         <div class="case">
                             <el-row class="case_nav">
                                 <el-col :span="4">
-                                    <div class="case_nav_item">
+                                    <div class="case_nav_item case_nave_search">
                                         <span>筛选条件：</span>
-                                        <el-select v-model="caseStatus" placeholder="请选择" >
+                                        <el-select v-model="caseStatus" placeholder="请选择"  size="small">
                                             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
                                             </el-option>
                                         </el-select>
@@ -202,7 +202,7 @@
                                 <el-col :span="3">
                                     <div class="case_nav_item case_nave_search" style="padding-left: 0;">
                                         <!-- <span>搜索内容：</span> -->
-                                        <el-input v-model="selectValue" placeholder="案件编号或案件名称">
+                                        <el-input v-model="selectValue" placeholder="案件编号或案件名称" size="small">
                                             <el-button slot="append" icon="el-icon-search"  @click="select"></el-button>
                                         </el-input>
                                     </div>
@@ -215,13 +215,13 @@
                                             </svg>
                                             &nbsp;&nbsp;查询</el-button> -->
                                             
-                                        <el-button plain @click="refurbish">
+                                        <el-button plain @click="refurbish" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_shuaxin"></use>
                                             </svg>
                                             &nbsp;&nbsp;刷新</el-button>
                                         <!-- 05.25 已处理 -->
-                                        <el-button plain @click="downloadSheet">
+                                        <el-button plain @click="downloadSheet" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_daochu1"></use>
                                             </svg>
@@ -232,12 +232,12 @@
                                                     <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                                     </svg>
                                             &nbsp;&nbsp;交案</el-button> -->
-                                        <el-button plain v-if="listShow==true" @click="listDown">
+                                        <el-button plain v-if="listShow==true" @click="listDown" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_yincangrenwu"></use>
                                             </svg>
                                             &nbsp;&nbsp;隐藏任务</el-button>
-                                        <el-button plain v-else @click="listUp">
+                                        <el-button plain v-else @click="listUp" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_xianshirenwu"></use>
                                             </svg>
@@ -249,27 +249,27 @@
                                     <el-col>
                                         <div class="case_nav_item">
                                             功能操作：
-                                                <el-button type="primary" plain @click="ajcj">
+                                                <el-button type="primary" plain @click="ajcj" size="small">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_cuijiao"></use>
                                                     </svg>&nbsp;&nbsp;案件催交
                                                 </el-button>
-                                                <el-button type="primary" plain @click="ajConfirm">
+                                                <el-button type="primary" plain @click="ajConfirm" size="small">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                                     </svg>&nbsp;&nbsp;材料确认
                                                 </el-button> 
-                                                <el-button type="primary" plain @click="ajConfirm">
+                                                <el-button type="primary" plain @click="ajConfirm" size="small">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_zhifazhiliangkaoping"></use>
                                                     </svg>&nbsp;&nbsp;执法质量考评
                                                 </el-button> 
-                                                <el-button type="primary" plain @click="ajConfirm">
+                                                <el-button type="primary" plain @click="ajConfirm" size="small">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_piliangyijiao"></use>
                                                     </svg>&nbsp;&nbsp;移交档案室
                                                 </el-button> 
-                                                <el-button type="primary"  plain @click="ajConfirm">
+                                                <el-button type="primary"  plain @click="ajConfirm" size="small">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_sheancaiwubaoguan"></use>
                                                     </svg>&nbsp;&nbsp;涉案财物保管
@@ -330,20 +330,20 @@
                                                     <!-- <el-button class="save" plain @click="onSubmit">
                                                             &nbsp;&nbsp;保存</el-button> -->
 
-                                                    <el-button-group  class="save">
-                                                        <el-button type="primary" plain  @click="addTask">
+                                                    <div class="save">
+                                                        <el-button type="primary" plain  @click="addTask" size="small">
                                                             <svg class="icon-ag" aria-hidden="true">
                                                                 <use xlink:href="#icon-AG_xinzeng"></use>
                                                             </svg>&nbsp;&nbsp;
                                                             新增
                                                         </el-button>
-                                                        <el-button type="primary" plain @click="onSubmit">
+                                                        <el-button type="primary" plain @click="onSubmit" size="small">
                                                             <svg class="icon-ag" aria-hidden="true">
                                                                 <use xlink:href="#icon-AG_tubiaocu-"></use>
                                                             </svg>&nbsp;&nbsp;
                                                             保存
                                                         </el-button>
-                                                    </el-button-group>        
+                                                    </div>        
 
                                                 <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
                                                     @selection-change="taskSelectionChange">
@@ -550,34 +550,35 @@
                                     </div>
                                 </el-col>
                         </el-row>
-                        <el-table  :data="taskTable" tooltip-effect="dark" style="width: 100%"  border stripe
+                        <el-table  :data="taskTable" tooltip-effect="dark" style="width: 100%"  border stripe 
                             @selection-change="taskSelectionsChange">
-                                <el-table-column type="selection" width="58" fixed="left"></el-table-column> 
+                            <el-table-column type="selection" width="58" fixed="left" disabled></el-table-column> 
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
                             <el-table-column fixed prop="mainformid" label="案件编号" width="180"></el-table-column>
                             <el-table-column fixed prop="casename" label="案件名称" width="152"></el-table-column>
-                            <el-table-column prop="taskState" label="任务状态" width="118" fixed="left"></el-table-column>
                             <el-table-column label="催办次数" width="85" >
                                 <template slot-scope="scope">
                                     <el-badge :value="scope.row.icount" :class="scope.row.sup_bac"></el-badge>
                                 </template>
                             </el-table-column>
+                            <el-table-column prop="taskState" label="任务状态" width="118" fixed="left"></el-table-column>
                             <el-table-column prop="oper_user_id_" label="指派人" width="180" ></el-table-column>
                             <el-table-column prop="oper_time_" label="指派时间" width="180"></el-table-column>
                             <el-table-column prop="taskcontent" label="任务内容" width="272" show-overflow-tooltip></el-table-column>
-                            <el-table-column prop="taskresult" label="处理结果" width="400"></el-table-column>
-                            <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
-                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
+                            <el-table-column prop="taskresult" label="处理结果" width="272"></el-table-column>
                             <el-table-column prop="ispaper" label="是否有材料" width="167">
                                 <template slot-scope="scope">
                                     <el-radio-group v-model="scope.row.ispaper">
-                                            <el-radio :label="'0'">无</el-radio>
-                                            <el-radio :label="'1'">有</el-radio>
-                                        </el-radio-group>
+                                        <el-radio :label="'0'">无</el-radio>
+                                        <el-radio :label="'1'">有</el-radio>
+                                    </el-radio-group>
                                 </template>
                             </el-table-column>
+                            <el-table-column prop="handleperson" label="办理人" width="184"></el-table-column>
+                            <el-table-column prop="update_time_" label="办理时间" width="184"></el-table-column>
                             <el-table-column label="操作" min-width="280" width="200" fixed="right">
                                 <template slot-scope="scope" >
+                                    <el-button style="visibility: hidden;">此button只是占位用</el-button>
                                     <el-button v-show="scope.row.state1 == 2 || scope.row.state1 == 1" type="text" @click="taskRemind(scope.row.uuid)">材料催交</el-button> 
                                     <el-button v-show="scope.row.state1 == 2" type="text" @click="singleConfirm(scope.row.uuid)">材料确认</el-button>                                                            
                                 </template>
@@ -588,28 +589,18 @@
                                 prev-text="上一页" next-text="下一页" layout="prev, pager, next" >
                             </el-pagination </div>
                         </div>
-                    </el-tab-pane>
-                
-                </el-tabs>
-                
+                    </el-tab-pane>              
+                </el-tabs>   
             </div>
-
-
-
-
-
         </body>
         <script src="tws/js/vue.js"></script>
         <script src="tws/js/axios.min.js"></script>
-        <!-- 引入组件库 -->
         <script src="tws/js/element-ui.index.js"></script>
         <script src="tws/js/xlsx.full.min.js"></script>
         <script src="tws/js/iconfont.js"></script>
         <script>
             let name = '${name}'
      
-
-            // axios.defaults.headers.post['content-Type'] = 'appliction/x-www-form-urlencoded';
             new Vue({
                 el: '#caseApp',
                 data: function () {
@@ -815,6 +806,14 @@
                                 return item.uuid
                             }).join(',')
                         }
+                        if (ids == '') {
+                            this.$message({
+                                type: 'warning',
+                                message: '没有符合条件的任务',
+                                duration: 1000
+                            })
+                            return
+                        }
                         let url = 'getCase.do?method=caseExpediting&casenumber='+ids+'&editType=task'
                         axios.post(url).then(res => {
                             let message = res.data == 1 ? '材料催交成功' : '材料催交失败'
@@ -826,6 +825,7 @@
                             })
                         })
                     },
+                    // 材料确认
                     taskConfirm () {
                         if (!this.taskSelections.length) {
                             this.$message({
@@ -840,7 +840,14 @@
                         }).map(item => {
                             return item.uuid
                         }).join(',')
-                        
+                        if (taskid == '') {
+                            this.$message({
+                                type: 'warning',
+                                message: '没有符合条件的任务',
+                                duration: 1000
+                            })
+                            return
+                        }
                         let url = 'getCaseTask.do?method=caseBookConfirm&taskid='+taskid
                         axios.post(url).then(res => {
                             this.handleCurrentChange()
@@ -873,6 +880,7 @@
                         }).join(',')
                         let url = 'getCaseTask.do?method=caseBookConfirm&caseid='+caseid+'&taskid='+taskid
                         axios.post(url).then(res => {
+                            this.handleCurrentChange()
                             let message = res.data == 1 ? '材料确认成功' : '材料确认失败'
                             let type = res.data == 1 ? 'success' : 'error'
                             this.$message({
@@ -976,7 +984,7 @@
                        
                     },
                     handleCurrentChange() {
-                        axios.get('getCase.do?method=getMyOrganCaseList&presentType=1&curPage=' + this.currentPage2 + '&pageNum=' + this.pageNum + '&caseStatus=' + this.caseStatus + '&takeCaseStatus=' + this.takeCaseStatus + '&contain=' + this.selectValue2)
+                        axios.get('getCase.do?method=getHandOverUnConfirmList&presentType=1&curPage=' + this.currentPage2 + '&pageNum=' + this.pageNum + '&caseStatus=' + this.caseStatus + '&takeCaseStatus=' + this.takeCaseStatus + '&contain=' + this.selectValue2)
                             .then(response => {
                                 let data = response.data
                                

@@ -145,12 +145,8 @@
           initData() {
             var myChart = echarts.init(document.getElementById('chart'))
             let url = 'getCase.do?method=caseStatistics'
-            axios.get(url).then(res => { 
-              console.log(res)
-              res.data.list = []
-              if(res.data.list == []){
-                this.datashow = true
-              }
+            axios.get(url).then(res => {
+              this.$nextTick(() => {     
             let option = {
               title: {
                 text: '{a|'+res.data.list[0].zsum+'}{b| -件}\n{c|当月案件}',
@@ -218,6 +214,7 @@
               ]
             }
             myChart.setOption(option)
+              })
             }).catch(err => {
                           
                         })

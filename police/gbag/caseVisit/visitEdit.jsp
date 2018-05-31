@@ -103,23 +103,52 @@
                 .datetime-picker .el-input__inner {
                     padding-left: 30px !important;
                 }
+
                 /* dialog */
+
                 .el-dialog__header {
                     background-color: #2983b3;
                 }
+
                 .el-dialog__title {
                     color: #fff;
                 }
+
                 .dialog-footer {
                     display: flex;
                     justify-content: center;
                 }
             </style>
             <style>
-                    [v-cloak] {
-                      display: none;
-                    }
-                  </style>
+                [v-cloak] {
+                    display: none;
+                }
+
+                .icon {
+                    width: 1em;
+                    height: 1em;
+                    vertical-align: -0.15em;
+                    fill: currentColor;
+                    overflow: hidden;
+                }
+                .case_nav {
+                    display: flex;
+                    padding: 20px 0;
+                }
+
+                .case_nav_item {
+                    padding-left: 20px;
+                }
+
+                .case_nave_search {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .case_nave_search>span {
+                    white-space: nowrap;
+                }
+            </style>
         </head>
 
         <body>
@@ -144,10 +173,13 @@
                                 <el-row>
                                     <el-col :span="6">
                                         <el-form-item label="案件编号" prop="casenum">
-                                            <el-select v-model="ruleForm.casenum" filterable placeholder="请选择" class="caseno-selection" v-if="radio==1&&!uuid">
+                                            <!-- <el-select v-model="ruleForm.casenum" filterable placeholder="请选择" class="caseno-selection" v-if="radio==1&&!uuid">
                                                 <el-option v-for="item in options" :key="item.casenumber" :label="item.casenumber+item.casename" :value="item.casenumber">
                                                 </el-option>
-                                            </el-select>
+                                            </el-select> -->
+                                            <el-input placeholder="请输入内容" v-model="ruleForm.casenum" v-if="radio==1&&!uuid">
+                                                <el-button slot="append" icon="el-icon-search" @click="caseVisible = true"></el-button>
+                                            </el-input>
                                             <el-input v-model="ruleForm.casenum" placeholder="请输入内容" v-if="radio==2||uuid"></el-input>
                                         </el-form-item>
                                     </el-col>
@@ -173,8 +205,8 @@
                                     </el-col>
                                     <el-col :span="6" :offset="2">
                                         <el-form-item prop="visittime" label="来访时间">
-                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss" default-time="12:00:00"
-                                                class="datetime-picker"></el-date-picker>
+                                            <el-date-picker type="datetime" placeholder="选择时间" v-model="ruleForm.visittime" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:ss"
+                                                default-time="12:00:00" class="datetime-picker"></el-date-picker>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -193,17 +225,13 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="6" :offset="2">
-                                            <el-form-item label="与涉案人关系" prop="relation">
-                                                    <el-select v-model="ruleForm.relation" filterable placeholder="请选择" style="width:100%">
-                                                            <el-option
-                                                              v-for="item in options2"
-                                                              :key="item.value"
-                                                              :label="item.label"
-                                                              :value="item.value">
-                                                            </el-option>
-                                                          </el-select>
-                                            </el-form-item>
-                                        </el-col>
+                                        <el-form-item label="与涉案人关系" prop="relation">
+                                            <el-select v-model="ruleForm.relation" filterable placeholder="请选择" style="width:100%">
+                                                <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
                                 </el-row>
                                 <el-row>
                                     <el-col :span="14">
@@ -304,7 +332,7 @@
                         <el-row>
                             <el-col>
                                 <el-form-item label="短信内容：" prop="content">
-                                    <el-input  type="textarea" :autosize="{ minRows: 4}" v-model="dialogForm.content"></el-input>
+                                    <el-input type="textarea" :autosize="{ minRows: 4}" v-model="dialogForm.content"></el-input>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -314,6 +342,61 @@
                         <el-button type="warning" @click="dialogVisible = false">关 闭</el-button>
                     </span>
                 </el-dialog>
+
+                <!-- 选择案件 -->
+                <el-dialog title="选择案件" :visible.sync="caseVisible" width="60%">
+                    <el-row class="case_nav">
+                        <el-col :span="8">
+                            <div class="case_nav_item case_nave_search">
+                                <span>搜索内容：</span>
+                                <el-input v-model="selectValue" placeholder="案件编号或案件名称"></el-input>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div class="case_nav_item">
+                                <el-button plain @click="select">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-AG_sousuo"></use>
+                                    </svg>
+                                    &nbsp;&nbsp;查询
+                                </el-button>  
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-table  :data="tableData3.list" tooltip-effect="dark"
+                        style="width: 100%" border stripe @selection-change="handleSelectionChange" highlight-current-row @current-change="rowClick">
+                        <el-table-column type="selection" width="58"></el-table-column>
+                        <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
+                        <el-table-column fixed label="案件进度" width="118">
+                            <template slot-scope="scope">
+                                <el-progress :percentage="scope.row.taskschedule"></el-progress>
+                            </template>
+                        </el-table-column>
+                        <el-table-column fixed label="催办次数" width="85">
+                            <template slot-scope="scope">
+                                <el-badge :value="scope.row.remindersum" :class="scope.row.sup_bac"></el-badge>
+                            </template>
+                        </el-table-column>
+                        <el-table-column fixed prop="casenumber" label="案件编号" width="180"></el-table-column>
+                        <el-table-column prop="casename" label="案件名称" width="152"></el-table-column>
+                        <el-table-column prop="casetype" label="案件类型" width="88" show-overflow-tooltip></el-table-column>
+                        <el-table-column prop="casenaturename" label="案件性质" width="156"></el-table-column>
+                        <el-table-column prop="_userNAME_auditdirector" label="主办民警" width="145"></el-table-column>
+                        <el-table-column prop="statenames" label="案件状态" width="88px"></el-table-column>
+                        <!-- 05.27 屏蔽 -->
+                        <!-- <el-table-column prop="ishandovername" label="是否交案" width="120px"></el-table-column> -->
+                        <el-table-column prop="attendingState" label="办理状态" width="88"></el-table-column>
+                        <el-table-column prop="bjsj" label="报警时间" width="200"></el-table-column>
+                        <el-table-column fixed="right" label="操作" min-width="300">
+                            <template slot-scope="scope">
+                                <el-button type="text" @click="toDetail(scope.row.casenumber)">选择</el-button>                    
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <el-pagination @current-change="handleCurrentChange" :page-count="pageCount" :pager-count="5" prev-text="上一页" next-text="下一页"
+                        background layout="prev, pager, next">
+                    </el-pagination>
+                </el-dialog>
             </div>
         </body>
 
@@ -321,18 +404,17 @@
         <script src="tws/js/axios.min.js"></script>
         <!-- 引入组件库 -->
         <script src="tws/js/element-ui.index.js"></script>
-
+        <script src="tws/js/iconfont.js"></script>
         <script>
 
             let uuid = '${uuid}'
             let user = '${user}'
             let userid = '${userid}'
-            console.log('uuid: ', uuid)
-            console.log('userid', userid)
 
             new Vue({
                 el: '#app',
                 data: {
+                    caseVisible: false,
                     dialogVisible: false,
                     uuid,
                     user,
@@ -358,7 +440,7 @@
                         receivereply: '', //前台答复
                         reply: '', //答复内容
                         result: '', // 访问结果,
-                        relation:''//与涉案人关系
+                        relation: ''//与涉案人关系
                     },
                     rules: {
                         casenum: [{ required: true, message: '请选择或填写案件编号', trigger: 'change' }],
@@ -374,7 +456,7 @@
                         receiveName: [{ required: true, message: '请填写接访民警', trigger: 'blur' }],
                         auditdirectorname: [{ required: true, message: '请填写主办民警', trigger: 'blur' }],
                         result: [{ required: true, message: '请选择访问结果', trigger: 'change' }],
-                       
+
                     },
                     dialogRules: {
                         userPhone: [{ required: true, message: '请填写联系电话', trigger: 'blur' }],
@@ -386,23 +468,23 @@
                         userName: '',
                         content: ''
                     },
-                    options2:[{
+                    options2: [{
                         value: '朋友',
                         label: '朋友'
-                        }, {
+                    }, {
                         value: '亲戚',
                         label: '亲戚'
-                        }, {
+                    }, {
                         value: '子女',
                         label: '子女'
-                        }, {
+                    }, {
                         value: '父母',
                         label: '父母'
-                        }, {
+                    }, {
                         value: '单位',
                         label: '单位'
-                        }],
-                    
+                    }],
+
                 },
                 created() {
                     this.getCaseList()
@@ -424,6 +506,7 @@
                             this.loading = false
                         })
                     },
+
                     getCaseList() {
                         this.loading = true
                         let url = 'getCase.do?method=getCaseList'
@@ -454,7 +537,7 @@
                         this.ruleForm.casenum = item.value
                     },
                     submitForm(formName) {
-                       
+
                         this.$refs[formName].validate((valid) => {
                             if (valid) {
                                 let url = 'getCaseVisit.do?method=saveVisit'
@@ -484,18 +567,18 @@
                             if (valid) {
                                 // let url = 'getCaseVisit.do?method=sendMessage&userPhone='+this.dialogForm.userPhone+'&userName='+this.dialogForm.userName+'&question='+this.ruleForm.visitfor+'&content='+this.dialogForm.content
                                 let url = 'getCaseVisit.do?method=sendMessage'
-                                axios.post(url,{
+                                axios.post(url, {
                                     userPhone: this.dialogForm.userPhone,
-                                    userName:this.dialogForm.userName,
-                                    question:this.ruleForm.visitfor,
-                                    content:this.dialogForm.content
+                                    userName: this.dialogForm.userName,
+                                    question: this.ruleForm.visitfor,
+                                    content: this.dialogForm.content
                                 }).then(res => {
                                     this.$message({
                                         type: 'success',
                                         message: '发送信息成功！'
                                     })
                                 })
-                                
+
                             } else {
                                 console.log('error submit!!');
                                 return false;
@@ -518,7 +601,7 @@
                             this.loading = false
                             let data = res.data
                             let caseBean = data.caseBean
-                            let users=data.users
+                            let users = data.users
                             let str = '【受害报案人】:'
                             data.caseVictims.forEach(item => {
                                 str += item.ctype + ' ' + item.victimname + ' ' + item.victimidcard + ' 联系电话:' + item.victimphone + ' '

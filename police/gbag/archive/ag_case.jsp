@@ -297,7 +297,7 @@
                     </el-tab-pane>
                 </el-tabs>
                 <div class="visit-submit">
-                    <el-button type="warning" @click="resetForm('baseInfo')">关闭</el-button>
+                    <el-button type="warning" @click="closeTab">关闭</el-button>
                 </div>
 
             </div>
@@ -321,6 +321,9 @@
                     this.getData()
                 },
                 methods: {
+                    closeTab() {
+                        matech.closeTab(parent);
+                    },
                     getData() {
                         axios.post('getCase.do?method=getCaseInfo&casenumber=' + uuid).then(res => {
                             // console.log(res)
