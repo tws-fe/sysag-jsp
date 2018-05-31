@@ -28,8 +28,8 @@
     }
 
     .icon {
-      width: 16px; 
-      height: 16px;
+      width: 12px; 
+      height: 12px;
       vertical-align: -0.15em;
       fill: currentColor;
       overflow: hidden;
@@ -43,6 +43,9 @@
     } 
     .tb-edit .current-row .el-input+span { 
         display: none 
+    }
+    .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+      margin-bottom: 8px;
     }
   </style>
 </head>
@@ -92,7 +95,7 @@
           </el-form>
       <div v-loading="loading">
         <div v-if="pandect" key="true">
-          <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+          <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
             <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
             <el-table-column fixed prop="caseNo" label="案件编号" width="118"></el-table-column>
@@ -118,7 +121,7 @@
           </el-pagination>
         </div>
         <div v-else key="false">
-            <el-table @selection-change="handleSelectionChange1" :data="tableData1" stripe border style="width: 100%">
+            <el-table size="small" @selection-change="handleSelectionChange1" :data="tableData1" stripe border style="width: 100%">
                 <el-table-column type="selection" width="58"></el-table-column>
                 <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
                 <el-table-column fixed prop="caseNo" label="案件编号" width="118"></el-table-column>

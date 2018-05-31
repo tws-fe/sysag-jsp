@@ -10,7 +10,7 @@
             <style>
                 .case_nav {
                     display: flex;
-                    padding-bottom: 10px;
+                    padding-bottom: 4px;
                 }
 
                 .case_nav_item {
@@ -106,7 +106,7 @@
 
             .paging {
                 line-height: 32px;
-                margin-top: 24px;
+                margin-top: 6px;
             }
 
             .el-pagination {
@@ -159,7 +159,7 @@
             }
             .save{
                 position: absolute;
-                top: -49px;
+                top: -46px;
                 left: 214px;
                 z-index: 10;
                 cursor: pointer;
@@ -181,7 +181,7 @@
                         <!--案件-->
                         <div class="case">
                             <el-row class="case_nav">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <div class="case_nav_item case_nave_search">
                                         <span>筛选条件：</span>
                                         <el-select v-model="caseStatus" placeholder="请选择"  size="small">
@@ -199,7 +199,7 @@
                                         </el-select>
                                     </div>
                                 </el-col> -->
-                                <el-col :span="3">
+                                <el-col :span="3" style="margin-left:6px;">
                                     <div class="case_nav_item case_nave_search" style="padding-left: 0;">
                                         <!-- <span>搜索内容：</span> -->
                                         <el-input v-model="selectValue" placeholder="案件编号或案件名称" size="small">
@@ -249,27 +249,27 @@
                                     <el-col>
                                         <div class="case_nav_item">
                                             功能操作：
-                                                <el-button type="primary" plain @click="ajcj" size="small">
+                                                <el-button type="primary" plain @click="ajcj" size="mini">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_cuijiao"></use>
                                                     </svg>&nbsp;&nbsp;案件催交
                                                 </el-button>
-                                                <el-button type="primary" plain @click="ajConfirm" size="small">
+                                                <el-button type="primary" plain @click="ajConfirm" size="mini">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                                     </svg>&nbsp;&nbsp;材料确认
                                                 </el-button> 
-                                                <el-button type="primary" plain @click="ajConfirm" size="small">
+                                                <el-button type="primary" plain @click="ajConfirm" size="mini">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_zhifazhiliangkaoping"></use>
                                                     </svg>&nbsp;&nbsp;执法质量考评
                                                 </el-button> 
-                                                <el-button type="primary" plain @click="ajConfirm" size="small">
+                                                <el-button type="primary" plain @click="ajConfirm" size="mini">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_piliangyijiao"></use>
                                                     </svg>&nbsp;&nbsp;移交档案室
                                                 </el-button> 
-                                                <el-button type="primary"  plain @click="ajConfirm" size="small">
+                                                <el-button type="primary"  plain @click="ajConfirm" size="mini">
                                                     <svg class="icon-ag" aria-hidden="true">
                                                         <use xlink:href="#icon-AG_sheancaiwubaoguan"></use>
                                                     </svg>&nbsp;&nbsp;涉案财物保管
@@ -277,7 +277,7 @@
                                         </div>
                                     </el-col>
                                 </el-row>
-                            <el-table :style="{'min-height':listShow!=true?'':'250px'}" ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
+                            <el-table size="small" :style="{'min-height':listShow!=true?'':'250px'}" ref="singleTable" :data="tableData3.list" tooltip-effect="dark"
                                 style="width: 100%" border stripe @selection-change="caseSelectionChange" highlight-current-row @current-change="rowClick">
                                 <el-table-column type="selection" width="58"></el-table-column>
                                 <el-table-column fixed prop="indexs" label="序号" width="55"></el-table-column>
@@ -316,7 +316,7 @@
                             </div>
 
                             <!--任务-->
-                            <div class="task" style="margin-top:65px" v-if="listShow==true">
+                            <div class="task" style="margin-top:36px" v-if="listShow==true">
 
                                 <%--任务类别--%>
                                     <div>
@@ -331,13 +331,13 @@
                                                             &nbsp;&nbsp;保存</el-button> -->
 
                                                     <div class="save">
-                                                        <el-button type="primary" plain  @click="addTask" size="small">
+                                                        <el-button type="primary" plain  @click="addTask" size="mini">
                                                             <svg class="icon-ag" aria-hidden="true">
                                                                 <use xlink:href="#icon-AG_xinzeng"></use>
                                                             </svg>&nbsp;&nbsp;
                                                             新增
                                                         </el-button>
-                                                        <el-button type="primary" plain @click="onSubmit" size="small">
+                                                        <el-button type="primary" plain @click="onSubmit" size="mini">
                                                             <svg class="icon-ag" aria-hidden="true">
                                                                 <use xlink:href="#icon-AG_tubiaocu-"></use>
                                                             </svg>&nbsp;&nbsp;
@@ -345,7 +345,7 @@
                                                         </el-button>
                                                     </div>        
 
-                                                <el-table ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
+                                                <el-table size="small" ref="multipleTable1" :data="tableData4.list1" tooltip-effect="dark" style="width: 100%"  border stripe
                                                     @selection-change="taskSelectionChange">
                                                         <el-table-column type="selection" width="58" fixed="left"></el-table-column> 
                                                     <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>
@@ -412,7 +412,7 @@
                                                 </el-table>
                                             </el-tab-pane>
                                             <el-tab-pane label="案审任务" name="second">
-                                                <el-table ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385" border stripe>
+                                                <el-table size="small" ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385" border stripe>
                                                     <el-table-column label="" width="58" fixed="left">
 
                                                     </el-table-column>
@@ -511,38 +511,38 @@
                     <!-- 原行政案件材料确认列表 -->
                     <el-tab-pane label="任务列表" name="second">
                         <el-row class="case_nav">
-                                <el-col :span="4">
+                                <el-col :span="3">
                                     <div class="case_nav_item case_nave_search">
                                         <span>搜索内容：</span>
-                                        <el-input v-model="taskValue" placeholder="案件编号或案件名称"></el-input>
+                                        <el-input v-model="taskValue" placeholder="案件编号或案件名称" size="small"></el-input>
                                     </div>
                                 </el-col>
                                 <el-col :span="16">
                                     <div class="case_nav_item">
-                                        <el-button plain @click="taskSearch">
+                                        <el-button plain @click="taskSearch" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_sousuo"></use>
                                             </svg>
                                             &nbsp;&nbsp;查询</el-button>
                                             
-                                        <el-button plain @click="taskRefurbish">
+                                        <el-button plain @click="taskRefurbish" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_shuaxin"></use>
                                             </svg>
                                             &nbsp;&nbsp;刷新</el-button>
                                         <!-- 05.25 已处理 -->
-                                        <el-button plain @click="taskDownloadSheet">
+                                        <el-button plain @click="taskDownloadSheet" size="small">
                                             <svg class="icon" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_daochu1"></use>
                                             </svg>
                                             &nbsp;&nbsp;导出
                                         </el-button>
-                                        <el-button type="primary" plain @click="taskRemind">
+                                        <el-button type="primary" plain @click="taskRemind" size="mini">
                                             <svg class="icon-ag" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_cuijiao"></use>
                                             </svg>&nbsp;&nbsp;材料催交
                                         </el-button>
-                                        <el-button type="primary" plain @click="taskConfirm">
+                                        <el-button type="primary" plain @click="taskConfirm" size="mini">
                                             <svg class="icon-ag" aria-hidden="true">
                                                 <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                             </svg>&nbsp;&nbsp;材料确认
@@ -550,7 +550,7 @@
                                     </div>
                                 </el-col>
                         </el-row>
-                        <el-table  :data="taskTable" tooltip-effect="dark" style="width: 100%"  border stripe 
+                        <el-table size="small"  :data="taskTable" tooltip-effect="dark" style="width: 100%"  border stripe 
                             @selection-change="taskSelectionsChange">
                             <el-table-column type="selection" width="58" fixed="left" disabled></el-table-column> 
                             <el-table-column label="序号" type="index" width="55" fixed="left"></el-table-column>

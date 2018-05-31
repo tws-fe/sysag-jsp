@@ -28,8 +28,8 @@
     }
 
     .icon {
-      width: 16px; 
-      height: 16px;
+      width: 12px; 
+      height: 12px;
       vertical-align: -0.15em;
       fill: currentColor;
       overflow: hidden;
@@ -43,6 +43,10 @@
     } 
     .tb-edit .current-row .el-input+span { 
         display: none 
+    }
+
+    .el-form-item--mini.el-form-item, .el-form-item--small.el-form-item {
+      margin-bottom: 8px;
     }
   </style>
 </head>
@@ -65,7 +69,7 @@
               <el-input v-model="searchTxt"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button plain class="img-btn" @click="search">
+                <el-button plain class="img-btn" @click="search" size="small">
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_sousuo"></use>
                   </svg>
@@ -74,7 +78,7 @@
             </el-form-item>
             <el-form-item>
                 <!-- 05.25 页面字段未确定！ -->
-                <el-button plain class="img-btn">
+                <el-button plain class="img-btn" size="small">
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_daochu1"></use>
                   </svg>
@@ -82,7 +86,7 @@
                   </el-button>
             </el-form-item>
             <el-form-item>
-                <el-button plain class="img-btn" :disabled="state=='未入库'">
+                <el-button plain class="img-btn" :disabled="state=='未入库'" size="small">
                   <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-AG_piliangyijiao"></use>
                   </svg>
@@ -92,7 +96,7 @@
           </el-form>
       <div v-loading="loading">
         <div v-if="pandect" key="true">
-          <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+          <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <el-table-column type="selection" width="58"></el-table-column>
             <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
             <el-table-column fixed prop="caseNo" label="案件编号" width="118"></el-table-column>
@@ -118,7 +122,7 @@
           </el-pagination>
         </div>
         <div v-else key="false">
-            <el-table @selection-change="handleSelectionChange1" :data="tableData1" stripe border style="width: 100%">
+            <el-table size="small" @selection-change="handleSelectionChange1" :data="tableData1" stripe border style="width: 100%">
                 <el-table-column type="selection" width="58"></el-table-column>
                 <el-table-column fixed label="序号" type="index" width="55"></el-table-column>
                 <el-table-column fixed prop="caseNo" label="案件编号" width="118"></el-table-column>
