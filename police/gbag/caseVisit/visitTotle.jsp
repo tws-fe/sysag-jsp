@@ -10,39 +10,6 @@
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
       <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
       <style>
-        .follow-head {
-          padding-left: 10px;
-          margin: 12px 0;
-        }
-
-        .search-container {
-          display: inline-block;
-        }
-
-        .follow-head>.el-button {
-          margin-left: 10px;
-          /* padding-left: 46px; */
-          position: relative;
-        }
-
-        .follow-head>.el-button img {
-          position: absolute;
-          top: 50%;
-          left: 20px;
-          transform: translateY(-50%);
-        }
-
-        .el-pagination {
-          float: right;
-          margin-right: 40px;
-          margin-top: 24px;
-        }
-
-        .el-table__empty-block {
-          height: 0;
-        }
-      </style>
-      <style>
         [v-cloak] {
           display: none;
         }
@@ -54,18 +21,18 @@
           fill: currentColor;
           overflow: hidden;
         }
+
         .sup_bac1 sup {
-                    background: #ff4646
-                }
+          background: #ff4646
+        }
 
         .sup_bac2 sup {
-                    background: #ffaa46;
-                }
+          background: #ffaa46;
+        }
 
         .sup_bac3 sup {
-                    background: #1b85ca;
-                }
-
+          background: #1b85ca;
+        }
       </style>
     </head>
 
@@ -74,9 +41,9 @@
         <div class="follow-head">
           搜索内容：
           <p class="search-container">
-            <el-input clearable v-model="searchTxt"></el-input>
+            <el-input clearable v-model="searchTxt" size="small"></el-input>
           </p>
-          <el-button plain @click="searchFollow">
+          <el-button plain @click="searchFollow" size="mini">
             <svg class="icon-ag" aria-hidden="true">
               <use xlink:href="#icon-AG_sousuo"></use>
             </svg>
@@ -93,13 +60,13 @@
           </el-button> -->
         </div>
         <div v-loading="loading">
-          <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+          <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
             <!-- <el-table-column type="selection" width=""></el-table-column> -->
             <el-table-column fixed prop="indexs" label="序号" width="70"></el-table-column>
             <el-table-column fixed label="来访次数" width="300">
-                    <template slot-scope="scope">
-                            <el-badge :value="scope.row.visitcount" :class="scope.row.sup_bac"></el-badge>
-                        </template>
+              <template slot-scope="scope">
+                <el-badge :value="scope.row.visitcount" :class="scope.row.sup_bac"></el-badge>
+              </template>
             </el-table-column>
             <el-table-column fixed prop="casenum" label="案件编号" width="320"></el-table-column>
             <el-table-column fixed prop="casename" label="案件名称" width="380"></el-table-column>
@@ -146,16 +113,16 @@
             let url = 'getCaseVisit.do?method=getCaseVisitTotleList&curPage=' + this.curPage + '&pageNum=' + this.pageNum + '&contain=' + this.searchTxt
             console.log(url)
             axios.post(url).then(res => {
-                res.data.list.forEach(item => {                    
-                    let rS = item.visitcount
-                    if (rS < 1) {
-                        item['sup_bac'] = 'sup_bac3'
-                    } else if (rS < 4) {
-                        item['sup_bac'] = 'sup_bac2'
-                    } else {
-                        item['sup_bac'] = 'sup_bac1'
-                    }         
-                })
+              res.data.list.forEach(item => {
+                let rS = item.visitcount
+                if (rS < 1) {
+                  item['sup_bac'] = 'sup_bac3'
+                } else if (rS < 4) {
+                  item['sup_bac'] = 'sup_bac2'
+                } else {
+                  item['sup_bac'] = 'sup_bac1'
+                }
+              })
               let data = res.data
               this.tableData = data.list
               this.pageCount = data.pageCount
