@@ -10,39 +10,6 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/element-ui.index.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/tws/css/el-table-style.css">
             <style>
-                .follow-head {
-                    padding-left: 10px;
-                    margin: 12px 0;
-                }
-
-                .search-container {
-                    display: inline-block;
-                }
-
-                .follow-head>.el-button {
-                    margin-left: 10px;
-                    /*padding-left: 46px;*/
-                    position: relative;
-                }
-
-                .follow-head>.el-button img {
-                    position: absolute;
-                    top: 50%;
-                    left: 20px;
-                    transform: translateY(-50%);
-                }
-
-                .el-pagination {
-                    float: right;
-                    margin-right: 40px;
-                    margin-top: 24px;
-                }
-
-                .el-table__empty-block {
-                    height: 0;
-                }
-            </style>
-            <style>
                 [v-cloak] {
                     display: none;
                 }
@@ -64,28 +31,28 @@
                 <div class="follow-head">
                     搜索内容：
                     <p class="search-container">
-                        <el-input clearable v-model="searchTxt"></el-input>
+                        <el-input clearable v-model="searchTxt" size="small"></el-input>
                     </p>
-                    <el-button plain @click="searchFollow">
+                    <el-button plain @click="searchFollow" size="mini">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_sousuo"></use>
                         </svg> &nbsp;&nbsp;查询
                     </el-button>
                     <!-- 05.25 处理 -->
-                    <el-button plain @click="exportExl">
+                    <el-button plain @click="exportExl" size="mini">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_daochu1"></use>
                         </svg>
                         &nbsp;&nbsp;导出
                     </el-button>
-                    <el-button plain @click="unfollow">
+                    <el-button plain @click="unfollow" size="mini">
                         <svg class="icon-ag" aria-hidden="true">
                             <use xlink:href="#icon-AG_quxiaoshoucang"></use>
                         </svg> &nbsp;&nbsp;取消关注
                     </el-button>
                 </div>
                 <div v-loading="loading">
-                    <el-table @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
+                    <el-table size="small" @selection-change="handleSelectionChange" :data="tableData" stripe border style="width: 100%">
                         <el-table-column type="selection" width="58" align="center"></el-table-column>
                         <el-table-column fixed prop="indexs" label="序号" width="55" align="center"></el-table-column>
                         <el-table-column fixed label="案件进度" width="118" align="left">
