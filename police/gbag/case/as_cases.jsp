@@ -316,6 +316,7 @@
                                         <!-- <el-button  type="text" @click="look(scope.row.uuid,true)">查看</el-button> -->
                                         <!-- <el-button v-show="scope.row.state == 0" type="text" @click="editor(scope.row.uuid,false)">编辑</el-button> -->
                                         <el-button v-show="scope.row.state <2" @click="Urge(scope.row.uuid,'task')" type="text">催办</el-button>
+                                        <el-button v-show="scope.row.state1 == 2 || scope.row.state1 == 1" type="text" @click="taskRemind(scope.row.uuid)">材料催交</el-button> 
                                         <!-- <el-button v-show="scope.row.state == 2" @click="taskSure(scope.row)" type="text">确认</el-button> -->
                                     </p>
                                     <p v-show="scope.row.isAdd">
@@ -459,6 +460,18 @@
                     this.getOrganList()
                 },
                 methods: {
+                    taskRemind(id) {
+                        let url = 'getCase.do?method=caseExpediting&casenumber='+id+'&editType=task'
+                        axios.post(url).then(res => {
+                            let message = res.data == 1 ? '材料催交成功' : '材料催交失败'
+                            let type = res.data == 1 ? 'success' : 'error'
+                            this.$message({
+                                type: type,
+                                message: message,
+                                duration: 1000
+                            })
+                        })
+                    },
                     addTask () {
                         let data = {
                             "atype": "2",

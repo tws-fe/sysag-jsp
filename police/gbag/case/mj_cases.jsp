@@ -236,11 +236,11 @@
                                     </svg>
                                     &nbsp;&nbsp;导出
                                 </el-button>
-                                <el-button @click="postCase" plain size="small">
+                                <!-- <el-button @click="postCase" plain size="small">
                                     <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_jiaoanqueren"></use>
                                     </svg>
-                                    &nbsp;&nbsp;材料提交</el-button>
+                                    &nbsp;&nbsp;材料提交</el-button> -->
                                 <el-button plain v-if="listShow==true" @click="listDown" size="small">
                                     <svg class="icon" aria-hidden="true">
                                         <use xlink:href="#icon-AG_yincangrenwu"></use>
@@ -314,6 +314,12 @@
                                                 <svg class="icon-ag" aria-hidden="true">
                                                     <use xlink:href="#icon-AG_tubiaocu-"></use>
                                                 </svg>&nbsp;&nbsp; 保存
+                                            </el-button>
+                                            <el-button type="primary" plain size="mini" @click="postCase">
+                                                <svg class="icon" aria-hidden="true">
+                                                    <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                                </svg>
+                                                &nbsp;&nbsp;材料提交
                                             </el-button>
                                         </div>
 
@@ -397,14 +403,20 @@
                                                             <use xlink:href="#icon-AG_xinzeng"></use>
                                                         </svg>&nbsp;&nbsp; 新增
                                                     </el-button> -->
-                                                    <el-button type="primary" plain @click="onSubmit('list2')" size="small">
+                                                    <el-button type="primary" plain @click="onSubmit('list2')" size="mini">
                                                         <svg class="icon-ag" aria-hidden="true">
                                                             <use xlink:href="#icon-AG_tubiaocu-"></use>
                                                         </svg>&nbsp;&nbsp; 保存
                                                     </el-button>
+                                                    <el-button type="primary" plain size="mini" @click="asPostCase">
+                                                        <svg class="icon" aria-hidden="true">
+                                                            <use xlink:href="#icon-AG_jiaoanqueren"></use>
+                                                        </svg>
+                                                        &nbsp;&nbsp;材料提交
+                                                    </el-button>
                                                 </div>
                                         <el-table size="small" ref="multipleTable1" :data="tableData4.list2" tooltip-effect="dark" style="width: 100%" height="385" border stripe
-                                            @selection-change="handleSelectionChange">
+                                            @selection-change="asTaskSelectionChange">
                                             <el-table-column label="" width="58" fixed="left">
 
                                             </el-table-column>
@@ -595,7 +607,8 @@
                         ftTitle: "",
                         multipleSelection: [], //案件的选中
                         taskMultipleSelection: [], //任务的选中
-                        tableLoading: false
+                        tableLoading: false,
+                        asTaskMultipleSelection: [] //案审任务选中
                     }
                 },
                 created: function () {
@@ -682,6 +695,9 @@
                     },
                     taskSelectionChange(val) {
                         this.taskMultipleSelection = val
+                    },
+                    asTaskSelectionChange(val) {
+                        this.asTaskMultipleSelection = val
                     },
                     handleSelectionChange(val) {
                         this.multipleSelection = val;
@@ -1096,6 +1112,34 @@
                             });
                         });
                     },
+                    // 案审任务材料提交
+                    asPostCase () {
+                        if (this.asTaskMultipleSelection.length === 0) {                                
+                            this.$message({
+                                type: 'warning',
+                                message: '请选择任务',
+                                duration: 1000
+                            })
+                            return
+                        }
+                        let taskid = this.asTaskMultipleSelection.filter(item => {
+                            return item.state1 == 1
+                        }).map(item => {
+                            return item.uuid
+                        }).join(',')
+                        let url = 'getCaseTask.do?method=caseBookSubmit&taskid=' + taskid
+                        axios.post(url).then(res => {
+                            this.handleCurrentChange()
+                            let message = res.data == 1 ? '材料提交成功' : '材料提交失败'
+                            let type = res.data == 1 ? 'success' : 'error'
+                            this.$message({
+                                type: type,
+                                message: message,
+                                duration: 1000
+                            })
+                        })
+                    },
+                    // 普通任务材料提交
                     postCase(uuid) {
                         let caseid = ''
                         let taskid = ''
@@ -1104,17 +1148,19 @@
                             taskid = uuid
                         } else {
                             // 05.27 修改功能和接口
-                            if (this.multipleSelection.length === 0 && this.taskMultipleSelection.length === 0) {
+                            // if (this.multipleSelection.length === 0 && this.taskMultipleSelection.length === 0) {
+                            // 06.01 修改需求：案件上面的材料提交取消，添加到任务栏    
+                            if (this.taskMultipleSelection.length === 0) {                                
                                 this.$message({
                                     type: 'warning',
-                                    message: '请选择案件或任务',
+                                    message: '请选择任务',
                                     duration: 1000
                                 })
                                 return
                             }
-                            caseid = this.multipleSelection.map(item => {
-                                return item.uuid
-                            }).join(',')
+                            // caseid = this.multipleSelection.map(item => {
+                            //     return item.uuid
+                            // }).join(',')
                             // 已移交材料才可以提交材料
                             taskid = this.taskMultipleSelection.filter(item => {
                                 return item.state1 == 1
