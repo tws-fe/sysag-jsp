@@ -305,7 +305,7 @@
                                 <el-row>
                                     <el-col>
                                         <el-form-item label="答复内容">
-                                            <el-input type="textarea" autosize v-model="ruleForm.reply" disabled></el-input>
+                                            <el-input type="textarea" autosize v-model="ruleForm.reply" :disabled="!uuid"></el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -362,11 +362,17 @@
                     <el-row class="case_nav">
                         <el-col :span="8">
                             <div class="case_nav_item case_nave_search">
-                                <span>搜索内容：</span>
+                                <span>案件：</span>
                                 <el-input v-model="selectValue" placeholder="案件编号或案件名称" size="small"></el-input>
                             </div>
                         </el-col>
-                        <el-col :span="12">
+                        <el-col :span="8">
+                            <div class="case_nav_item case_nave_search">
+                                <span>涉案人：</span>
+                                <el-input v-model="suspect" placeholder="姓名或手机号" size="small"></el-input>
+                            </div>
+                        </el-col>
+                        <el-col :span="8">
                             <div class="case_nav_item">
                                 <el-button plain @click="sreachCase" size="small">
                                     <svg class="icon" aria-hidden="true">
@@ -378,7 +384,7 @@
                         </el-col>
                     </el-row>
                     <el-table size="small" :data="options" tooltip-effect="dark" style="width: 100%" border stripe highlight-current-row>
-                        <el-table-column fixed type="index" label="序号" width="40" align="center"></el-table-column>
+                        <el-table-column fixed type="index" label="序号" width="60" align="center"></el-table-column>
                         <el-table-column fixed prop="casenumber" label="案件编号" width="180" align="center"></el-table-column>
                         <el-table-column prop="casename" label="案件名称" width="140" align="center"></el-table-column>
                         <el-table-column prop="casenatureName" label="案件性质" width="120" align="center"></el-table-column>
@@ -412,6 +418,7 @@
             new Vue({
                 el: '#app',
                 data: {
+                    suspect: '',
                     curCase: {
                         casenumber: '',
                         casename: ''
@@ -529,7 +536,7 @@
                     getCaseList() {
                         this.loading = true
                         // let url = 'getCase.do?method=getCaseList'
-                        let url = 'getCase.do?method=visitFindCase&casenumber=' + this.selectValue + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
+                        let url = 'getCase.do?method=visitFindCase&casenumber=' + this.selectValue+ '&suspect=' + this.suspect + '&curPage=' + this.curPage + '&pageNum=' + this.pageNum
                         axios.post(url).then(res => {
                             this.loading = false
                             this.options = res.data.list

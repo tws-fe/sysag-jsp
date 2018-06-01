@@ -299,7 +299,7 @@
                             <div>
                                 <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
 
-                                    <el-tab-pane class="nomal_task" label="普通任务" name="first">
+                                    <el-tab-pane class="nomal_task" label="侦查任务" name="first">
                                         <!-- <img @click="addTask" class="addimg" src="${pageContext.request.contextPath}/tws/css/img/ag_add.png" />
                                         <el-button class="save" plain @click="onSubmit">
                                             &nbsp;&nbsp;保存</el-button> -->
@@ -390,7 +390,7 @@
                                             </el-table-column>
                                         </el-table>
                                     </el-tab-pane>
-                                    <el-tab-pane label="案审任务" name="second">
+                                    <el-tab-pane label="整改提纲" name="second">
                                             <div class="save">
                                                     <!-- <el-button type="primary" plain @click="addTask" size="small">
                                                         <svg class="icon-ag" aria-hidden="true">

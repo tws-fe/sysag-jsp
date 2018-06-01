@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
+<root>ptconfig.xml
     <!--当前操作系统:WINDOWS\LINUX-->
     <OPTSYSTEM>WINDOWS</OPTSYSTEM>
 	<RUNLOGPATH>C:/tws/log/</RUNLOGPATH>
@@ -16,7 +16,7 @@
 		<TR>tree_doc</TR>
 		<TR>tree_xls</TR>
 	</TREEICONLIST>
-	<DBNAME>szkitil</DBNAME>
+	<DBNAME>nsysag</DBNAME>
 	<QUARTZ.START>0</QUARTZ.START>
 	<!-- 大数据对接  -->
 	<BIGDATA.ACCOUNT><![CDATA[201703141522]]></BIGDATA.ACCOUNT>	
